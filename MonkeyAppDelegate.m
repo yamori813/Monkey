@@ -86,10 +86,6 @@
 - (IBAction)wave:(id)sender
 {
 //	que_wav(1);
-	que_samplingrate(1);
-	que_samplingrate(2);
-	que_scale(1);
-	que_scale(2);
 	NSLog(@"MORI MORI Debug");
 }
 
