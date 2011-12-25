@@ -1,0 +1,285 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 574}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {519, 403}}";
+			sepNavSelRange = "{277, 0}";
+			sepNavVisRange = "{0, 405}";
+			sepNavWindowFrame = "{{15, 55}, {956, 723}}";
+		};
+	};
+	256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 1053}}";
+			sepNavSelRange = "{206, 0}";
+			sepNavVisRange = "{0, 909}";
+			sepNavWindowFrame = "{{324, 55}, {956, 723}}";
+		};
+	};
+	256AC3F00F4B6AF500CF3369 /* Monkey_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 574}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 143}";
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = F5DB5DCA14A69D6E00218ED2 /* Monkey */;
+		activeTarget = 8D1107260486CEB800E47090 /* Monkey */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* Monkey */,
+		);
+		codeSenseManager = F5DB5DD914A69D8D00218ED2 /* Code sense */;
+		executables = (
+			F5DB5DCA14A69D6E00218ED2 /* Monkey */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					341,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					301,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 346480698;
+			PBXWorkspaceStateSaveDate = 346480698;
+		};
+		perUserProjectItems = {
+			F5DB601814A6C39900218ED2 /* PBXTextBookmark */ = F5DB601814A6C39900218ED2 /* PBXTextBookmark */;
+			F5DB60F714A6E03800218ED2 /* PBXTextBookmark */ = F5DB60F714A6E03800218ED2 /* PBXTextBookmark */;
+			F5DB615614A6E53000218ED2 /* PBXTextBookmark */ = F5DB615614A6E53000218ED2 /* PBXTextBookmark */;
+			F5DB615714A6E53000218ED2 /* PBXTextBookmark */ = F5DB615714A6E53000218ED2 /* PBXTextBookmark */;
+			F5DB615814A6E53000218ED2 /* PBXTextBookmark */ = F5DB615814A6E53000218ED2 /* PBXTextBookmark */;
+			F5DB615914A6E53000218ED2 /* PBXTextBookmark */ = F5DB615914A6E53000218ED2 /* PBXTextBookmark */;
+			F5DB615A14A6E53000218ED2 /* PBXTextBookmark */ = F5DB615A14A6E53000218ED2 /* PBXTextBookmark */;
+			F5DB615C14A6E53000218ED2 /* PBXTextBookmark */ = F5DB615C14A6E53000218ED2 /* PBXTextBookmark */;
+		};
+		sourceControlManager = F5DB5DD814A69D8D00218ED2 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 574}}";
+			sepNavSelRange = "{0, 123}";
+			sepNavVisRange = "{0, 246}";
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	8D1107260486CEB800E47090 /* Monkey */ = {
+		activeExec = 0;
+		executables = (
+			F5DB5DCA14A69D6E00218ED2 /* Monkey */,
+		);
+	};
+	8D1107310486CEB800E47090 /* Monkey-Info.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	F5DB5DCA14A69D6E00218ED2 /* Monkey */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Monkey;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	F5DB5DD814A69D8D00218ED2 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	F5DB5DD914A69D8D00218ED2 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	F5DB5DF214A6A1E000218ED2 /* iwasio.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {537, 3731}}";
+			sepNavSelRange = "{4479, 0}";
+			sepNavVisRange = "{3365, 289}";
+			sepNavWindowFrame = "{{32, 55}, {956, 723}}";
+		};
+	};
+	F5DB5E7D14A6BB9900218ED2 /* serial.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 1131}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1209}";
+			sepNavWindowFrame = "{{193, 55}, {956, 723}}";
+		};
+	};
+	F5DB601814A6C39900218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */;
+		name = "MonkeyAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 400;
+		vrLoc = 0;
+	};
+	F5DB60F714A6E03800218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */;
+		name = "MonkeyAppDelegate.h: 13";
+		rLen = 0;
+		rLoc = 277;
+		rType = 0;
+		vrLen = 411;
+		vrLoc = 0;
+	};
+	F5DB614514A6E4E200218ED2 /* serial.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 574}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 327}";
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	F5DB614614A6E4EC00218ED2 /* iwasio.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {897, 574}}";
+			sepNavSelRange = "{15, 0}";
+			sepNavVisRange = "{0, 519}";
+			sepNavWindowFrame = "{{15, 53}, {956, 725}}";
+		};
+	};
+	F5DB615614A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */;
+		name = "serial.c: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 145;
+	};
+	F5DB615714A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 123;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 246;
+		vrLoc = 0;
+	};
+	F5DB615814A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5DB614514A6E4E200218ED2 /* serial.h */;
+		name = "serial.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 327;
+		vrLoc = 0;
+	};
+	F5DB615914A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5DB614614A6E4EC00218ED2 /* iwasio.h */;
+		name = "iwasio.h: 2";
+		rLen = 0;
+		rLoc = 15;
+		rType = 0;
+		vrLen = 384;
+		vrLoc = 0;
+	};
+	F5DB615A14A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */;
+		name = "iwasio.c: 253";
+		rLen = 0;
+		rLoc = 4479;
+		rType = 0;
+		vrLen = 289;
+		vrLoc = 3365;
+	};
+	F5DB615C14A6E53000218ED2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */;
+		name = "MonkeyAppDelegate.h: 13";
+		rLen = 0;
+		rLoc = 277;
+		rType = 0;
+		vrLen = 405;
+		vrLoc = 0;
+	};
+}
