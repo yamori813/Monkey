@@ -27,8 +27,8 @@ static void sioinit()
 	rstio.c_cflag &= ~(PARODD | PARENB);
 	rstio.c_cflag &= ~(CRTS_IFLOW | CDTR_IFLOW);
 	rstio.c_cflag &= ~(CDSR_OFLOW | CCAR_OFLOW);
-//	rstio.c_ispeed = rstio.c_ospeed = B9600;
-	rstio.c_ispeed = rstio.c_ospeed = B38400;
+	rstio.c_ispeed = rstio.c_ospeed = B9600;
+//	rstio.c_ispeed = rstio.c_ospeed = B38400;
 	tcsetattr(iwatsu_port, TCSADRAIN, &rstio);
 }
 
@@ -91,7 +91,7 @@ int getbinary(char *data, int datasize)
 		// check recive ack
 		if(read_size > 0) {
 			totalsize += read_size;
-//			printf("MORI MORI Debug %d\n", totalsize);
+			printf("MORI MORI Debug %d\n", totalsize);
 			if(totalsize == datasize) {
 				return 1;
 			}
@@ -237,7 +237,7 @@ int que_wav(int ch)
 	sprintf(data, ":WAVeform:DATA? CHANnel%d\n", ch);
 	write(iwatsu_port, data, strlen(data));
 	
-	if(getbinary(data, 1028)) {
+	if(getbinary(data, 604)) {
 		int i, j;
 		for(i = 0; i < 16; ++i) {
 			for(j = 0; j < 16; ++j) {

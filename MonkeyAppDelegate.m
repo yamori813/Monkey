@@ -85,7 +85,7 @@
 
 - (IBAction)wave:(id)sender
 {
-//	que_wav(1);
+	que_wav(1);
 	NSLog(@"MORI MORI Debug");
 }
 
