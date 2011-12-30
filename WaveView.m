@@ -28,9 +28,9 @@ CGRect convertToCGRect(NSRect inRect)
 	CGContextSetRGBStrokeColor(
 							   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 	[thedata getBytes:buff length:sizeof(buff)];
-	CGContextMoveToPoint(gc, 4, 512 - buff[4]*2);
+	CGContextMoveToPoint(gc, 4, 400 - (buff[4] - 28)*2);
 	for(i = 5; i < 604; ++i) {
-		CGContextAddLineToPoint(gc, i, 512 - buff[i]*2); 
+		CGContextAddLineToPoint(gc, i, 400 - (buff[i] - 28)*2); 
 	}
 	CGContextStrokePath(gc);
 }

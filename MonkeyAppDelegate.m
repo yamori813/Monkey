@@ -35,7 +35,8 @@
 
 - (IBAction)open:(id)sender
 {
-	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title])) {
+	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title], 
+				   [[[speedSelect selectedItem] title] intValue])) {
 		NSString *scalestr;
 		scalestr = (NSString *)que_scale(1);
 		if(scalestr) {

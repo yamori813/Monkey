@@ -19,7 +19,7 @@
 
 static int iwatsu_port;
 
-static void sioinit()
+static void sioinit(int speed)
 {
 	struct termios	rstio;
 	
@@ -29,8 +29,9 @@ static void sioinit()
 	rstio.c_cflag &= ~(PARODD | PARENB);
 	rstio.c_cflag &= ~(CRTS_IFLOW | CDTR_IFLOW);
 	rstio.c_cflag &= ~(CDSR_OFLOW | CCAR_OFLOW);
-	rstio.c_ispeed = rstio.c_ospeed = B9600;
+//	rstio.c_ispeed = rstio.c_ospeed = B9600;
 //	rstio.c_ispeed = rstio.c_ospeed = B38400;
+	rstio.c_ispeed = rstio.c_ospeed = speed;
 	tcsetattr(iwatsu_port, TCSADRAIN, &rstio);
 }
 
@@ -258,7 +259,7 @@ CFDataRef que_wav(int ch)
 	return NULL;
 }
 
-int iwatsu_init(CFStringRef devname)
+int iwatsu_init(CFStringRef devname, int speed)
 {
 	char devstr[1024];
 	
@@ -273,7 +274,7 @@ int iwatsu_init(CFStringRef devname)
 	
 	tcflush(iwatsu_port, TCIOFLUSH);
 	
-	sioinit();
+	sioinit(speed);
 	
 	iwatsu_dummy();
 	int i = 0;
