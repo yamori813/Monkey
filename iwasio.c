@@ -80,7 +80,7 @@ int getbinary(char *data, int datasize)
 		FD_ZERO(&sio_fd);
 		FD_SET(iwatsu_port, &sio_fd);
 		wtime.tv_sec = 0;
-		wtime.tv_usec = 1000*1000;
+		wtime.tv_usec = 100*1000;
 		select(iwatsu_port + 1, &sio_fd, 0, 0, &wtime);
 		if(!FD_ISSET(iwatsu_port, &sio_fd)) {
 			printf("getbinary error %d\n", totalsize);
@@ -251,10 +251,8 @@ CFDataRef que_wav(int ch)
 												data, 
 												604);
 		return cfDataRef;
-	} else {
-		printf("\n");
 	}
-	
+
 	return NULL;
 }
 
