@@ -35,20 +35,21 @@
 
 - (IBAction)open:(id)sender
 {
-	iwatsu_init([[devSelect selectedItem] title]);
-	NSString *scalestr;
-	scalestr = (NSString *)que_scale(1);
-	if(scalestr) {
-		[ch1scale setStringValue:scalestr];
+	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title])) {
+		NSString *scalestr;
+		scalestr = (NSString *)que_scale(1);
+		if(scalestr) {
+			[ch1scale setStringValue:scalestr];
+		}
+		scalestr = (NSString *)que_scale(2);
+		if(scalestr) {
+			[ch2scale setStringValue:scalestr];
+		}	
+		scalestr = (NSString *)que_timebasescale();
+		if(scalestr) {
+			[timescale setStringValue:scalestr];
+		}
 	}
-	scalestr = (NSString *)que_scale(2);
-	if(scalestr) {
-		[ch2scale setStringValue:scalestr];
-	}	
-	scalestr = (NSString *)que_timebasescale();
-	if(scalestr) {
-		[timescale setStringValue:scalestr];
-	}	
 }
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification

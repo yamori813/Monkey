@@ -15,6 +15,8 @@
 #include <sys/time.h>
 #include <string.h>
 
+#include "iwasio.h"
+
 static int iwatsu_port;
 
 static void sioinit()
@@ -32,7 +34,7 @@ static void sioinit()
 	tcsetattr(iwatsu_port, TCSADRAIN, &rstio);
 }
 
-int iwatsu_dummy()
+void iwatsu_dummy()
 {
 	write(iwatsu_port, "\n", 1);
 	usleep(500);
@@ -70,7 +72,7 @@ int getresponse(char *data, int datasize)
 	}
 }
 
-int getbinary(char *data, int datasize)
+int getbinary(unsigned char *data, int datasize)
 {	
 	fd_set sio_fd;
 	struct timeval wtime;
@@ -237,7 +239,7 @@ CFDataRef que_wav(int ch)
 	sprintf(data, ":WAVeform:DATA? CHANnel%d\n", ch);
 	write(iwatsu_port, data, strlen(data));
 	
-	if(getbinary(data, 604)) {
+	if(getbinary((unsigned char*)data, 604)) {
 		/*
 		int i, j;
 		for(i = 0; i < 16; ++i) {
@@ -248,7 +250,7 @@ CFDataRef que_wav(int ch)
 		}*/
 		CFDataRef cfDataRef; 
 		cfDataRef = CFDataCreate(kCFAllocatorDefault, 
-												data, 
+												(unsigned char*)data, 
 												604);
 		return cfDataRef;
 	}
@@ -276,10 +278,12 @@ int iwatsu_init(CFStringRef devname)
 	iwatsu_dummy();
 	int i = 0;
 	while(que_idn() != 1) {
-		usleep(1000);
+		usleep(200);
 		++i;
-		if(i == 4)
+		if(i == 4) {
+			iwatsu_close();
 			return 0;
+		}
 	}
 	return 1;
 }

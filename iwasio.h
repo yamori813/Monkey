@@ -6,9 +6,9 @@
 //  Copyright 2011 Hiroki Mori. All rights reserved.
 //
 
-int iwatsu_dummy();
+void iwatsu_dummy();
 int getresponse(char *data, int datasize);
-int getbinary(char *data, int datasize);
+int getbinary(unsigned char *data, int datasize);
 int que_idn();
 int que_samplingrate(int ch);
 CFStringRef que_scale(int ch);
