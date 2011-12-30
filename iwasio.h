@@ -18,6 +18,6 @@ int cmd_auto();
 int cmd_stop();
 int cmd_run();
 int cmd_grid(int type);
-int que_wav(int ch);
+CFDataRef que_wav(int ch);
 int iwatsu_init(CFStringRef devname);
 void iwatsu_close();

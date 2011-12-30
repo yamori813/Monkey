@@ -8,6 +8,8 @@
 
 #import "MonkeyAppDelegate.h"
 
+#import "MyDocument.h"
+
 #include "iwasio.h"
 #include "serial.h"
 
@@ -51,7 +53,6 @@
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
-	NSLog(@"MORI MORI Debug");
 	iwatsu_close();
 }
 
@@ -85,8 +86,13 @@
 
 - (IBAction)wave:(id)sender
 {
-	que_wav(1);
-	NSLog(@"MORI MORI Debug");
+//	NSData *wavedata = [[NSData alloc] init];
+	NSData *wavedata = (NSData *)que_wav(1);
+	if(wavedata != NULL && [wavedata length] == 604) {
+		MyDocument *mydoc = [[MyDocument alloc] init];
+		[mydoc makeWindowControllers];
+		[mydoc readFromData:wavedata ofType:@"WAVE" error:NULL];
+		[mydoc showWindows];
+	}
 }
-
 @end

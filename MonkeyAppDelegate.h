@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @interface MonkeyAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
+    IBOutlet NSWindow *wavewindow;
 	IBOutlet NSPopUpButton *devSelect;
 	IBOutlet NSTextField *ch1scale;
 	IBOutlet NSTextField *ch2scale;

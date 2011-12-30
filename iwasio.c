@@ -48,7 +48,7 @@ int getresponse(char *data, int datasize)
 		FD_ZERO(&sio_fd);
 		FD_SET(iwatsu_port, &sio_fd);
 		wtime.tv_sec = 0;
-		wtime.tv_usec = 500*1000;
+		wtime.tv_usec = 50*1000;
 		select(iwatsu_port + 1, &sio_fd, 0, 0, &wtime);
 		if(!FD_ISSET(iwatsu_port, &sio_fd)) {
 			printf("getresponse error\n");
@@ -80,10 +80,10 @@ int getbinary(char *data, int datasize)
 		FD_ZERO(&sio_fd);
 		FD_SET(iwatsu_port, &sio_fd);
 		wtime.tv_sec = 0;
-		wtime.tv_usec = 500*1000;
+		wtime.tv_usec = 1000*1000;
 		select(iwatsu_port + 1, &sio_fd, 0, 0, &wtime);
 		if(!FD_ISSET(iwatsu_port, &sio_fd)) {
-			printf("getbinary error\n");
+			printf("getbinary error %d\n", totalsize);
 			return 0;
 		}
 		read_size = read(iwatsu_port, data+totalsize, datasize - totalsize);
@@ -91,7 +91,7 @@ int getbinary(char *data, int datasize)
 		// check recive ack
 		if(read_size > 0) {
 			totalsize += read_size;
-			printf("MORI MORI Debug %d\n", totalsize);
+//			printf("MORI MORI Debug %d\n", totalsize);
 			if(totalsize == datasize) {
 				return 1;
 			}
@@ -230,7 +230,7 @@ int cmd_grid(int type)
 	return 0;
 }
 
-int que_wav(int ch)
+CFDataRef que_wav(int ch)
 {
 	char data[1024*2];
 
@@ -238,16 +238,24 @@ int que_wav(int ch)
 	write(iwatsu_port, data, strlen(data));
 	
 	if(getbinary(data, 604)) {
+		/*
 		int i, j;
 		for(i = 0; i < 16; ++i) {
 			for(j = 0; j < 16; ++j) {
 				printf("%02x ", data[i * 16 + j]);
 			}
 			printf("\n");
-		}
+		}*/
+		CFDataRef cfDataRef; 
+		cfDataRef = CFDataCreate(kCFAllocatorDefault, 
+												data, 
+												604);
+		return cfDataRef;
+	} else {
+		printf("\n");
 	}
 	
-	return 0;
+	return NULL;
 }
 
 int iwatsu_init(CFStringRef devname)

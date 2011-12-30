@@ -12,6 +12,10 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		F587F51814AD446F00F2EBAE /* MyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51714AD446F00F2EBAE /* MyWindowController.m */; };
+		F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51C14AD453100F2EBAE /* MyDocument.m */; };
+		F587F60514AD5C1A00F2EBAE /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F587F60314AD5C1A00F2EBAE /* MyDocument.xib */; };
+		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
@@ -30,6 +34,13 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Monkey-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Monkey-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Monkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F587F51614AD446F00F2EBAE /* MyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWindowController.h; sourceTree = "<group>"; };
+		F587F51714AD446F00F2EBAE /* MyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWindowController.m; sourceTree = "<group>"; };
+		F587F51B14AD453100F2EBAE /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
+		F587F51C14AD453100F2EBAE /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
+		F587F60414AD5C1A00F2EBAE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
+		F59FC82314A9E99F00AC50E3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
+		F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		F5DB5DF214A6A1E000218ED2 /* iwasio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwasio.c; sourceTree = "<group>"; };
 		F5DB5E7D14A6BB9900218ED2 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
 		F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -53,8 +64,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F587F51B14AD453100F2EBAE /* MyDocument.h */,
+				F587F51C14AD453100F2EBAE /* MyDocument.m */,
+				F587F51614AD446F00F2EBAE /* MyWindowController.h */,
+				F587F51714AD446F00F2EBAE /* MyWindowController.m */,
 				256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */,
+				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
+				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -114,6 +131,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F587F60314AD5C1A00F2EBAE /* MyDocument.xib */,
 				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -182,6 +200,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				F587F60514AD5C1A00F2EBAE /* MyDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +215,9 @@
 				256AC3DA0F4B6AC300CF3369 /* MonkeyAppDelegate.m in Sources */,
 				F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */,
 				F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */,
+				F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */,
+				F587F51814AD446F00F2EBAE /* MyWindowController.m in Sources */,
+				F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +238,14 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F587F60314AD5C1A00F2EBAE /* MyDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F587F60414AD5C1A00F2EBAE /* English */,
+			);
+			name = MyDocument.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -1319,7 +1319,7 @@
 			<object class="NSWindowTemplate" id="302137475">
 				<int key="NSWindowStyleMask">261</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{131, 212}, {240, 216}}</string>
+				<string key="NSWindowRect">{{78, 464}, {240, 216}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">DS-5100 Control</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -4184,9 +4184,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{76, 140}, {240, 216}}</string>
+					<string>{{35, 466}, {240, 216}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{76, 140}, {240, 216}}</string>
+					<string>{{35, 466}, {240, 216}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4313,7 +4313,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">609</int>
+			<int key="maxID">613</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4396,6 +4396,7 @@
 							<string>ch2scale</string>
 							<string>devSelect</string>
 							<string>timescale</string>
+							<string>wavewindow</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4404,6 +4405,7 @@
 							<string>NSTextField</string>
 							<string>NSPopUpButton</string>
 							<string>NSTextField</string>
+							<string>NSWindow</string>
 							<string>NSWindow</string>
 						</object>
 					</object>
@@ -4415,6 +4417,7 @@
 							<string>ch2scale</string>
 							<string>devSelect</string>
 							<string>timescale</string>
+							<string>wavewindow</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4434,6 +4437,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">timescale</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">wavewindow</string>
+								<string key="candidateClassName">NSWindow</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">window</string>
