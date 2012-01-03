@@ -97,4 +97,25 @@
 		[mydoc showWindows];
 	}
 }
+
+//
+//
+//
+
+- (IBAction)gpib_init:(id)sender
+{
+	ftgpib_init();
+}
+- (IBAction)gpib_test:(id)sender
+{
+	char buf[128];
+	if(ftgpib_test(buf)) {
+		NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
+		[trfreq setStringValue:freqstr];
+	}	
+}
+- (IBAction)gpib_close:(id)sender
+{
+	ftgpib_close();
+}
 @end

@@ -18,6 +18,8 @@
 	IBOutlet NSTextField *ch2scale;
 	IBOutlet NSTextField *timescale;
 	int gridtype;
+
+	IBOutlet NSTextField *trfreq;
 }
 
 - (IBAction)open:(id)sender;
@@ -27,6 +29,10 @@
 - (IBAction)stop:(id)sender;
 - (IBAction)run:(id)sender;
 - (IBAction)wave:(id)sender;
+
+- (IBAction)gpib_init:(id)sender;
+- (IBAction)gpib_test:(id)sender;
+- (IBAction)gpib_close:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 
