@@ -6,6 +6,8 @@
 //  Copyright 2011 Hiroki Mori. All rights reserved.
 //
 
+#include <Carbon/Carbon.h>
+
 void iwatsu_dummy();
 int getresponse(char *data, int datasize);
 int getbinary(unsigned char *data, int datasize);

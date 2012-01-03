@@ -6,8 +6,6 @@
 //  Copyright 2011 Hiroki Mori. All rights reserved.
 //
 
-#include <Carbon/Carbon.h>
-
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>

@@ -22,6 +22,7 @@
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
+		F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4E0614B2FD2400D8CC61 /* metex.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,8 @@
 		F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		F5DB614514A6E4E200218ED2 /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
 		F5DB614614A6E4EC00218ED2 /* iwasio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwasio.h; sourceTree = "<group>"; };
+		F5DD4E0514B2FD2400D8CC61 /* metex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metex.h; sourceTree = "<group>"; };
+		F5DD4E0614B2FD2400D8CC61 /* metex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = metex.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 				F5DB614514A6E4E200218ED2 /* serial.h */,
 				F5B5C14514AFFF6B002E5677 /* ftgpib.h */,
 				F5B5C14614AFFF6B002E5677 /* ftgpib.c */,
+				F5DD4E0514B2FD2400D8CC61 /* metex.h */,
+				F5DD4E0614B2FD2400D8CC61 /* metex.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 				F587F51814AD446F00F2EBAE /* MyWindowController.m in Sources */,
 				F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */,
 				F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */,
+				F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

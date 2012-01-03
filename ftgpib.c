@@ -332,14 +332,14 @@ void ftgpib_debug()
 		return;
 	}
 
-	printf("EOI = %d, ", buf[0] >> 7);
-	printf("DAV = %d, ", (buf[0] >> 6) & 1);
-	printf("NRFD = %d, ", (buf[0] >> 5) & 1);
-	printf("NDAC = %d, ", (buf[0] >> 4) & 1);
-	printf("IFC = %d, ", (buf[0] >> 3) & 1);
-	printf("SRQ = %d, ", (buf[0] >> 2) & 1);
-	printf("ATN = %d, ", (buf[0] >> 1) & 1);
-	printf("REN = %d\n", buf[0] & 1);
+	printf("EOI = %d, ", (buf[0] >> EOI) & 1);
+	printf("DAV = %d, ", (buf[0] >> DAV) & 1);
+	printf("NRFD = %d, ", (buf[0] >> NRFD) & 1);
+	printf("NDAC = %d, ", (buf[0] >> NDAC) & 1);
+	printf("IFC = %d, ", (buf[0] >> IFC) & 1);
+	printf("SRQ = %d, ", (buf[0] >> SRQ) & 1);
+	printf("ATN = %d, ", (buf[0] >> ATN) & 1);
+	printf("REN = %d\n",  (buf[0] >> REN) & 1);
 }
 
 void ftgpib_test(char *buf)
