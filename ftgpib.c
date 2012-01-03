@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 // Globals
 FT_HANDLE ftHandleA = NULL;
@@ -59,7 +60,7 @@ int ftgpib_init()
 int ftgpib_write(unsigned char data)
 {
 	FT_STATUS	ftStatus;
-	LPDWORD readsize, writesize;
+	DWORD writesize;
 	unsigned char stat;
 	unsigned char revdata;
 //	printf("MORI MORI Debug 0\n");
@@ -101,7 +102,7 @@ int ftgpib_write(unsigned char data)
 int ftgpib_read(unsigned char *data)
 {
 	FT_STATUS	ftStatus;
-	LPDWORD writesize;
+	DWORD writesize;
 	unsigned char stat;
 	unsigned char revdata;
 	int result;
@@ -147,7 +148,7 @@ int ftgpib_read(unsigned char *data)
 int ftgpib_settalker()
 {
 	FT_STATUS	ftStatus;
-	LPDWORD writesize;
+	DWORD writesize;
 	ftStatus = FT_SetBitMode(ftHandleA, (unsigned char)SETTALKER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
@@ -167,7 +168,6 @@ int ftgpib_settalker()
 int ftgpib_setlistener()
 {
 	FT_STATUS	ftStatus;
-	LPDWORD writesize;
 	ftStatus = FT_SetBitMode(ftHandleA, (unsigned char)SETLISTENER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
@@ -187,8 +187,7 @@ int ftgpib_setlistener()
 int ftgpib_ifc()
 {
 	FT_STATUS	ftStatus;
-	int writesize;
-	unsigned char buf[1];
+	DWORD writesize;
 	// 500us
 	// IFC to Lo
 	outline = outline & ~(1 << IFC);
@@ -212,7 +211,7 @@ int ftgpib_ifc()
 void ftgpib_dcl()
 {
 	FT_STATUS	ftStatus;
-	int writesize;
+	DWORD writesize;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
@@ -222,10 +221,45 @@ void ftgpib_dcl()
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 }
 
+int ftgpib_talk(int myaddr, int taraddr, char *buf)
+{
+	FT_STATUS	ftStatus;
+	DWORD writesize;
+	int datalen;
+	int i;
+	outline = outline & ~(1 << ATN);
+	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	
+	ftgpib_write(UNL);
+	
+	ftgpib_write(0x40 + myaddr);
+	
+	ftgpib_write(0x20 + taraddr);
+
+	usleep(100);
+	outline = outline | (1 << ATN);
+	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	
+	datalen = strlen(buf);
+	for(i = 0; i < (datalen - 1); ++i)
+	{
+		ftgpib_write(buf[i]);
+	}
+
+	outline = outline & ~(1 << EOI);
+	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	++i;
+	ftgpib_write(buf[i]);
+	outline = outline | (1 << EOI);
+	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return 1;
+}
+
 int ftgpib_listen(int myaddr, int taraddr, char *buf)
 {
 	FT_STATUS	ftStatus;
-	int writesize;
+	DWORD writesize;
 	int eoistat;
 	unsigned char readdata;
 	outline = outline & ~(1 << ATN);
@@ -254,7 +288,7 @@ int ftgpib_listen(int myaddr, int taraddr, char *buf)
 int ftgpib_ren(int val)
 {
 	FT_STATUS	ftStatus;
-	int writesize;
+	DWORD writesize;
 	if(val == 0) {
 		printf("REN Lo\n");
 		outline = outline & ~(1 << REN);
@@ -269,7 +303,7 @@ int ftgpib_ren(int val)
 int ftgpib_sdc(int myaddr, int taraddr)
 {
 	FT_STATUS	ftStatus;
-	int writesize;
+	DWORD writesize;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
@@ -283,6 +317,8 @@ int ftgpib_sdc(int myaddr, int taraddr)
 	
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return 1;
 }
 
 void ftgpib_debug()
@@ -293,7 +329,7 @@ void ftgpib_debug()
 	ftStatus = FT_GetBitMode(ftHandleA, buf);
 	if(ftStatus != FT_OK) {
 		printf("FT_GetBitMode failed = %d\n", ftStatus);
-		return 0;
+		return;
 	}
 
 	printf("EOI = %d, ", buf[0] >> 7);
