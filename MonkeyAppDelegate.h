@@ -20,6 +20,11 @@
 	int gridtype;
 
 	IBOutlet NSTextField *trfreq;
+
+	IBOutlet NSPopUpButton *metexDevSelect;
+	IBOutlet NSTextField *metexmeter;
+	
+	int metex_willstop;
 }
 
 - (IBAction)open:(id)sender;
@@ -33,6 +38,8 @@
 - (IBAction)gpib_init:(id)sender;
 - (IBAction)gpib_test:(id)sender;
 - (IBAction)gpib_close:(id)sender;
+
+- (IBAction)metex_action:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 

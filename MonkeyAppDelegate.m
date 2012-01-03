@@ -28,6 +28,8 @@
 	if([ ifList count]) {
         [ devSelect addItemsWithTitles : ifList];
         [ devSelect setEnabled : true];
+        [ metexDevSelect addItemsWithTitles : ifList];
+        [ metexDevSelect setEnabled : true];
 	}
 	gridtype = 0;
 	NSLog(@"MORI MORI Debug");
@@ -117,5 +119,42 @@
 - (IBAction)gpib_close:(id)sender
 {
 	ftgpib_close();
+}
+
+//
+//
+//
+
+- (IBAction)metex_action:(id)sender
+{
+	if([[sender title] compare:@"Start"] == NSOrderedSame) {
+		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
+			[NSThread detachNewThreadSelector:@selector(metex_poll)
+									 toTarget:self withObject:nil];
+			[sender setTitle:@"Stop"];
+			metex_willstop = 0;
+		}
+	} else {
+		metex_willstop = 1;
+		[sender setTitle:@"Start"];
+	}
+}
+
+
+-(void)metex_poll
+{
+	unsigned char buf[32];
+
+    NSAutoreleasePool* pool;
+    pool = [[NSAutoreleasePool alloc]init];
+	do {
+		if(metex_read(buf, sizeof(buf))) {
+			int value = (buf[1] - '0') * 1000 + (buf[2] - '0') * 100 + (buf[3] - '0') * 10 + (buf[4] - '0');
+			[metexmeter setIntValue:value];
+		}
+	} while(!metex_willstop);
+	metex_close();
+    [pool release];
+    [NSThread exit];
 }
 @end
