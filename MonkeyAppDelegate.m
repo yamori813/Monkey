@@ -111,7 +111,7 @@
 - (IBAction)gpib_test:(id)sender
 {
 	char buf[128];
-	if(ftgpib_test(buf)) {
+	if(ftgpib_test([gpibaddr intValue], buf)) {
 		NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
 		[trfreq setStringValue:freqstr];
 	}	

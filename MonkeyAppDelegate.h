@@ -19,6 +19,7 @@
 	IBOutlet NSTextField *timescale;
 	int gridtype;
 
+	IBOutlet NSTextField *gpibaddr;
 	IBOutlet NSTextField *trfreq;
 
 	IBOutlet NSPopUpButton *metexDevSelect;

@@ -342,7 +342,7 @@ void ftgpib_debug()
 	printf("REN = %d\n",  (buf[0] >> REN) & 1);
 }
 
-void ftgpib_test(char *buf)
+void ftgpib_test(int addr, char *buf)
 {
 	ftgpib_settalker();
 	ftgpib_ifc();
@@ -351,9 +351,9 @@ void ftgpib_test(char *buf)
 //	sleep(1);
 //	ftgpib_ren(0);
 	usleep(1000);
-	ftgpib_sdc(0, 1);
+	ftgpib_sdc(0, addr);
 	usleep(1000);
-	ftgpib_listen(0, 1, buf);
+	ftgpib_listen(0, addr, buf);
 	printf("%s", buf);
 }
 

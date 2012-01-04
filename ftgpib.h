@@ -52,5 +52,5 @@ int ftgpib_listen(int myaddr, int taraddr, char *buf);
 int ftgpib_ren(int val);
 int ftgpib_sdc(int myaddr, int taraddr);
 void ftgpib_debug();
-void ftgpib_test(char *buf);
+void ftgpib_test(int addr, char *buf);
 void ftgpib_close();
