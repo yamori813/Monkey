@@ -38,19 +38,21 @@
 #define UNL 0x3f
 #define SDC 0x04
 #define DCL 0x14
-#define LLC 0x11
+#define LLO 0x11
 
-int ftgpib_init();
 int ftgpib_write(unsigned char data);
 int ftgpib_read(unsigned char *data);
 int ftgpib_settalker();
 int ftgpib_setlistener();
-int ftgpib_ifc();
+void ftgpib_ifc();
+void ftgpib_ren(int val);
 void ftgpib_dcl();
-int ftgpib_talk(int myaddr, int taraddr, char *buf);
-int ftgpib_listen(int myaddr, int taraddr, char *buf);
-int ftgpib_ren(int val);
+void ftgpib_llo();
 int ftgpib_sdc(int myaddr, int taraddr);
-void ftgpib_debug();
+int ftgpib_get(int myaddr, int taraddr);
+int ftgpib_talk(int myaddr, int taraddr, char *buf, int useeoi);
+int ftgpib_listen(int myaddr, int taraddr, char *buf, int useeoi);
+int ftgpib_init(int addr);
 void ftgpib_test(int addr, char *buf);
 void ftgpib_close();
+void ftgpib_debug();
