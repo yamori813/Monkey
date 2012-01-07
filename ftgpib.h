@@ -40,19 +40,30 @@
 #define DCL 0x14
 #define LLO 0x11
 
+#define MAXRETRY 100
+#define POLLWAIT 100
+
+// internal function
+
 int ftgpib_write(unsigned char data);
 int ftgpib_read(unsigned char *data);
 int ftgpib_settalker();
 int ftgpib_setlistener();
+
+// api function
+
 void ftgpib_ifc();
 void ftgpib_ren(int val);
-void ftgpib_dcl();
-void ftgpib_llo();
-int ftgpib_sdc(int myaddr, int taraddr);
-int ftgpib_get(int myaddr, int taraddr);
-int ftgpib_talk(int myaddr, int taraddr, char *buf, int useeoi);
-int ftgpib_listen(int myaddr, int taraddr, char *buf, int useeoi);
+int ftgpib_dcl();
+int ftgpib_llo();
+int ftgpib_sdc(int taraddr);
+int ftgpib_get(int taraddr);
+int ftgpib_talk(int taraddr, char *buf, int useeoi);
+int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi);
 int ftgpib_init(int addr);
-void ftgpib_test(int addr, char *buf);
 void ftgpib_close();
+
+// debug function
+
 void ftgpib_debug();
+void ftgpib_test(int addr, char *buf, int bufsize);

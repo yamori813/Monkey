@@ -106,7 +106,7 @@
 
 - (IBAction)gpib_init:(id)sender
 {
-	ftgpib_init();
+	ftgpib_init(0);
 }
 - (IBAction)gpib_test:(id)sender
 {
@@ -148,7 +148,7 @@
     NSAutoreleasePool* pool;
     pool = [[NSAutoreleasePool alloc]init];
 	do {
-		if(metex_read(buf, sizeof(buf))) {
+		if(metex_read(buf, sizeof(buf), sizeof(buf))) {
 			int value = (buf[1] - '0') * 1000 + (buf[2] - '0') * 100 + (buf[3] - '0') * 10 + (buf[4] - '0');
 			[metexmeter setIntValue:value];
 		}

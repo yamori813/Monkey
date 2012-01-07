@@ -28,33 +28,59 @@ int ftgpib_write(unsigned char data)
 	DWORD writesize;
 	unsigned char stat;
 	unsigned char revdata;
-	do {	// wait for NDAC Lo
+	int retry;
+
+	for(retry = 0;;) {	// wait for NDAC Lo
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(stat & (1 << NDAC));
+		if(!(stat & (1 << NDAC)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
 
 	// data output
 	revdata = ~data;
 	ftStatus = FT_Write(ftHandleB, &revdata, 1, &writesize);
 
-	do {	// wait for NRFD Hi
+	for(retry = 0;;) {	// wait for NRFD Hi
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(!(stat & (1 << NRFD)));
+		if((stat & (1 << NRFD)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
 
 	// DAV to Lo
 	outline = outline & ~(1 << DAV);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	do {	// wait for NDAC Hi
+	for(retry = 0;;) {	// wait for NDAC Hi
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(!(stat & (1 << NDAC)));
-
+		if((stat & (1 << NDAC)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
+	
 	// DAV to Hi
 	outline = outline | (1 << DAV);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	do {	// wait for NDAC Lo
+	for(retry = 0;;) {	// wait for NDAC Lo
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(stat & (1 << NDAC));
+		if(!(stat & (1 << NDAC)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
 
 	return 1;
 }
@@ -66,13 +92,21 @@ int ftgpib_read(unsigned char *data)
 	unsigned char stat;
 	unsigned char revdata;
 	int result;
+	int retry;
+
 	// NRFD to Hi
 	outline = outline | (1 << NRFD);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	do {	// wait for DAV Lo
+	for(retry = 0;;) {	// wait for DAV Lo
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(stat & (1 << DAV));
+		if(!(stat & (1 << DAV)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
 	
 	// NRFD to Lo
 	outline = outline & ~(1 << NRFD);
@@ -92,10 +126,16 @@ int ftgpib_read(unsigned char *data)
 	outline = outline | (1 << NDAC);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	do {	// wait for DAV Hi
+	for(retry = 0;;) {	// wait for DAV Hi
 		ftStatus = FT_GetBitMode(ftHandleA, &stat);
-	} while(!(stat & (1 << DAV)));
-
+		if((stat & (1 << DAV)))
+			break;
+		++retry;
+		usleep(POLLWAIT);
+		if(retry > MAXRETRY)
+			return -1;
+	};
+	
 	outline = outline & ~(1 << NDAC);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
@@ -178,20 +218,20 @@ void ftgpib_ren(int val)
 // universal command
 //
 
-void ftgpib_dcl()
+int ftgpib_dcl()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-	
+
 	ftgpib_write(DCL);
 	
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 }
 
-void ftgpib_llo()
+int ftgpib_llo()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
@@ -208,7 +248,7 @@ void ftgpib_llo()
 // address command
 //
 
-int ftgpib_sdc(int myaddr, int taraddr)
+int ftgpib_sdc(int taraddr)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
@@ -229,7 +269,7 @@ int ftgpib_sdc(int myaddr, int taraddr)
 	return 1;
 }
 
-int ftgpib_get(int myaddr, int taraddr)
+int ftgpib_get(int taraddr)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
@@ -254,7 +294,7 @@ int ftgpib_get(int myaddr, int taraddr)
 //
 //
 
-int ftgpib_talk(int myaddr, int taraddr, char *buf, int useeoi)
+int ftgpib_talk(int taraddr, char *buf, int useeoi)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
@@ -292,12 +332,15 @@ int ftgpib_talk(int myaddr, int taraddr, char *buf, int useeoi)
 	return 1;
 }
 
-int ftgpib_listen(int myaddr, int taraddr, char *buf, int useeoi)
+int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 	int dataend;
 	unsigned char readdata;
+	char *tmpptr;
+
+	tmpptr = buf;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
@@ -315,12 +358,17 @@ int ftgpib_listen(int myaddr, int taraddr, char *buf, int useeoi)
 	
 	do {
 		dataend = ftgpib_read(&readdata);
+		if(dataend == -1)
+			return 0;
+		if((tmpptr - buf - 1) < bufsize)
+		   *tmpptr++ = readdata;
 		if(!useeoi && readdata == '\n') {
 			useeoi = 0;
 		}
-		*buf++ = readdata;
 	} while(dataend);
-	*buf = 0x00;
+	*tmpptr = 0x00;
+	
+	ftgpib_settalker();
 	return 1;
 }
 
@@ -362,24 +410,10 @@ int ftgpib_init(int addr)
 	 return 0;
 	 }
 	 */
-	return 1;
-}
 
-void ftgpib_test(int addr, char *buf)
-{
 	ftgpib_settalker();
-	ftgpib_ifc();
-	usleep(1000);
-	ftgpib_dcl();
-//	sleep(1);
-//	ftgpib_ren(0);
-//	usleep(1000);
-//	ftgpib_get(myaddr, addr);
-	usleep(1000);
-	ftgpib_sdc(myaddr, addr);
-	usleep(1000);
-	ftgpib_listen(myaddr, addr, buf, 1);
-	printf("%s", buf);
+
+	return 1;
 }
 
 void ftgpib_close()
@@ -394,6 +428,10 @@ void ftgpib_close()
 		ftHandleB = NULL;
 	}
 }
+
+//
+// debug function
+//
 
 void ftgpib_debug()
 {
@@ -414,5 +452,28 @@ void ftgpib_debug()
 	printf("SRQ = %d, ", (buf[0] >> SRQ) & 1);
 	printf("ATN = %d, ", (buf[0] >> ATN) & 1);
 	printf("REN = %d\n",  (buf[0] >> REN) & 1);
+}
+
+void ftgpib_test(int addr, char *buf, int bufsize)
+{
+	ftgpib_debug();
+
+	ftgpib_ifc();
+	usleep(1000);
+
+	ftgpib_dcl();
+	usleep(1000);
+
+	//	ftgpib_ren(0);
+	//	usleep(1000);
+
+	//	ftgpib_get(addr);
+	//	usleep(1000);
+
+	ftgpib_sdc(addr);
+	usleep(1000);
+
+	ftgpib_listen(addr, buf, bufsize, 1);
+	printf("%s", buf);
 }
 
