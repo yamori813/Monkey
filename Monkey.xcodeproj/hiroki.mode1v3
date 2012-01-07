@@ -202,7 +202,7 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>F579EC1914B7D5F400965C26</string>
+				<string>F579EC3714B7E32700965C26</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>ftgpib.c</string>
 				<key>PBXSplitModuleInNavigatorKey</key>
@@ -210,16 +210,16 @@
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>F579EC1A14B7D5F400965C26</string>
+						<string>F579EC3814B7E32700965C26</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>ftgpib.c</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F579EC2514B7D69C00965C26</string>
+						<string>F579EC6314B7EAC100965C26</string>
 						<key>history</key>
 						<array>
-							<string>F579EC1314B7D5DA00965C26</string>
+							<string>F579EC3914B7E32700965C26</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -235,47 +235,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>1475 -134 956 667 1280 -280 1920 1080 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>F579EC1614B7D5F400965C26</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>ftgpib.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>F579EC1714B7D5F400965C26</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>ftgpib.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>F579EC2614B7D69C00965C26</string>
-						<key>history</key>
-						<array>
-							<string>F579EC1414B7D5E400965C26</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {956, 626}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>1281 121 956 667 1280 -280 1920 1080 </string>
+				<string>1666 -141 956 667 1280 -280 1920 1080 </string>
 			</dict>
 		</dict>
 	</array>
@@ -361,7 +321,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>17</integer>
+									<integer>18</integer>
 									<integer>10</integer>
 									<integer>0</integer>
 								</array>
@@ -414,7 +374,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>F579EC2414B7D69C00965C26</string>
+										<string>F579EC6214B7EAC100965C26</string>
 										<key>history</key>
 										<array>
 											<string>F587F5E614AD590C00F2EBAE</string>
@@ -429,14 +389,14 @@
 											<string>F5DD4E7A14B33A5200D8CC61</string>
 											<string>F5DD4E7B14B33A5200D8CC61</string>
 											<string>F5DD4E7E14B33A5200D8CC61</string>
-											<string>F5DD4E7F14B33A5200D8CC61</string>
-											<string>F5DD4E8014B33A5200D8CC61</string>
 											<string>F5DD4E8214B33A5200D8CC61</string>
 											<string>F5DD4E8314B33A5200D8CC61</string>
 											<string>F5D3F9A114B48CE60097C765</string>
 											<string>F5A2F52314B7B902006ECC8B</string>
 											<string>F5A2F52414B7B902006ECC8B</string>
-											<string>F5A2F55614B7C28D006ECC8B</string>
+											<string>F579EC3314B7E32700965C26</string>
+											<string>F579EC3414B7E32700965C26</string>
+											<string>F579EC3514B7E32700965C26</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -634,15 +594,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>F579EC2714B7D69C00965C26</string>
+		<string>F579EC6114B7EA8B00965C26</string>
 		<string>F579EB6C14B7C29900965C26</string>
 		<string>F579EB6D14B7C29900965C26</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>F5DB5E4E14A6ACE400218ED2</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/hiroki/Develop/Device/Monkey/Monkey.xcodeproj</string>
-		<string>F579EC1614B7D5F400965C26</string>
-		<string>F579EC1914B7D5F400965C26</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>F579EC3714B7E32700965C26</string>
 	</array>
 	<key>WindowString</key>
 	<string>358 141 804 611 0 0 1280 778 </string>

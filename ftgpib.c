@@ -82,7 +82,7 @@ int ftgpib_write(unsigned char data)
 			return -1;
 	};
 
-	return 1;
+	return 0;
 }
 
 int ftgpib_read(unsigned char *data)
@@ -222,26 +222,40 @@ int ftgpib_dcl()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+	int result;
+
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	ftgpib_write(DCL);
-	
+	if(ftgpib_write(DCL) == 0)
+		result = 1;
+	else
+		result = 0;
+
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return result;
 }
 
 int ftgpib_llo()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+	int result;
+
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
-	ftgpib_write(LLO);
+	if(ftgpib_write(LLO) == 0)
+		result = 1;
+	else
+		result = 0;
 	
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return result;
 }
 
 //
@@ -254,19 +268,34 @@ int ftgpib_sdc(int taraddr)
 	DWORD writesize;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	int result;
 	
-	ftgpib_write(UNL);
+	if(ftgpib_write(UNL) != 0) {
+		result = 0;
+		goto atn;
+	}
 	
-	ftgpib_write(0x40 + myaddr);
+	if(ftgpib_write(0x40 + myaddr) != 0) {
+		result = 0;
+		goto atn;
+	}
 	
-	ftgpib_write(0x20 + taraddr);
-	
-	ftgpib_write(SDC);
-	
+	if(ftgpib_write(0x20 + taraddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+	if(ftgpib_write(SDC) != 0) {
+		result = 0;
+		goto atn;
+	}
+	result = 1;
+
+atn:
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 
-	return 1;
+	return result;
 }
 
 int ftgpib_get(int taraddr)
@@ -275,19 +304,34 @@ int ftgpib_get(int taraddr)
 	DWORD writesize;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	int result;
 	
-	ftgpib_write(UNL);
+	if(ftgpib_write(UNL) != 0) {
+		result = 0;
+		goto atn;
+	}
 	
-	ftgpib_write(0x40 + myaddr);
-	
-	ftgpib_write(0x20 + taraddr);
-	
-	ftgpib_write(GET);
-	
+	if(ftgpib_write(0x40 + myaddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+	if(ftgpib_write(0x20 + taraddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+	if(ftgpib_write(GET) != 0) {
+		result = 0;
+		goto atn;
+	} 
+	result = 1;
+
+atn:
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
-	return 1;
+	return result;
 }
 
 //
@@ -461,7 +505,10 @@ void ftgpib_test(int addr, char *buf, int bufsize)
 	ftgpib_ifc();
 	usleep(1000);
 
-	ftgpib_dcl();
+	if(ftgpib_dcl() == 0) {
+		printf("gpib error on dcl\n");
+		return;
+	}
 	usleep(1000);
 
 	//	ftgpib_ren(0);
@@ -470,7 +517,10 @@ void ftgpib_test(int addr, char *buf, int bufsize)
 	//	ftgpib_get(addr);
 	//	usleep(1000);
 
-	ftgpib_sdc(addr);
+	if(ftgpib_sdc(addr) == 0) {
+		printf("gpib error on dsc\n");
+		return;
+	}
 	usleep(1000);
 
 	ftgpib_listen(addr, buf, bufsize, 1);
