@@ -35,7 +35,7 @@ int ftgpib_write(unsigned char data)
 		if(!(stat & (1 << NDAC)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -49,7 +49,7 @@ int ftgpib_write(unsigned char data)
 		if((stat & (1 << NRFD)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -63,7 +63,7 @@ int ftgpib_write(unsigned char data)
 		if((stat & (1 << NDAC)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -77,7 +77,7 @@ int ftgpib_write(unsigned char data)
 		if(!(stat & (1 << NDAC)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -103,7 +103,7 @@ int ftgpib_read(unsigned char *data)
 		if(!(stat & (1 << DAV)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -131,7 +131,7 @@ int ftgpib_read(unsigned char *data)
 		if((stat & (1 << DAV)))
 			break;
 		++retry;
-		usleep(POLLWAIT);
+		usleep(LOOPWAIT);
 		if(retry > MAXRETRY)
 			return -1;
 	};
@@ -353,7 +353,7 @@ int ftgpib_talk(int taraddr, char *buf, int useeoi)
 	
 	ftgpib_write(0x20 + taraddr);
 	
-	usleep(100);
+	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
@@ -396,7 +396,7 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 	
 	ftgpib_setlistener();
 	
-	usleep(100);
+	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	

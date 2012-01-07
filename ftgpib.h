@@ -41,7 +41,8 @@
 #define LLO 0x11
 
 #define MAXRETRY 100
-#define POLLWAIT 100
+#define LOOPWAIT 100
+#define ATNPAUSE 100
 
 // internal function
 
