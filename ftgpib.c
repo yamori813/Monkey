@@ -190,11 +190,16 @@ void ftgpib_ifc()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
-	// 500us
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
+	
+	ftgpib_settalker();
+
 	// IFC to Lo
 	outline = outline & ~(1 << IFC);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-
+	// may be 500us pause
 	// IFC to Hi
 	outline = outline | (1 << IFC);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
@@ -204,11 +209,14 @@ void ftgpib_ren(int val)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
+	
+
 	if(val == 0) {
-		printf("REN Lo\n");
 		outline = outline & ~(1 << REN);
 	} else {
-		printf("REN Hi\n");
 		outline = outline | (1 << REN);
 	}
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
@@ -223,6 +231,9 @@ int ftgpib_dcl()
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 	int result;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
 
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
@@ -243,6 +254,9 @@ int ftgpib_llo()
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 	int result;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
 
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
@@ -266,9 +280,13 @@ int ftgpib_sdc(int taraddr)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+	int result;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
+
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-	int result;
 	
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
@@ -302,9 +320,13 @@ int ftgpib_get(int taraddr)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+	int result;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
+
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-	int result;
 	
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
@@ -344,31 +366,50 @@ int ftgpib_talk(int taraddr, char *buf, int useeoi)
 	DWORD writesize;
 	int datalen;
 	int i;
+	int result = 1;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
+
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
-	ftgpib_write(UNL);
+	if(ftgpib_write(UNL) != 0) {
+		result = 0;
+		goto atn;
+	}
+		
+	if(ftgpib_write(0x40 + myaddr) != 0) {
+		result = 0;
+		goto atn;
+	}
 	
-	ftgpib_write(0x40 + myaddr);
-	
-	ftgpib_write(0x20 + taraddr);
-	
+	if(ftgpib_write(0x20 + taraddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+atn:
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	if(result == 0)
+		return result;
 	
 	datalen = strlen(buf);
 	for(i = 0; i < (datalen - 1); ++i)
 	{
-		ftgpib_write(buf[i]);
+		if(ftgpib_write(buf[i]) != 0)
+			return 0;
 	}
 	if(useeoi) {
 		outline = outline & ~(1 << EOI);
 		ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	}
 	++i;
+	if(ftgpib_write(buf[i]) != 0)
+		return 0;
 	if(useeoi) {
-		ftgpib_write(buf[i]);
 		outline = outline | (1 << EOI);
 		ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	}
@@ -383,22 +424,37 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 	int dataend;
 	unsigned char readdata;
 	char *tmpptr;
+	int result = 1;
+
+	if(ftHandleA == NULL || ftHandleB == NULL)
+		return 0;
 
 	tmpptr = buf;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
 	
-	ftgpib_write(UNL);
-	
-	ftgpib_write(0x40 + taraddr);
-	
-	ftgpib_write(0x20 + myaddr);
-	
-	ftgpib_setlistener();
-	
+	if(ftgpib_write(UNL) != 0) {
+		result = 0;
+		goto atn;
+	}
+		
+	if(ftgpib_write(0x40 + taraddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+	if(ftgpib_write(0x20 + myaddr) != 0) {
+		result = 0;
+		goto atn;
+	}
+
+	ftgpib_setlistener();	
+atn:
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	if(result == 0)
+		return result;
 	
 	do {
 		dataend = ftgpib_read(&readdata);
@@ -417,14 +473,13 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 }
 
 //
-//
+// ft2232 open
 //
 
-int ftgpib_init(int addr)
+int ftgpib_init(int addr, int ftdev)
 {
 	FT_STATUS	ftStatus;
-	
-	ftStatus = FT_Open(0, &ftHandleA);
+	ftStatus = FT_Open(ftdev, &ftHandleA);
 	if(ftStatus != FT_OK) {
 		/* 
 		 This can fail if the ftdi_sio driver is loaded
@@ -434,13 +489,15 @@ int ftgpib_init(int addr)
 		printf("FT_Open failed = %d\n", ftStatus);
 		return 0;
 	}
-	ftStatus = FT_Open(1, &ftHandleB);
+	ftStatus = FT_Open(ftdev+1, &ftHandleB);
 	if(ftStatus != FT_OK) {
 		/* 
 		 This can fail if the ftdi_sio driver is loaded
 		 use lsmod to check this and rmmod ftdi_sio to remove
 		 also rmmod usbserial
 		 */
+		FT_Close(ftHandleA);
+		ftHandleA = NULL;
 		printf("FT_Open failed = %d\n", ftStatus);
 		return 0;
 	}
@@ -459,6 +516,8 @@ int ftgpib_init(int addr)
 
 	return 1;
 }
+
+// ft2232 close
 
 void ftgpib_close()
 {
@@ -498,7 +557,7 @@ void ftgpib_debug()
 	printf("REN = %d\n",  (buf[0] >> REN) & 1);
 }
 
-void ftgpib_test(int addr, char *buf, int bufsize)
+int ftgpib_test(int addr, char *buf, int bufsize)
 {
 	ftgpib_debug();
 
@@ -507,23 +566,44 @@ void ftgpib_test(int addr, char *buf, int bufsize)
 
 	if(ftgpib_dcl() == 0) {
 		printf("gpib error on dcl\n");
-		return;
+		return 0;
 	}
 	usleep(1000);
 
-	//	ftgpib_ren(0);
-	//	usleep(1000);
+	ftgpib_ren(0);
+	usleep(1000);
 
 	//	ftgpib_get(addr);
 	//	usleep(1000);
 
 	if(ftgpib_sdc(addr) == 0) {
 		printf("gpib error on dsc\n");
-		return;
+		return 0;
 	}
 	usleep(1000);
 
-	ftgpib_listen(addr, buf, bufsize, 1);
-	printf("%s", buf);
-}
+	// test for Advantest TR5820
+	if(ftgpib_talk(addr, "C\r\n", 1) == 0) {
+		printf("gpib error on talk\n");
+		return 0;
+	}
+	usleep(1000);
 
+	if(ftgpib_talk(addr, "F0\r\n", 1) == 0) {
+		printf("gpib error on talk\n");
+		return 0;
+	}
+	usleep(1000);
+
+	if(ftgpib_listen(addr, buf, bufsize, 1) == 0) {
+		printf("gpib error on listen\n");
+		return 0;
+	}
+
+	ftgpib_ren(1);
+	usleep(1000);
+
+	printf("%s", buf);
+
+	return 1;
+}

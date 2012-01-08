@@ -51,7 +51,7 @@ int ftgpib_read(unsigned char *data);
 int ftgpib_settalker();
 int ftgpib_setlistener();
 
-// api function
+// api function (return 1 = Success,0 = Error)
 
 void ftgpib_ifc();
 void ftgpib_ren(int val);
@@ -61,10 +61,10 @@ int ftgpib_sdc(int taraddr);
 int ftgpib_get(int taraddr);
 int ftgpib_talk(int taraddr, char *buf, int useeoi);
 int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi);
-int ftgpib_init(int addr);
+int ftgpib_init(int addr, int ftdev);
 void ftgpib_close();
 
 // debug function
 
 void ftgpib_debug();
-void ftgpib_test(int addr, char *buf, int bufsize);
+int ftgpib_test(int addr, char *buf, int bufsize);
