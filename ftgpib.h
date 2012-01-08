@@ -53,8 +53,8 @@ int ftgpib_setlistener();
 
 // api function (return 1 = Success,0 = Error)
 
-void ftgpib_ifc();
-void ftgpib_ren(int val);
+int ftgpib_ifc();
+int ftgpib_ren(int val);
 int ftgpib_dcl();
 int ftgpib_llo();
 int ftgpib_sdc(int taraddr);

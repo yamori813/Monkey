@@ -186,13 +186,13 @@ int ftgpib_setlistener()
 // uniline message
 //
 
-void ftgpib_ifc()
+int ftgpib_ifc()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 
 	if(ftHandleA == NULL || ftHandleB == NULL)
-		return;
+		return 0;
 	
 	ftgpib_settalker();
 
@@ -203,23 +203,26 @@ void ftgpib_ifc()
 	// IFC to Hi
 	outline = outline | (1 << IFC);
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return 1;
 }
 
-void ftgpib_ren(int val)
+int ftgpib_ren(int val)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 
 	if(ftHandleA == NULL || ftHandleB == NULL)
-		return;
+		return 0;
 	
-
 	if(val == 0) {
 		outline = outline & ~(1 << REN);
 	} else {
 		outline = outline | (1 << REN);
 	}
 	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+
+	return 1;
 }
 
 //
