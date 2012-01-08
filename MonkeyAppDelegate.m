@@ -12,6 +12,7 @@
 
 #include "iwasio.h"
 #include "serial.h"
+#include "ftgpib.h"
 
 @implementation MonkeyAppDelegate
 
@@ -106,12 +107,12 @@
 
 - (IBAction)gpib_init:(id)sender
 {
-	ftgpib_init(0);
+	ftgpib_init(0, 0);
 }
 - (IBAction)gpib_test:(id)sender
 {
 	char buf[128];
-	if(ftgpib_test([gpibaddr intValue], buf)) {
+	if(ftgpib_test([gpibaddr intValue], buf, sizeof(buf))) {
 		NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
 		[trfreq setStringValue:freqstr];
 	}	
