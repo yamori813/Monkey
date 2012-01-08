@@ -33,12 +33,28 @@
 #define SETTALKER (SETCONTROLLER | (1 << DAV))
 #define SETLISTENER (SETCONTROLLER | (1 << NRFD) | (1 << NDAC))
 
-#define GTL 0x01
-#define GET 0x08
+// command
+
 #define UNL 0x3f
-#define SDC 0x04
-#define DCL 0x14
+#define UNT 0x5f
+
+// universal command
+
 #define LLO 0x11
+#define DCL 0x14
+#define PPU 0x15
+#define SPE 0x18
+#define SPD 0x19
+
+// address command
+
+#define GTL 0x01
+#define SDC 0x04
+#define PPC 0x05
+#define GET 0x08
+#define TCT 0x09
+
+// timming value
 
 #define MAXRETRY 100
 #define LOOPWAIT 100
