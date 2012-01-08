@@ -192,7 +192,7 @@ void ftgpib_ifc()
 	DWORD writesize;
 
 	if(ftHandleA == NULL || ftHandleB == NULL)
-		return 0;
+		return;
 	
 	ftgpib_settalker();
 
@@ -211,7 +211,7 @@ void ftgpib_ren(int val)
 	DWORD writesize;
 
 	if(ftHandleA == NULL || ftHandleB == NULL)
-		return 0;
+		return;
 	
 
 	if(val == 0) {
