@@ -20,7 +20,11 @@
 	int gridtype;
 
 	IBOutlet NSTextField *gpibaddr;
-	IBOutlet NSTextField *trfreq;
+	IBOutlet NSTextField *gpiblisten;
+	IBOutlet NSTextField *gpibtalk;
+	IBOutlet NSButton *gpibren;
+	IBOutlet NSButton *gpibeoi;
+	IBOutlet NSPopUpButton *gpiblineend;
 
 	IBOutlet NSPopUpButton *metexDevSelect;
 	IBOutlet NSTextField *metexmeter;
@@ -37,7 +41,12 @@
 - (IBAction)wave:(id)sender;
 
 - (IBAction)gpib_init:(id)sender;
-- (IBAction)gpib_test:(id)sender;
+- (IBAction)gpib_ren:(id)sender;
+- (IBAction)gpib_ifc:(id)sender;
+- (IBAction)gpib_dcl:(id)sender;
+- (IBAction)gpib_sdc:(id)sender;
+- (IBAction)gpib_listen:(id)sender;
+- (IBAction)gpib_talk:(id)sender;
 - (IBAction)gpib_close:(id)sender;
 
 - (IBAction)metex_action:(id)sender;

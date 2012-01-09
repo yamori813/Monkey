@@ -58,6 +58,8 @@
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
+	ftgpib_close();
+
 	iwatsu_close();
 }
 
@@ -108,15 +110,87 @@
 - (IBAction)gpib_init:(id)sender
 {
 	ftgpib_init(0, 0);
+	if([gpibren state] == NSOnState) {
+		ftgpib_ren(0);
+	}
 }
+
+- (IBAction)gpib_ren:(id)sender
+{
+	if([sender state] == NSOnState) {
+		ftgpib_ren(0);
+	} else {
+		ftgpib_ren(1);
+	}
+}
+
+- (IBAction)gpib_ifc:(id)sender
+{
+	ftgpib_ifc();
+}
+
+- (IBAction)gpib_dcl:(id)sender
+{
+	if(ftgpib_dcl() == 0) {
+		printf("gpib error on dcl\n");
+	}
+}
+
+- (IBAction)gpib_sdc:(id)sender
+{
+	if(ftgpib_sdc([gpibaddr intValue]) == 0) {
+		printf("gpib error on sdc\n");
+	}
+}
+
+- (IBAction)gpib_listen:(id)sender
+{
+	char buf[128];
+	printf("gpib terget address = %d\n", [gpibaddr intValue]);
+	ftgpib_debug();
+	
+	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
+		printf("gpib error on listen\n");
+		return;
+	}
+	
+	NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
+	[gpiblisten setStringValue:freqstr];
+	printf("%s", buf);
+}
+
+- (IBAction)gpib_talk:(id)sender
+{
+	char buf[128];
+	NSString *cmd = [gpibtalk stringValue];
+	if([cmd length] > 100)
+		return;
+	printf("talk %s %s %s EOI\n",
+		   [cmd cStringUsingEncoding:NSASCIIStringEncoding],
+		   [gpiblineend indexOfSelectedItem] == 0 ? "LF" : "CR+LF", 
+		   [gpibeoi state] == NSOnState ? "With": "Without");
+	if([gpiblineend indexOfSelectedItem] == 0) {
+		sprintf(buf, "%s\n", [cmd cStringUsingEncoding:NSASCIIStringEncoding]);
+	} else {
+		sprintf(buf, "%s\r\n", [cmd cStringUsingEncoding:NSASCIIStringEncoding]);
+	}
+	if(ftgpib_talk([gpibaddr intValue], buf, 
+					 [sender state] == NSOnState ? 1 : 0) == 0) {
+		printf("gpib error on talk\n");
+		return;
+	}
+}
+
 - (IBAction)gpib_test:(id)sender
 {
 	char buf[128];
+
 	if(ftgpib_test([gpibaddr intValue], buf, sizeof(buf))) {
 		NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
-		[trfreq setStringValue:freqstr];
-	}	
+		[gpiblisten setStringValue:freqstr];
+	}
 }
+
 - (IBAction)gpib_close:(id)sender
 {
 	ftgpib_close();
