@@ -3,7 +3,7 @@
 //  Monkey
 //
 //  Created by Hiroki Mori on 12/01/09.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//  Copyright 2012 Hiroki Mori. All rights reserved.
 //
 
 #import "TimeView.h"
@@ -18,8 +18,8 @@ CGRect convertToCGRect(NSRect inRect);
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		viewmax = 1000;
 		maxscale = 12;
+		protdata = NULL;
     }
     return self;
 }
@@ -47,12 +47,25 @@ CGRect convertToCGRect(NSRect inRect);
 
 - (void)addData:(double)data time:(int)msec
 {
-	if(msec == 0)
+	if(msec == 0) {
+		if(protdata != NULL)
+			free(protdata);
 		datasize = 0;
-	if(datasize < sizeof(protdata)) {
-		protdata[datasize] = data;
-		++datasize;
+		protdata = malloc(sizeof(double)*1024);
+		buffersize = 1024;
+		viewmax = 1024;
 	}
+	if(datasize == buffersize) {
+		// expand buffer
+		double *newbuf = malloc(sizeof(double)*(buffersize+1024));
+		memcpy(newbuf, protdata, buffersize*sizeof(double));
+		free(protdata);
+		protdata = newbuf;
+		buffersize += 1024;
+		viewmax += 1024;
+	}
+	protdata[datasize] = data;
+	++datasize;
 	[self setNeedsDisplay:YES];
 }
 
