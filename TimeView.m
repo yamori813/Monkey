@@ -19,6 +19,7 @@ CGRect convertToCGRect(NSRect inRect);
     self = [super initWithFrame:frame];
     if (self) {
 		viewmax = 1000;
+		maxscale = 12;
     }
     return self;
 }
@@ -29,7 +30,7 @@ CGRect convertToCGRect(NSRect inRect);
 	int i;
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
-	float vscale = (therect.size.height - OFFSETY * 2)/ 12 ;
+	float vscale = (therect.size.height - OFFSETY * 2) / maxscale;
 	int startpos = (viewmax - x) * [metexscroller doubleValue];
 	if(startpos < datasize) {
 		CGContextSetRGBStrokeColor(
@@ -114,7 +115,7 @@ CGRect convertToCGRect(NSRect inRect);
 	trans = CGAffineTransformRotate(trans, 3.14/2);
 	CGContextSetTextMatrix(gc, trans);
 	for(j = 0;j <= 4; ++j) {
-		sprintf(strbuf, "%d", j * 3);
+		sprintf(strbuf, "%d", maxscale * j / 4);
 		CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
 	}
 }

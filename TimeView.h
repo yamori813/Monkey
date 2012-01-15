@@ -15,6 +15,7 @@
 	double protdata[1024];
 	int datasize;
 	int viewmax;
+	int maxscale;
 }
 
 - (void)addData:(double)data time:(int)msec;
