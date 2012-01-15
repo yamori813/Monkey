@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "TimeView.h"
 
 @interface MonkeyAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
@@ -28,6 +29,8 @@
 
 	IBOutlet NSPopUpButton *metexDevSelect;
 	IBOutlet NSTextField *metexmeter;
+	IBOutlet TimeView *metexview;
+	uint64_t metexlasttime;
 	
 	int metex_willstop;
 }

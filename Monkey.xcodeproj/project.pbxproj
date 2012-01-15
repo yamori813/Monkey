@@ -18,6 +18,7 @@
 		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
 		F5A16B1A14B1916400DF1C26 /* libftd2xx.1.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */; };
 		F5A16B2E14B1918D00DF1C26 /* libftd2xx.1.1.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */; };
+		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
@@ -56,9 +57,12 @@
 		F587F51B14AD453100F2EBAE /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
 		F587F51C14AD453100F2EBAE /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		F587F60414AD5C1A00F2EBAE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
+		F588012314BB2A8800850BD0 /* monkey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = monkey.h; sourceTree = "<group>"; };
 		F59FC82314A9E99F00AC50E3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.1.1.0.dylib; sourceTree = "<group>"; };
+		F5A7229414BA70F70035F5B8 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
+		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		F5B5C14514AFFF6B002E5677 /* ftgpib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftgpib.h; sourceTree = "<group>"; };
 		F5B5C14614AFFF6B002E5677 /* ftgpib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgpib.c; sourceTree = "<group>"; };
 		F5DB5DF214A6A1E000218ED2 /* iwasio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwasio.c; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 				256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */,
 				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
 				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
+				F5A7229414BA70F70035F5B8 /* TimeView.h */,
+				F5A7229514BA70F70035F5B8 /* TimeView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -141,6 +147,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F588012314BB2A8800850BD0 /* monkey.h */,
 				256AC3F00F4B6AF500CF3369 /* Monkey_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				F5DB5DF214A6A1E000218ED2 /* iwasio.c */,
@@ -257,6 +264,7 @@
 				F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */,
 				F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */,
 				F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */,
+				F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

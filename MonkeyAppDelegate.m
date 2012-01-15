@@ -10,6 +10,8 @@
 
 #import "MyDocument.h"
 
+#include "monkey.h"
+
 #include "iwasio.h"
 #include "serial.h"
 #include "ftgpib.h"
@@ -208,6 +210,7 @@
 									 toTarget:self withObject:nil];
 			[sender setTitle:@"Stop"];
 			metex_willstop = 0;
+			metexlasttime = 0;
 		}
 	} else {
 		metex_willstop = 1;
@@ -219,17 +222,29 @@
 -(void)metex_poll
 {
 	unsigned char buf[32];
-
+	measure_value data;
     NSAutoreleasePool* pool;
     pool = [[NSAutoreleasePool alloc]init];
 	do {
-		if(metex_read(buf, sizeof(buf), sizeof(buf))) {
-			int value = (buf[1] - '0') * 1000 + (buf[2] - '0') * 100 + (buf[3] - '0') * 10 + (buf[4] - '0');
-			[metexmeter setIntValue:value];
+		if(metex_value(&data)) {
+			uint64_t curtime = mach_absolute_time();
+			int msec = 0;
+			if(metexlasttime != 0) {
+				Nanoseconds elapsedNano;
+				uint64_t tmptime = curtime - metexlasttime;
+				elapsedNano = AbsoluteToNanoseconds( *(AbsoluteTime *) &tmptime );
+				msec = *(uint64_t *)&elapsedNano;
+				msec /= 1000*1000;
+			}
+			[metexmeter setDoubleValue:data.value];
+			[metexview addData:data.value time:msec];
+			metexlasttime = curtime;
 		}
+//		printf("%f %d\n", data.value, data.unittype);
 	} while(!metex_willstop);
 	metex_close();
     [pool release];
     [NSThread exit];
 }
+
 @end
