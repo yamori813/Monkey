@@ -15,7 +15,6 @@
 	double *protdata;
 	int buffersize;
 	int datasize;
-	int viewmax;
 	int maxscale;
 }
 

@@ -31,7 +31,18 @@ CGRect convertToCGRect(NSRect inRect);
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
 	float vscale = (therect.size.height - OFFSETY * 2) / maxscale;
-	int startpos = (viewmax - x) * [metexscroller doubleValue];
+	int startpos;
+
+	if(datasize > x) {
+		double value = (double)x / datasize;
+		[metexscroller setKnobProportion:value];
+		[metexscroller setEnabled:YES];
+		startpos = (datasize - x) * [metexscroller doubleValue];
+	} else {
+		[metexscroller setEnabled:NO];
+		startpos = 0;
+	}
+	
 	if(startpos < datasize) {
 		CGContextSetRGBStrokeColor(
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
@@ -47,13 +58,17 @@ CGRect convertToCGRect(NSRect inRect);
 
 - (void)addData:(double)data time:(int)msec
 {
+	NSRect therect = [self frame];
+	int x = therect.size.width - OFFSETX * 2;
+
 	if(msec == 0) {
 		if(protdata != NULL)
 			free(protdata);
 		datasize = 0;
 		protdata = malloc(sizeof(double)*1024);
 		buffersize = 1024;
-		viewmax = 1024;
+		[metexscroller setEnabled:NO];
+		[metexscroller setDoubleValue:0.0];
 	}
 	if(datasize == buffersize) {
 		// expand buffer
@@ -62,7 +77,6 @@ CGRect convertToCGRect(NSRect inRect);
 		free(protdata);
 		protdata = newbuf;
 		buffersize += 1024;
-		viewmax += 1024;
 	}
 	protdata[datasize] = data;
 	++datasize;
@@ -71,21 +85,42 @@ CGRect convertToCGRect(NSRect inRect);
 
 - (IBAction)scroll:(id)sender
 {
+	NSRect therect = [self frame];
+	int x = therect.size.width - OFFSETX * 2;
+	double curpos = [metexscroller doubleValue];
+
 	int part = [sender hitPart];
 	switch ( part ) {
 		case NSScrollerKnob:
 			break;
 		case NSScrollerIncrementPage:
-			break;
-		case NSScrollerDecrementPage:
-			break;
-		case NSScrollerDecrementLine:
+			if(datasize > x) {
+				[metexscroller setDoubleValue:
+				 (curpos+0.3 <= 1.0 ? curpos+0.3 : 1.0)];
+			}
 			break;
 		case NSScrollerIncrementLine:
+			if(datasize > x) {
+				[metexscroller setDoubleValue:
+				 (curpos+0.1 <= 1.0 ? curpos+0.1 : 1.0)];
+			}
+			break;
+		case NSScrollerDecrementPage:
+			if(datasize > x) {
+				[metexscroller setDoubleValue:
+				 (curpos-0.3 >= 0 ? curpos-0.3 : 0.0)];
+			}
+			break;
+		case NSScrollerDecrementLine:
+			if(datasize > x) {
+				[metexscroller setDoubleValue:
+				 (curpos-0.1 >= 0 ? curpos-0.1 : 0.0)];
+			}
 			break;
 		case NSScrollerKnobSlot:
 			break;
 	}
+	NSLog(@"%f", [metexscroller doubleValue]);
 	[self setNeedsDisplay:YES];
 }
 
@@ -103,7 +138,11 @@ CGRect convertToCGRect(NSRect inRect);
 	
 	CGContextMoveToPoint(gc, OFFSETX, OFFSETY);
 	CGContextAddLineToPoint(gc, OFFSETX, OFFSETY + y);
-	int startpos = (viewmax - x) * [metexscroller doubleValue];
+	int startpos;
+	if(datasize < x)
+		startpos = 0;
+	else
+		startpos = (datasize - x) * [metexscroller doubleValue];
 	int xx = ((startpos / 100) + 1) * 100 - startpos;
 	for(j = 1; j < OFFSETX + x; j += 100) {
 		CGContextMoveToPoint(gc, OFFSETX + j + xx, OFFSETY);
@@ -143,14 +182,6 @@ CGRect convertToCGRect(NSRect inRect);
 
 	[self drawScale:rect.size];
 	[self plotData];
-	int x = rect.size.width - OFFSETX * 2;
-	if(x < viewmax) {
-		double value = (double)x / viewmax;
-		[metexscroller setKnobProportion:value];
-		[metexscroller setEnabled:YES];
-	} else {
-		[metexscroller setEnabled:NO];
-	}
 //	[metexscroller setDoubleValue:value];
 }
 
