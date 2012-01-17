@@ -94,28 +94,20 @@ CGRect convertToCGRect(NSRect inRect);
 		case NSScrollerKnob:
 			break;
 		case NSScrollerIncrementPage:
-			if(datasize > x) {
-				[metexscroller setDoubleValue:
-				 (curpos+0.3 <= 1.0 ? curpos+0.3 : 1.0)];
-			}
+			[metexscroller setDoubleValue:
+			 (curpos+0.3 <= 1.0 ? curpos+0.3 : 1.0)];
 			break;
 		case NSScrollerIncrementLine:
-			if(datasize > x) {
-				[metexscroller setDoubleValue:
-				 (curpos+0.1 <= 1.0 ? curpos+0.1 : 1.0)];
-			}
+			[metexscroller setDoubleValue:
+			 (curpos+0.1 <= 1.0 ? curpos+0.1 : 1.0)];
 			break;
 		case NSScrollerDecrementPage:
-			if(datasize > x) {
-				[metexscroller setDoubleValue:
-				 (curpos-0.3 >= 0 ? curpos-0.3 : 0.0)];
-			}
+			[metexscroller setDoubleValue:
+			 (curpos-0.3 >= 0 ? curpos-0.3 : 0.0)];
 			break;
 		case NSScrollerDecrementLine:
-			if(datasize > x) {
-				[metexscroller setDoubleValue:
-				 (curpos-0.1 >= 0 ? curpos-0.1 : 0.0)];
-			}
+			[metexscroller setDoubleValue:
+			 (curpos-0.1 >= 0 ? curpos-0.1 : 0.0)];
 			break;
 		case NSScrollerKnobSlot:
 			break;
