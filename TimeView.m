@@ -63,9 +63,6 @@ CGRect convertToCGRect(NSRect inRect);
 
 - (void)addData:(double)data time:(int)msec
 {
-	NSRect therect = [self frame];
-	int x = therect.size.width - OFFSETX * 2;
-
 	if(msec == 0) {
 		if(protdata != NULL)
 			free(protdata);
