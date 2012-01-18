@@ -16,6 +16,7 @@
 	int buffersize;
 	int datasize;
 	int maxscale;
+	int startpos;
 }
 
 - (void)addData:(double)data time:(int)msec;

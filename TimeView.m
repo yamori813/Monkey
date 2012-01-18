@@ -31,13 +31,18 @@ CGRect convertToCGRect(NSRect inRect);
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
 	float vscale = (therect.size.height - OFFSETY * 2) / maxscale;
-	int startpos;
 
 	if(datasize > x) {
-		double value = (double)x / datasize;
-		[metexscroller setKnobProportion:value];
-		[metexscroller setEnabled:YES];
-		startpos = (datasize - x) * [metexscroller doubleValue];
+		if([metexscroller isEnabled] == NO) {
+			[metexscroller setEnabled:YES];
+			[metexscroller setDoubleValue:1.0];
+		} else {
+			double value = (double)x / datasize;
+			[metexscroller setKnobProportion:value];
+			if([metexscroller doubleValue] == 1.0) {
+				startpos = (datasize - x) * [metexscroller doubleValue];
+			}
+		}
 	} else {
 		[metexscroller setEnabled:NO];
 		startpos = 0;
@@ -112,7 +117,7 @@ CGRect convertToCGRect(NSRect inRect);
 		case NSScrollerKnobSlot:
 			break;
 	}
-	NSLog(@"%f", [metexscroller doubleValue]);
+	startpos = (datasize - x) * [metexscroller doubleValue];
 	[self setNeedsDisplay:YES];
 }
 
@@ -130,11 +135,6 @@ CGRect convertToCGRect(NSRect inRect);
 	
 	CGContextMoveToPoint(gc, OFFSETX, OFFSETY);
 	CGContextAddLineToPoint(gc, OFFSETX, OFFSETY + y);
-	int startpos;
-	if(datasize < x)
-		startpos = 0;
-	else
-		startpos = (datasize - x) * [metexscroller doubleValue];
 	int xx = ((startpos / 100) + 1) * 100 - startpos;
 	for(j = 1; j < OFFSETX + x; j += 100) {
 		CGContextMoveToPoint(gc, OFFSETX + j + xx, OFFSETY);
