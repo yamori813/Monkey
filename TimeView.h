@@ -15,10 +15,12 @@
 	double *protdata;
 	int buffersize;
 	int datasize;
-	int maxscale;
+	double minscale;
+	double maxscale;
 	int startpos;
 }
 
+- (void)setScale:(double)min max:(double)max;
 - (void)addData:(double)data time:(int)msec;
 - (IBAction)scroll:(id)sender;
 

@@ -18,19 +18,19 @@ CGRect convertToCGRect(NSRect inRect);
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		maxscale = 12;
+		minscale = 0.0;
+		maxscale = 12.0;
 		protdata = NULL;
     }
     return self;
 }
-
 
 - (void)plotData
 {
 	int i;
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
-	float vscale = (therect.size.height - OFFSETY * 2) / maxscale;
+	float vscale = (therect.size.height - OFFSETY * 2) / (maxscale - minscale);
 
 	if(datasize > x) {
 		if([metexscroller isEnabled] == NO) {
@@ -51,15 +51,22 @@ CGRect convertToCGRect(NSRect inRect);
 	if(startpos < datasize) {
 		CGContextSetRGBStrokeColor(
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
-		CGContextMoveToPoint(gc, OFFSETX, (int)(protdata[startpos]*vscale + OFFSETY));
+		CGContextMoveToPoint(gc, OFFSETX, (int)((protdata[startpos] - minscale)*vscale + OFFSETY));
 		for(i = startpos+1; i < datasize; ++i) {
-			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)(protdata[i]*vscale + OFFSETY));
+			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)((protdata[i] - minscale)*vscale + OFFSETY));
 			if(i-startpos == x)
 				break;
 		}
 		CGContextStrokePath(gc);
 	}
 }
+
+- (void)setScale:(double)min max:(double)max
+{
+	minscale = min;
+	maxscale = max;
+}
+
 
 - (void)addData:(double)data time:(int)msec
 {
@@ -120,7 +127,7 @@ CGRect convertToCGRect(NSRect inRect);
 
 - (void)drawScale:(NSSize) size
 {
-	char strbuf[8];
+	char strbuf[32];
 	int j;
 	int x = size.width - OFFSETX * 2;
 	int y = size.height - OFFSETY * 2;
@@ -156,7 +163,7 @@ CGRect convertToCGRect(NSRect inRect);
 	trans = CGAffineTransformRotate(trans, 3.14/2);
 	CGContextSetTextMatrix(gc, trans);
 	for(j = 0;j <= 4; ++j) {
-		sprintf(strbuf, "%d", maxscale * j / 4);
+		sprintf(strbuf, "%.02f", (maxscale - minscale)* j / 4 + minscale);
 		CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
 	}
 }
