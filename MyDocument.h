@@ -14,6 +14,7 @@
 
 @interface MyDocument : NSDocument {
 	NSData *myData;
+	MyWindowController *myctl;
 }
 
 - (NSData *)getData;

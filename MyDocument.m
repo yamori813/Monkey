@@ -33,7 +33,7 @@
 
 -(void)makeWindowControllers
 {
-	MyWindowController *myctl = [[MyWindowController alloc] initWithWindowNibName:@"MyDocument" owner:self];
+	myctl = [[MyWindowController alloc] initWithWindowNibName:@"MyDocument" owner:self];
 	[self addWindowController:myctl];
 }
 
@@ -50,11 +50,20 @@
     // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
 
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
-
+	NSData *pdfData = [[myctl window] dataWithPDFInsideRect:NSMakeRect(0,0,660,460)];
+	NSImage * myImage = [[NSImage alloc] initWithData:pdfData];
+	NSData *imageData = [myImage TIFFRepresentation];
+	NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData: imageData];
+	NSDictionary* imageProps = [NSDictionary dictionaryWithObject: [NSNumber numberWithFloat: 0.9]
+														   forKey:NSImageCompressionFactor];
+	imageData = [imageRep representationUsingType:NSJPEGFileType properties:imageProps];
+	return imageData;
+	/*
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
 	return nil;
+	 */
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
