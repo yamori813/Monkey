@@ -33,7 +33,7 @@
 			<object class="NSWindowTemplate" id="275939982">
 				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{352, 219}, {648, 440}}</string>
+				<string key="NSWindowRect">{{352, 199}, {660, 460}}</string>
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -48,12 +48,12 @@
 						<object class="NSCustomView" id="62798222">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{20, 20}, {608, 400}}</string>
+							<string key="NSFrame">{{20, 20}, {620, 420}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<string key="NSClassName">WaveView</string>
 						</object>
 					</object>
-					<string key="NSFrameSize">{648, 440}</string>
+					<string key="NSFrameSize">{660, 460}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
@@ -163,12 +163,12 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUGgAABBoAAAA</bytes>
+						<bytes key="NSTransformStruct">AUGgAABCNAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{27, 264}, {648, 440}}</string>
+					<string>{{27, 244}, {660, 460}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{27, 264}, {648, 440}}</string>
+					<string>{{27, 244}, {660, 460}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>

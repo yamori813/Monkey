@@ -221,7 +221,6 @@
 
 -(void)metex_poll
 {
-	unsigned char buf[32];
 	measure_value data;
     NSAutoreleasePool* pool;
     pool = [[NSAutoreleasePool alloc]init];
@@ -235,6 +234,8 @@
 				elapsedNano = AbsoluteToNanoseconds( *(AbsoluteTime *) &tmptime );
 				msec = *(uint64_t *)&elapsedNano;
 				msec /= 1000*1000;
+			} else {
+				[metexview setScale:8.0 max:10.0];
 			}
 			[metexmeter setDoubleValue:data.value];
 			[metexview addData:data.value time:msec];

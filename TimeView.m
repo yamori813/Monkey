@@ -48,7 +48,7 @@ CGRect convertToCGRect(NSRect inRect);
 		startpos = 0;
 	}
 	
-	if(startpos < datasize) {
+	if(datasize > 1) {
 		CGContextSetRGBStrokeColor(
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 		CGContextMoveToPoint(gc, OFFSETX, (int)((protdata[startpos] - minscale)*vscale + OFFSETY));
