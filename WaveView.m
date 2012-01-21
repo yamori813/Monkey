@@ -44,18 +44,35 @@ CGRect convertToCGRect(NSRect inRect)
 	CGContextStrokePath(gc);
 }
 
-- (void)drawWave:(NSData *)thedata
+- (void)plotData
 {
 	int i;
-	unsigned char buff[604];
-	CGContextSetRGBStrokeColor(
-							   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
-	[thedata getBytes:buff length:sizeof(buff)];
-	CGContextMoveToPoint(gc, OFFSETX, 400 - (buff[4] - 28)*2+OFFSETY);
-	for(i = 5; i < 604; ++i) {
-		CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
+	unsigned char *buff;
+	MyDocument *thedoc = [[[self window] windowController] document];
+	if([thedoc getData1] != NULL) {
+		buff = malloc([[thedoc getData1] length]);
+		CGContextSetRGBStrokeColor(
+								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
+		[[thedoc getData1] getBytes:buff length:[[thedoc getData1] length]];
+		CGContextMoveToPoint(gc, OFFSETX, 400 - (buff[4] - 28)*2+OFFSETY);
+		for(i = 5; i < 604; ++i) {
+			CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
+		}
+		CGContextStrokePath(gc);
+		free(buff);
 	}
-	CGContextStrokePath(gc);
+	if([thedoc getData2] != NULL) {
+		buff = malloc([[thedoc getData2] length]);
+		CGContextSetRGBStrokeColor(
+								   gc,236/255.0f,0/255.0f,140/255.0f,1.0f);
+		[[thedoc getData2] getBytes:buff length:[[thedoc getData2] length]];
+		CGContextMoveToPoint(gc, OFFSETX, 400 - (buff[4] - 28)*2+OFFSETY);
+		for(i = 5; i < 604; ++i) {
+			CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
+		}
+		CGContextStrokePath(gc);
+		free(buff);
+	}
 }
 
 - (void)drawRect:(NSRect)rect
@@ -66,9 +83,7 @@ CGRect convertToCGRect(NSRect inRect)
 //	CGContextSetGrayFillColor(gc, 1.0, 1.0);
 	CGContextFillRect(gc, convertToCGRect(rect));
 	[self drawScale:rect.size];
-	MyDocument *thedoc = [[[self window] windowController] document];
-	[self drawWave:[thedoc getData]];
+	[self plotData];
 }
-
 
 @end

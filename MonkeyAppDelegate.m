@@ -96,13 +96,19 @@
 - (IBAction)wave:(id)sender
 {
 //	NSData *wavedata = [[NSData alloc] init];
-	NSData *wavedata = (NSData *)que_wav(1);
+	NSData *wavedata;
+
+	MyDocument *mydoc = [[MyDocument alloc] init];
+	[mydoc makeWindowControllers];
+	wavedata = (NSData *)que_wav(1);
 	if(wavedata != NULL && [wavedata length] == 604) {
-		MyDocument *mydoc = [[MyDocument alloc] init];
-		[mydoc makeWindowControllers];
-		[mydoc readFromData:wavedata ofType:@"WAVE" error:NULL];
-		[mydoc showWindows];
+		[mydoc readFromData:wavedata ofType:@"CH1" error:NULL];
 	}
+	wavedata = (NSData *)que_wav(2);
+	if(wavedata != NULL && [wavedata length] == 604) {
+		[mydoc readFromData:wavedata ofType:@"CH2" error:NULL];
+	}
+	[mydoc showWindows];
 }
 
 //
@@ -217,7 +223,6 @@
 		[sender setTitle:@"Start"];
 	}
 }
-
 
 -(void)metex_poll
 {

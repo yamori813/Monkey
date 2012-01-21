@@ -17,7 +17,8 @@
     
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
-    
+		myData1 = NULL;
+		myData2 = NULL;
     }
     return self;
 }
@@ -81,7 +82,12 @@
     
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
     
-	myData = [[NSData dataWithData:data] retain];
+	if([typeName isEqualToString:@"CH1"] == YES) {
+		myData1 = [[NSData dataWithData:data] retain];
+	}
+	if([typeName isEqualToString:@"CH2"] == YES) {
+		myData2 = [[NSData dataWithData:data] retain];
+	}
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
@@ -120,8 +126,13 @@
 	return namestr;
 }
 
-- (NSData *)getData
+- (NSData *)getData1
 {
-	return myData;
+	return myData1;
+}
+
+- (NSData *)getData2
+{
+	return myData2;
 }
 @end

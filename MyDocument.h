@@ -13,13 +13,15 @@
 
 
 @interface MyDocument : NSDocument {
-	NSData *myData;
+	NSData *myData1;
+	NSData *myData2;
 	MyWindowController *myctl;
 	NSSavePanel*		savePanel;
 	IBOutlet NSView*	saveDialogCustomView;
 	IBOutlet NSPopUpButton *fileTypePopup;
 }
 
-- (NSData *)getData;
+- (NSData *)getData1;
+- (NSData *)getData2;
 
 @end
