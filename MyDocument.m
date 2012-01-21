@@ -54,9 +54,16 @@
 	NSImage * myImage = [[NSImage alloc] initWithData:pdfData];
 	NSData *imageData = [myImage TIFFRepresentation];
 	NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData: imageData];
-	NSDictionary* imageProps = [NSDictionary dictionaryWithObject: [NSNumber numberWithFloat: 0.9]
-														   forKey:NSImageCompressionFactor];
-	imageData = [imageRep representationUsingType:NSJPEGFileType properties:imageProps];
+	if([fileTypePopup indexOfSelectedItem] == 0) {
+		NSDictionary* imageProps = [NSDictionary dictionaryWithObject: [NSNumber numberWithFloat: 0.9]
+															   forKey:NSImageCompressionFactor];
+		imageData = [imageRep representationUsingType:NSJPEGFileType properties:imageProps];
+	} else {
+		NSDictionary* imageProps = [NSDictionary
+		 dictionaryWithObject:[NSNumber numberWithBool:YES]
+		 forKey:NSImageInterlaced];
+		imageData = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
+	}
 	return imageData;
 	/*
     if ( outError != NULL ) {
@@ -79,6 +86,38 @@
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
     return YES;
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel*)inSavePanel
+{
+	// here we explicitly want to always start in the user's home directory,
+	// If we don't set this, then the save panel will remember the last visited
+	// directory, which is generally preferred.
+	//
+//	[inSavePanel setDirectory: NSHomeDirectory()];
+	
+	[inSavePanel setDelegate: self];	// allows us to be notified of save panel events
+	
+	[inSavePanel setAccessoryView: saveDialogCustomView];	// add our custom view
+	[inSavePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"jpg",@"png",nil ]];
+
+//	[inSavePanel setNameFieldLabel:@"FILE NAME:"];			// override the file name label
+//	[inSavePanel setMessage:@"This is a customized save dialog for saving text files:"];
+	
+	savePanel = inSavePanel;	// keep track of the save panel for later
+	
+    return YES;
+}
+
+- (NSString*)panel:(id)sender userEnteredFilename:(NSString*)filename confirmed:(BOOL)okFlag
+{
+	NSString *namestr;
+	if([fileTypePopup indexOfSelectedItem] == 0)
+		namestr = [NSString stringWithFormat:@"%@.jpg",filename];
+	else
+		namestr = [NSString stringWithFormat:@"%@.png",filename];
+
+	return namestr;
 }
 
 - (NSData *)getData

@@ -15,6 +15,9 @@
 @interface MyDocument : NSDocument {
 	NSData *myData;
 	MyWindowController *myctl;
+	NSSavePanel*		savePanel;
+	IBOutlet NSView*	saveDialogCustomView;
+	IBOutlet NSPopUpButton *fileTypePopup;
 }
 
 - (NSData *)getData;
