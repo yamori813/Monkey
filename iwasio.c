@@ -168,6 +168,24 @@ CFStringRef que_scale(int ch)
 	return NULL;
 }
 
+CFStringRef que_timebasoffset()
+{
+	char data[128];
+	
+	strcpy(data, ":TIMebase:DELayed:OFFSet?\n");
+	write(iwatsu_port, data, strlen(data));
+	
+	if(getresponse(data, sizeof(data))) {
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
 CFStringRef que_timebasescale()
 {
 	char data[128];

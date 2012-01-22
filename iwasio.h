@@ -15,6 +15,7 @@ int que_idn();
 int que_samplingrate(int ch);
 CFStringRef que_offset(int ch);
 CFStringRef que_scale(int ch);
+CFStringRef que_timebasoffset();
 CFStringRef que_timebasescale();
 CFStringRef que_triggermode();
 CFStringRef que_triggersource(CFStringRef mode);
