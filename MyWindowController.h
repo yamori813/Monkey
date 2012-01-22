@@ -10,5 +10,6 @@
 
 
 @interface MyWindowController : NSWindowController {
+	NSString *titlestr;
 }
 @end
