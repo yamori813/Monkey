@@ -29,17 +29,26 @@ CGRect convertToCGRect(NSRect inRect)
 	int j;
 	int x = size.width - OFFSETX * 2;
 	int y = size.height - OFFSETY * 2;
-	CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.3);
 	for(j = 0;j <= 8; ++j) {
+		if(j == 4)
+			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
+		else
+			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.3);
 		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + j * y / 8);
 		CGContextAddLineToPoint(gc, OFFSETX + x, OFFSETY + j * y / 8);
+		CGContextStrokePath(gc);
 	}
 	
 	CGContextMoveToPoint(gc, OFFSETX, OFFSETY);
 	CGContextAddLineToPoint(gc, OFFSETX, OFFSETY + y);
 	for(j = 1; j <= 12; j += 1) {
+		if(j == 6)
+			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
+		else
+			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.3);
 		CGContextMoveToPoint(gc, OFFSETX + j*x/12, OFFSETY);
 		CGContextAddLineToPoint(gc, OFFSETX + j*x/12, OFFSETY + y);
+		CGContextStrokePath(gc);
 	}
 	MyDocument *thedoc = [[[self window] windowController] document];
 	ds5100_info *info = [thedoc getInfo];
