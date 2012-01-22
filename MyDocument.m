@@ -126,6 +126,12 @@
 	return namestr;
 }
 
+- (void)setFileURL:(NSURL *)absoluteURL
+{
+	// for not set proxy icon on window title
+	// my be this method call NSWindow setRepresentedFilename by default
+}
+
 - (NSData *)getData1
 {
 	return myData1;
