@@ -13,6 +13,7 @@
 
 
 @interface MyDocument : NSDocument {
+	ds5100_info *info;
 	NSData *myData1;
 	NSData *myData2;
 	MyWindowController *myctl;

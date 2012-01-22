@@ -14,3 +14,11 @@ typedef struct measure_value {
 	double value;
 	int unittype;
 } measure_value;
+
+typedef struct ds5100_info {
+	double ch1scale;
+	double ch2scale;
+	double ch1offset;
+	double ch2offset;
+	double timebasescale;
+} ds5100_info;

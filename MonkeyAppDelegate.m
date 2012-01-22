@@ -10,8 +10,6 @@
 
 #import "MyDocument.h"
 
-#include "monkey.h"
-
 #include "iwasio.h"
 #include "serial.h"
 #include "ftgpib.h"
@@ -95,11 +93,18 @@
 
 - (IBAction)wave:(id)sender
 {
-//	NSData *wavedata = [[NSData alloc] init];
 	NSData *wavedata;
 
 	MyDocument *mydoc = [[MyDocument alloc] init];
 	[mydoc makeWindowControllers];
+	ds5100_info info;
+	info.ch1scale = [(NSString *)que_scale(1) doubleValue];
+	info.ch2scale = [(NSString *)que_scale(2) doubleValue];
+	info.ch1offset = [(NSString *)que_offset(1) doubleValue];
+	info.ch2offset = [(NSString *)que_offset(2) doubleValue];
+	info.timebasescale = [(NSString *)que_timebasescale() doubleValue];
+	[mydoc readFromData:[NSData dataWithBytes:&info length:sizeof(ds5100_info)]
+				 ofType:@"INFO" error:NULL];
 	wavedata = (NSData *)que_wav(1);
 	if(wavedata != NULL && [wavedata length] == 604) {
 		[mydoc readFromData:wavedata ofType:@"CH1" error:NULL];

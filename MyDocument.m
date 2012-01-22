@@ -17,6 +17,7 @@
     
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
+		info = malloc(sizeof(ds5100_info));
 		myData1 = NULL;
 		myData2 = NULL;
     }
@@ -82,11 +83,20 @@
     
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
     
+	if([typeName isEqualToString:@"INFO"] == YES) {
+		[data getBytes:info];
+		NSLog(@"MORI MORI readFromData %f", info->ch1scale);
+		NSLog(@"MORI MORI readFromData %f", info->ch2scale);
+		NSLog(@"MORI MORI readFromData %f", info->ch1offset);
+		NSLog(@"MORI MORI readFromData %f", info->ch2offset);
+		NSLog(@"MORI MORI readFromData %f", info->timebasescale);
+	}
+	
 	if([typeName isEqualToString:@"CH1"] == YES) {
-		myData1 = [[NSData dataWithData:data] retain];
+		myData1 = [[NSData alloc ] initWithData:data];
 	}
 	if([typeName isEqualToString:@"CH2"] == YES) {
-		myData2 = [[NSData dataWithData:data] retain];
+		myData2 = [[NSData alloc ] initWithData:data];
 	}
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -130,6 +140,11 @@
 {
 	// for not set proxy icon on window title
 	// my be this method call NSWindow setRepresentedFilename by default
+}
+
+- (ds5100_info *)getInfo
+{
+	return info;
 }
 
 - (NSData *)getData1

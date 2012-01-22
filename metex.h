@@ -8,5 +8,3 @@
  */
 
 #include <Carbon/Carbon.h>
-
-#include "monkey.h"

@@ -41,6 +41,24 @@ CGRect convertToCGRect(NSRect inRect)
 		CGContextMoveToPoint(gc, OFFSETX + j*x/12, OFFSETY);
 		CGContextAddLineToPoint(gc, OFFSETX + j*x/12, OFFSETY + y);
 	}
+	MyDocument *thedoc = [[[self window] windowController] document];
+	ds5100_info *info = [thedoc getInfo];
+	CGContextSetTextDrawingMode(gc, kCGTextFill);
+	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
+	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
+
+	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
+	sprintf(strbuf, "CH1 %f V", info->ch1scale);
+	CGContextShowTextAtPoint(gc, OFFSETX, 2, strbuf, strlen(strbuf));
+
+	CGContextSetRGBFillColor( gc,236/255.0f,0/255.0f,140/255.0f,1.0f);
+	sprintf(strbuf, "CH2 %f V", info->ch2scale);
+	CGContextShowTextAtPoint(gc, OFFSETX + 100, 2, strbuf, strlen(strbuf));
+
+	CGContextSetRGBFillColor( gc, 255, 255, 255, 1.0f);
+	sprintf(strbuf, "Time %f S", info->timebasescale);
+	CGContextShowTextAtPoint(gc, OFFSETX + 200, 2, strbuf, strlen(strbuf));
+
 	CGContextStrokePath(gc);
 }
 
