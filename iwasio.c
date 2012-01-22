@@ -132,6 +132,24 @@ int que_samplingrate(int ch)
 	return 0;
 }
 
+CFStringRef que_offset(int ch)
+{
+	char data[128];
+	
+	sprintf(data, ":CHANnel%d:OFFSet?\n", ch);
+	write(iwatsu_port, data, strlen(data));
+	
+	if(getresponse(data, sizeof(data))) {
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
 CFStringRef que_scale(int ch)
 {
 	char data[128];
@@ -140,7 +158,6 @@ CFStringRef que_scale(int ch)
 	write(iwatsu_port, data, strlen(data));
 	
 	if(getresponse(data, sizeof(data))) {
-		printf("%s\n", data);
 		CFStringRef cfStringRef; 
 		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
 												data, 
@@ -159,7 +176,72 @@ CFStringRef que_timebasescale()
 	write(iwatsu_port, data, strlen(data));
 	
 	if(getresponse(data, sizeof(data))) {
-		printf("%s\n", data);
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
+CFStringRef que_triggermode()
+{
+	char data[128];
+	
+	strcpy(data, ":TRIGger:MODE?\n");
+	write(iwatsu_port, data, strlen(data));
+	
+	if(getresponse(data, sizeof(data))) {
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
+CFStringRef que_triggersource(CFStringRef mode)
+{
+	char data[128];
+	char modestr[1024];
+	
+    CFStringGetCString(mode,
+					   modestr,
+					   1024, 
+					   kCFStringEncodingASCII);
+	
+	sprintf(data, ":TRIGger:%s:SOURce?\n", modestr);
+	write(iwatsu_port, data, strlen(data));
+	
+	if(getresponse(data, sizeof(data))) {
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
+CFStringRef que_triggerlevel(CFStringRef mode)
+{
+	char data[128];
+	char modestr[1024];
+	
+    CFStringGetCString(mode,
+					   modestr,
+					   1024, 
+					   kCFStringEncodingASCII);
+	
+	sprintf(data, ":TRIGger:%s:LEVel?\n", modestr);
+	write(iwatsu_port, data, strlen(data));
+	
+	if(getresponse(data, sizeof(data))) {
 		CFStringRef cfStringRef; 
 		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
 												data, 
