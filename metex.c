@@ -51,18 +51,18 @@ int metex_value(measure_value *data)
 	}
 	readsize = read(metex_port, buf, sizeof(buf));
 
-//	int i;
-//	printf("%d: ", readsize);
-//	for(i = 0; i < readsize; ++i) {
-//		printf("%02x ", buf[i]);
-//	}
-//	printf("\n");
+	int i;
+	printf("%d: ", readsize);
+	for(i = 0; i < readsize; ++i) {
+		printf("%02x ", buf[i]);
+	}
+	printf("\n");
 	
 	int value = (buf[1] - '0') * 1000 + (buf[2] - '0') * 100 + (buf[3] - '0') * 10 + (buf[4] - '0');
+	printf("%d %d %f %02x\n", value, (buf[0] - 0x60), value * pow(10, (buf[0] - 0x66)/2), buf[5]);
 
 	// DC V
 	if(buf[5] == 0x3b) {
-//		printf("%d %d %f V\n", value, (buf[0] - 0x60), value * pow(10, (buf[0] - 0x66)/2));
 		if(value != 6000) {
 			data->value = value * pow(10, (buf[0] - 0x66)/2);
 			result = 1;
@@ -71,13 +71,29 @@ int metex_value(measure_value *data)
 			result = 0;
 		}
 		data->unittype = UNIT_VOLT;
-	// R
-	} else if(buf[5] == 0x3b) {
-		printf("%d %d %f OHM\n", value, (buf[0] - 0x60), value * pow(10, (buf[0] - 0x68)/2));
-	} else if(buf[5] == 0x3e)	// Lux
-		printf("%d Lux\n", value, (buf[0] - 0x60));
-	else if(buf[5] == 0x3c)	// Lux
-		printf("%d %f db\n", value, (double)value / 10);
+	} else if(buf[5] == 0x34) {
+		// Temp
+		data->value = value;
+		data->unittype = UNIT_C;
+	} else if(buf[5] == 0x33) {
+		// R
+		if(value != 6000) {
+			data->value = value * pow(10, (buf[0] - 0x62)/2);
+			result = 1;
+		} else {
+			data->value = 0.0;
+			result = 0;
+		}
+		data->unittype = UNIT_OHM;
+	} else if(buf[5] == 0x3c) {
+		// dB
+		data->value = (double)value / 10;
+		data->unittype = UNIT_dB;
+	} else if(buf[5] == 0x3e)	{
+		// Lux
+		data->value = value;
+		data->unittype = UNIT_LUX;
+	}
 	
 	return result;
 }

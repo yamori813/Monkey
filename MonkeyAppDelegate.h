@@ -48,6 +48,8 @@
 - (IBAction)gpib_ifc:(id)sender;
 - (IBAction)gpib_dcl:(id)sender;
 - (IBAction)gpib_sdc:(id)sender;
+- (IBAction)gpib_get:(id)sender;
+- (IBAction)gpib_tct:(id)sender;
 - (IBAction)gpib_listen:(id)sender;
 - (IBAction)gpib_talk:(id)sender;
 - (IBAction)gpib_close:(id)sender;

@@ -279,7 +279,7 @@ int ftgpib_llo()
 // address command
 //
 
-int ftgpib_sdc(int taraddr)
+int ftgpib_addrcmd(int taraddr, int cmd)
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
@@ -306,7 +306,7 @@ int ftgpib_sdc(int taraddr)
 		goto atn;
 	}
 
-	if(ftgpib_write(SDC) != 0) {
+	if(ftgpib_write(cmd) != 0) {
 		result = 0;
 		goto atn;
 	}
@@ -319,44 +319,19 @@ atn:
 	return result;
 }
 
+int ftgpib_sdc(int taraddr)
+{
+	return ftgpib_addrcmd(taraddr, SDC);
+}
+
 int ftgpib_get(int taraddr)
 {
-	FT_STATUS	ftStatus;
-	DWORD writesize;
-	int result;
+	return ftgpib_addrcmd(taraddr, GET);
+}
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
-		return 0;
-
-	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-	
-	if(ftgpib_write(UNL) != 0) {
-		result = 0;
-		goto atn;
-	}
-	
-	if(ftgpib_write(0x40 + myaddr) != 0) {
-		result = 0;
-		goto atn;
-	}
-
-	if(ftgpib_write(0x20 + taraddr) != 0) {
-		result = 0;
-		goto atn;
-	}
-
-	if(ftgpib_write(GET) != 0) {
-		result = 0;
-		goto atn;
-	} 
-	result = 1;
-
-atn:
-	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
-	
-	return result;
+int ftgpib_tct(int taraddr)
+{
+	return ftgpib_addrcmd(taraddr, TCT);
 }
 
 //

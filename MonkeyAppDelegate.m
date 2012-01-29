@@ -156,6 +156,20 @@
 	}
 }
 
+- (IBAction)gpib_get:(id)sender
+{
+	if(ftgpib_get([gpibaddr intValue]) == 0) {
+		printf("gpib error on get\n");
+	}
+}
+
+- (IBAction)gpib_tct:(id)sender
+{
+	if(ftgpib_tct([gpibaddr intValue]) == 0) {
+		printf("gpib error on tct\n");
+	}
+}
+
 - (IBAction)gpib_listen:(id)sender
 {
 	char buf[128];
@@ -190,7 +204,6 @@
 	if(ftgpib_talk([gpibaddr intValue], buf, 
 					 [sender state] == NSOnState ? 1 : 0) == 0) {
 		printf("gpib error on talk\n");
-		return;
 	}
 }
 
@@ -245,7 +258,8 @@
 				msec = *(uint64_t *)&elapsedNano;
 				msec /= 1000*1000;
 			} else {
-				[metexview setScale:8.0 max:10.0];
+//				[metexview setScale:11.0 max:13.0];
+				[metexview setScale:0.0 max:200000.0];
 			}
 			[metexmeter setDoubleValue:data.value];
 			[metexview addData:data.value time:msec];

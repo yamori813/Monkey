@@ -75,6 +75,7 @@ int ftgpib_dcl();
 int ftgpib_llo();
 int ftgpib_sdc(int taraddr);
 int ftgpib_get(int taraddr);
+int ftgpib_tct(int taraddr);
 int ftgpib_talk(int taraddr, char *buf, int useeoi);
 int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi);
 int ftgpib_init(int addr, int ftdev);

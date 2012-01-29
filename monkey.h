@@ -9,6 +9,9 @@
 #define UNIT_VOLT	1
 #define UNIT_AMPERE	2
 #define UNIT_OHM	3
+#define UNIT_C		4
+#define UNIT_LUX	5
+#define UNIT_dB		6
 
 typedef struct measure_value {
 	double value;
