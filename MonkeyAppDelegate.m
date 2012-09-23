@@ -244,6 +244,7 @@
 
 -(void)metex_poll
 {
+	int interval = 0;
 	measure_value data;
     NSAutoreleasePool* pool;
     pool = [[NSAutoreleasePool alloc]init];
@@ -264,6 +265,12 @@
 			[metexmeter setDoubleValue:data.value];
 			[metexview addData:data.value time:msec];
 			metexlasttime = curtime;
+			if((interval % 10) == 0) {
+				printf("speech %f\n", data.value);
+				NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
+				[synthesizer startSpeakingString:[NSString stringWithFormat:@"%d", (int)data.value]];
+			}
+			++interval;
 		}
 //		printf("%f %d\n", data.value, data.unittype);
 	} while(!metex_willstop);
@@ -271,5 +278,4 @@
     [pool release];
     [NSThread exit];
 }
-
 @end
