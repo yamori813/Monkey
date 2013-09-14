@@ -16,8 +16,8 @@
 #include <string.h>
 
 // Globals
-FT_HANDLE ftHandleA = NULL;
-FT_HANDLE ftHandleB = NULL;
+FT_HANDLE ctrlHandle = NULL;
+FT_HANDLE dataHandle = NULL;
 
 unsigned char outline;
 int myaddr;
@@ -31,7 +31,7 @@ int ftgpib_write(unsigned char data)
 	int retry;
 
 	for(retry = 0;;) {	// wait for NDAC Lo
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if(!(stat & (1 << NDAC)))
 			break;
 		++retry;
@@ -42,10 +42,10 @@ int ftgpib_write(unsigned char data)
 
 	// data output
 	revdata = ~data;
-	ftStatus = FT_Write(ftHandleB, &revdata, 1, &writesize);
+	ftStatus = FT_Write(dataHandle, &revdata, 1, &writesize);
 
 	for(retry = 0;;) {	// wait for NRFD Hi
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if((stat & (1 << NRFD)))
 			break;
 		++retry;
@@ -56,10 +56,10 @@ int ftgpib_write(unsigned char data)
 
 	// DAV to Lo
 	outline = outline & ~(1 << DAV);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	for(retry = 0;;) {	// wait for NDAC Hi
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if((stat & (1 << NDAC)))
 			break;
 		++retry;
@@ -70,10 +70,10 @@ int ftgpib_write(unsigned char data)
 	
 	// DAV to Hi
 	outline = outline | (1 << DAV);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	for(retry = 0;;) {	// wait for NDAC Lo
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if(!(stat & (1 << NDAC)))
 			break;
 		++retry;
@@ -96,10 +96,10 @@ int ftgpib_read(unsigned char *data)
 
 	// NRFD to Hi
 	outline = outline | (1 << NRFD);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	for(retry = 0;;) {	// wait for DAV Lo
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if(!(stat & (1 << DAV)))
 			break;
 		++retry;
@@ -110,12 +110,12 @@ int ftgpib_read(unsigned char *data)
 	
 	// NRFD to Lo
 	outline = outline & ~(1 << NRFD);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	
-	ftStatus = FT_GetBitMode(ftHandleB, &revdata);
+	ftStatus = FT_GetBitMode(dataHandle, &revdata);
 	*data = ~revdata;
 	
-	ftStatus = FT_GetBitMode(ftHandleA, &stat);
+	ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 	if(stat & (1 << EOI)) {
 		result = 1;
 	} else {
@@ -124,10 +124,10 @@ int ftgpib_read(unsigned char *data)
 
 	// NDAC to Hi
 	outline = outline | (1 << NDAC);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	for(retry = 0;;) {	// wait for DAV Hi
-		ftStatus = FT_GetBitMode(ftHandleA, &stat);
+		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if((stat & (1 << DAV)))
 			break;
 		++retry;
@@ -137,7 +137,7 @@ int ftgpib_read(unsigned char *data)
 	};
 	
 	outline = outline & ~(1 << NDAC);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return result;
 }
@@ -146,18 +146,18 @@ int ftgpib_settalker()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
-	ftStatus = FT_SetBitMode(ftHandleA, (unsigned char)SETTALKER, 0x01);
+	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)SETTALKER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
 		return 0;
 	}
-	ftStatus = FT_SetBitMode(ftHandleB, 0xff, 0x01);
+	ftStatus = FT_SetBitMode(dataHandle, 0xff, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
 		return 0;
 	}
 	outline = SETTALKER;
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return 1;
 }
@@ -165,18 +165,18 @@ int ftgpib_settalker()
 int ftgpib_setlistener()
 {
 	FT_STATUS	ftStatus;
-	ftStatus = FT_SetBitMode(ftHandleA, (unsigned char)SETLISTENER, 0x01);
+	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)SETLISTENER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
 		return 0;
 	}
-	ftStatus = FT_SetBitMode(ftHandleB, 0x00, 0x01);
+	ftStatus = FT_SetBitMode(dataHandle, 0x00, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
 		return 0;
 	}
 //	outline = SETLISTENER;
-//	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return 1;
 }
@@ -191,18 +191,18 @@ int ftgpib_ifc()
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 	
 	ftgpib_settalker();
 
 	// IFC to Lo
 	outline = outline & ~(1 << IFC);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	// may be 500us pause
 	// IFC to Hi
 	outline = outline | (1 << IFC);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return 1;
 }
@@ -212,7 +212,7 @@ int ftgpib_ren(int val)
 	FT_STATUS	ftStatus;
 	DWORD writesize;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 	
 	if(val == 0) {
@@ -220,7 +220,7 @@ int ftgpib_ren(int val)
 	} else {
 		outline = outline | (1 << REN);
 	}
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return 1;
 }
@@ -235,11 +235,11 @@ int ftgpib_dcl()
 	DWORD writesize;
 	int result;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 
 	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	if(ftgpib_write(DCL) == 0)
 		result = 1;
@@ -247,7 +247,7 @@ int ftgpib_dcl()
 		result = 0;
 
 	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return result;
 }
@@ -258,11 +258,11 @@ int ftgpib_llo()
 	DWORD writesize;
 	int result;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 
 	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	
 	if(ftgpib_write(LLO) == 0)
 		result = 1;
@@ -270,7 +270,7 @@ int ftgpib_llo()
 		result = 0;
 	
 	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return result;
 }
@@ -285,11 +285,11 @@ int ftgpib_addrcmd(int taraddr, int cmd)
 	DWORD writesize;
 	int result;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 
 	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
@@ -314,7 +314,7 @@ int ftgpib_addrcmd(int taraddr, int cmd)
 
 atn:
 	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
 	return result;
 }
@@ -346,11 +346,11 @@ int ftgpib_talk(int taraddr, char *buf, int useeoi)
 	int i;
 	int result = 1;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 
 	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
@@ -370,7 +370,7 @@ int ftgpib_talk(int taraddr, char *buf, int useeoi)
 atn:
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	if(result == 0)
 		return result;
 	
@@ -382,14 +382,14 @@ atn:
 	}
 	if(useeoi) {
 		outline = outline & ~(1 << EOI);
-		ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+		ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	}
 	++i;
 	if(ftgpib_write(buf[i]) != 0)
 		return 0;
 	if(useeoi) {
 		outline = outline | (1 << EOI);
-		ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+		ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	}
 	
 	return 1;
@@ -404,12 +404,12 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 	char *tmpptr;
 	int result = 1;
 
-	if(ftHandleA == NULL || ftHandleB == NULL)
+	if(ctrlHandle == NULL || dataHandle == NULL)
 		return 0;
 
 	tmpptr = buf;
 	outline = outline & ~(1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
@@ -430,7 +430,7 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 atn:
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
-	ftStatus = FT_Write(ftHandleA, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	if(result == 0)
 		return result;
 	
@@ -457,7 +457,12 @@ atn:
 int ftgpib_init(int addr, int ftdev)
 {
 	FT_STATUS	ftStatus;
-	ftStatus = FT_Open(ftdev, &ftHandleA);
+
+#if DATAPORT == 0
+	ftStatus = FT_Open(ftdev, &dataHandle);
+#else
+	ftStatus = FT_Open(ftdev, &ctrlHandle);
+#endif
 	if(ftStatus != FT_OK) {
 		/* 
 		 This can fail if the ftdi_sio driver is loaded
@@ -467,15 +472,19 @@ int ftgpib_init(int addr, int ftdev)
 		printf("FT_Open failed = %d\n", ftStatus);
 		return 0;
 	}
-	ftStatus = FT_Open(ftdev+1, &ftHandleB);
+#if DATAPORT == 0
+	ftStatus = FT_Open(ftdev+1, &ctrlHandle);
+#else
+	ftStatus = FT_Open(ftdev+1, &dataHandle);
+#endif
 	if(ftStatus != FT_OK) {
 		/* 
 		 This can fail if the ftdi_sio driver is loaded
 		 use lsmod to check this and rmmod ftdi_sio to remove
 		 also rmmod usbserial
 		 */
-		FT_Close(ftHandleA);
-		ftHandleA = NULL;
+		FT_Close(ctrlHandle);
+		ctrlHandle = NULL;
 		printf("FT_Open failed = %d\n", ftStatus);
 		return 0;
 	}
@@ -483,7 +492,7 @@ int ftgpib_init(int addr, int ftdev)
 	
 	myaddr = addr;
 	/*
-	 ftStatus = FT_SetBaudRate(ftHandleA, 9600);
+	 ftStatus = FT_SetBaudRate(ctrlHandle, 9600);
 	 if(ftStatus != FT_OK) {
 	 printf("Failed to FT_SetBaudRate\n");	
 	 return 0;
@@ -500,13 +509,13 @@ int ftgpib_init(int addr, int ftdev)
 void ftgpib_close()
 {
 	printf("Close FT\n");
-	if(ftHandleA != NULL) {
-		FT_Close(ftHandleA);
-		ftHandleA = NULL;
+	if(ctrlHandle != NULL) {
+		FT_Close(ctrlHandle);
+		ctrlHandle = NULL;
 	}
-	if(ftHandleB != NULL) {
-		FT_Close(ftHandleB);
-		ftHandleB = NULL;
+	if(dataHandle != NULL) {
+		FT_Close(dataHandle);
+		dataHandle = NULL;
 	}
 }
 
@@ -519,7 +528,7 @@ void ftgpib_debug()
 	FT_STATUS	ftStatus;
 	unsigned char buf[1];
 	
-	ftStatus = FT_GetBitMode(ftHandleA, buf);
+	ftStatus = FT_GetBitMode(ctrlHandle, buf);
 	if(ftStatus != FT_OK) {
 		printf("FT_GetBitMode failed = %d\n", ftStatus);
 		return;

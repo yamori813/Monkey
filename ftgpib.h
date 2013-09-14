@@ -7,18 +7,16 @@
  *
  */
 
-// A
+#define DATAPORT 0  // 0=A, 1=B
 
-#define EOI   7    // 5 OUT
-#define DAV   6    // 6 IN/OUT
-#define NRFD  5    // 7 IN/OUT
-#define NDAC  4    // 8 IN/OUT
-#define IFC   3    // 9 OUT
-#define SRQ   2    // 10 IN
-#define ATN   1    // 11 OUT
-#define REN   0    // 17 OUT
-
-// B
+#define EOI   6    // 5 OUT
+#define DAV   3    // 6 IN/OUT
+#define NRFD  4    // 7 IN/OUT
+#define NDAC  5    // 8 IN/OUT
+#define IFC   0    // 9 OUT
+#define SRQ   7    // 10 IN
+#define ATN   2    // 11 OUT
+#define REN   1    // 17 OUT
 
 #define DIO1  0    // 1 IN/OUT
 #define DIO2  1    // 2 IN/OUT

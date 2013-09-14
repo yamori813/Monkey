@@ -16,14 +16,14 @@
 		F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51C14AD453100F2EBAE /* MyDocument.m */; };
 		F587F60514AD5C1A00F2EBAE /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F587F60314AD5C1A00F2EBAE /* MyDocument.xib */; };
 		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
-		F5A16B1A14B1916400DF1C26 /* libftd2xx.1.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */; };
-		F5A16B2E14B1918D00DF1C26 /* libftd2xx.1.1.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
 		F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4E0614B2FD2400D8CC61 /* metex.c */; };
+		F5F19EFA17E3FDC200A3C110 /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
+		F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +33,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F5A16B2E14B1918D00DF1C26 /* libftd2xx.1.1.0.dylib in CopyFiles */,
+				F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,6 @@
 		F588012314BB2A8800850BD0 /* monkey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = monkey.h; sourceTree = "<group>"; };
 		F59FC82314A9E99F00AC50E3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
-		F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.1.1.0.dylib; sourceTree = "<group>"; };
 		F5A7229414BA70F70035F5B8 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
 		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		F5B5C14514AFFF6B002E5677 /* ftgpib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftgpib.h; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 		F5DB614614A6E4EC00218ED2 /* iwasio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwasio.h; sourceTree = "<group>"; };
 		F5DD4E0514B2FD2400D8CC61 /* metex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metex.h; sourceTree = "<group>"; };
 		F5DD4E0614B2FD2400D8CC61 /* metex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = metex.c; sourceTree = "<group>"; };
+		F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */,
-				F5A16B1A14B1916400DF1C26 /* libftd2xx.1.1.0.dylib in Frameworks */,
+				F5F19EFA17E3FDC200A3C110 /* libftd2xx.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +186,7 @@
 		F5B5C13C14AFFF23002E5677 /* My Framework */ = {
 			isa = PBXGroup;
 			children = (
-				F5A16B1914B1916400DF1C26 /* libftd2xx.1.1.0.dylib */,
+				F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */,
 			);
 			name = "My Framework";
 			sourceTree = "<group>";
