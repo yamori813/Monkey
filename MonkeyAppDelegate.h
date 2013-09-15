@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "TimeView.h"
+#import "BigWindow.h"
 
 @interface MonkeyAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
@@ -31,10 +32,15 @@
 	IBOutlet NSTextField *metexmeter;
 	IBOutlet TimeView *metexview;
 	uint64_t metexlasttime;
+
+	IBOutlet NSMenuItem *voiceMenu;
+
+	IBOutlet BigWindow *bigWin;
 	
 	int metex_willstop;
 }
 
+- (IBAction)big:(id)sender;
 - (IBAction)open:(id)sender;
 - (IBAction)grid:(id)sender;
 - (IBAction)keylock:(id)sender;

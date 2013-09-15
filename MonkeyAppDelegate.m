@@ -36,6 +36,19 @@
 	NSLog(@"MORI MORI Debug");
 }
 
+- (IBAction)big:(id)sender
+{
+//	[bigWin setAlphaValue:0.7];
+
+	NSSize screensize = [[NSScreen mainScreen] frame].size;
+	[bigWin setFrame:NSMakeRect(100,
+								screensize.height/2-100.0,
+								screensize.width-200.0,
+								200.0) display:NO];
+	[bigWin makeKeyAndOrderFront:nil];
+	NSLog(@"%f", screensize.width);
+}
+
 - (IBAction)open:(id)sender
 {
 	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title], 
@@ -61,6 +74,10 @@
 	ftgpib_close();
 
 	iwatsu_close();
+}
+
+- (IBAction)dummy:(id)sender
+{
 }
 
 - (IBAction)grid:(id)sender

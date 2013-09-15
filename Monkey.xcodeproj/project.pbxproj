@@ -18,6 +18,8 @@
 		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
+		F5CAB1DF17E5452F005E8F84 /* BigView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CAB1DE17E5452F005E8F84 /* BigView.m */; };
+		F5CAB22817E54772005E8F84 /* BigWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CAB22717E54772005E8F84 /* BigWindow.m */; };
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
@@ -64,6 +66,10 @@
 		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		F5B5C14514AFFF6B002E5677 /* ftgpib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftgpib.h; sourceTree = "<group>"; };
 		F5B5C14614AFFF6B002E5677 /* ftgpib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgpib.c; sourceTree = "<group>"; };
+		F5CAB1DD17E5452F005E8F84 /* BigView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigView.h; sourceTree = "<group>"; };
+		F5CAB1DE17E5452F005E8F84 /* BigView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigView.m; sourceTree = "<group>"; };
+		F5CAB22617E54772005E8F84 /* BigWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigWindow.h; sourceTree = "<group>"; };
+		F5CAB22717E54772005E8F84 /* BigWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigWindow.m; sourceTree = "<group>"; };
 		F5DB5DF214A6A1E000218ED2 /* iwasio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwasio.c; sourceTree = "<group>"; };
 		F5DB5E7D14A6BB9900218ED2 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
 		F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -101,6 +107,10 @@
 				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
 				F5A7229414BA70F70035F5B8 /* TimeView.h */,
 				F5A7229514BA70F70035F5B8 /* TimeView.m */,
+				F5CAB1DD17E5452F005E8F84 /* BigView.h */,
+				F5CAB1DE17E5452F005E8F84 /* BigView.m */,
+				F5CAB22617E54772005E8F84 /* BigWindow.h */,
+				F5CAB22717E54772005E8F84 /* BigWindow.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -265,6 +275,8 @@
 				F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */,
 				F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */,
 				F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */,
+				F5CAB1DF17E5452F005E8F84 /* BigView.m in Sources */,
+				F5CAB22817E54772005E8F84 /* BigWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
