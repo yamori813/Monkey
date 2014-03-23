@@ -54,7 +54,7 @@
 
 // timming value
 
-#define MAXRETRY 100
+#define MAXRETRY 1000
 #define LOOPWAIT 100
 #define ATNPAUSE 100
 

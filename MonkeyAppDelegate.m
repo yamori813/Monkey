@@ -33,7 +33,6 @@
         [ metexDevSelect setEnabled : true];
 	}
 	gridtype = 0;
-	NSLog(@"MORI MORI Debug");
 }
 
 - (IBAction)big:(id)sender
@@ -51,6 +50,7 @@
 
 - (IBAction)open:(id)sender
 {
+#if 0
 	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title], 
 				   [[[speedSelect selectedItem] title] intValue])) {
 		NSString *scalestr;
@@ -67,13 +67,52 @@
 			[timescale setStringValue:scalestr];
 		}
 	}
+	iwaspp *spp = [[iwaspp alloc] init];
+	[spp openSerialPortProfile];
+	[spp test];
+	NSString *scalestr;
+	scalestr = [spp que_scale:1];
+	if(scalestr) {
+		[ch1scale setStringValue:scalestr];
+	}
+	scalestr = [spp que_scale:2];
+	if(scalestr) {
+		[ch2scale setStringValue:scalestr];
+	}
+	scalestr = [spp que_timebasescale];
+	if(scalestr) {
+		[timescale setStringValue:scalestr];
+	}
+#endif
+	iwa = [[Iwatsu alloc] init];
+	if([conSelect selectedSegment] == 0) {
+	[iwa SerialOpen:(CFStringRef)[[devSelect selectedItem] title]
+			  speed:[[[speedSelect selectedItem] title] intValue]];
+	} else if([conSelect selectedSegment] == 1) {
+		[iwa USBOpen];
+	} else {
+		[iwa SPPOpen];
+	}
+	NSString *scalestr;
+	scalestr = [iwa QueScale:1];
+	if(scalestr) {
+		[ch1scale setStringValue:scalestr];
+	}
+	scalestr = [iwa QueScale:2];
+	if(scalestr) {
+		[ch2scale setStringValue:scalestr];
+	}	
+	scalestr = [iwa QueTimeBaseScale];
+	if(scalestr) {
+		[timescale setStringValue:scalestr];
+	}
 }
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
 	ftgpib_close();
 
-	iwatsu_close();
+//	iwatsu_close();
 }
 
 - (IBAction)dummy:(id)sender
@@ -85,27 +124,27 @@
 	++gridtype;
 	if(gridtype == 3)
 		gridtype = 0;
-	cmd_grid(gridtype);
+	[iwa CmdGrid:gridtype];
 }
 
 - (IBAction)autosetup:(id)sender
 {
-	cmd_auto();
+	[iwa CmdAuto];
 }
 
 - (IBAction)keylock:(id)sender
 {
-	cmd_keylock(0);
+	[iwa CmdKeyLock:0];
 }
 
 - (IBAction)stop:(id)sender
 {
-	cmd_stop();
+	[iwa CmdStop];
 }
 
 - (IBAction)run:(id)sender
 {
-	cmd_run();
+	[iwa CmdAuto];
 }
 
 - (IBAction)wave:(id)sender
@@ -115,18 +154,19 @@
 	MyDocument *mydoc = [[MyDocument alloc] init];
 	[mydoc makeWindowControllers];
 	ds5100_info info;
-	info.ch1scale = [(NSString *)que_scale(1) doubleValue];
+/*	info.ch1scale = [(NSString *)que_scale(1) doubleValue];
 	info.ch2scale = [(NSString *)que_scale(2) doubleValue];
 	info.ch1offset = [(NSString *)que_offset(1) doubleValue];
 	info.ch2offset = [(NSString *)que_offset(2) doubleValue];
 	info.timebasescale = [(NSString *)que_timebasescale() doubleValue];
+*/
 	[mydoc readFromData:[NSData dataWithBytes:&info length:sizeof(ds5100_info)]
 				 ofType:@"INFO" error:NULL];
-	wavedata = (NSData *)que_wav(1);
+	wavedata = (NSData *)[iwa Wave:1];
 	if(wavedata != NULL && [wavedata length] == 604) {
 		[mydoc readFromData:wavedata ofType:@"CH1" error:NULL];
 	}
-	wavedata = (NSData *)que_wav(2);
+	wavedata = (NSData *)[iwa Wave:2];
 	if(wavedata != NULL && [wavedata length] == 604) {
 		[mydoc readFromData:wavedata ofType:@"CH2" error:NULL];
 	}
@@ -192,11 +232,18 @@
 	char buf[128];
 	printf("gpib terget address = %d\n", [gpibaddr intValue]);
 	ftgpib_debug();
-	
+
+#if 0
 	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
 		printf("gpib error on listen\n");
 		return;
 	}
+#else
+	if(ftgpib_856g([gpibaddr intValue], buf, sizeof(buf)) == 0) {
+		printf("gpib error on listen\n");
+		return;
+	}
+#endif
 	
 	NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
 	[gpiblisten setStringValue:freqstr];
@@ -228,7 +275,7 @@
 {
 	char buf[128];
 
-	if(ftgpib_test([gpibaddr intValue], buf, sizeof(buf))) {
+	if(ftgpib_tr5822([gpibaddr intValue], buf, sizeof(buf))) {
 		NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
 		[gpiblisten setStringValue:freqstr];
 	}

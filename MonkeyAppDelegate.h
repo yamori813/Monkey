@@ -10,6 +10,7 @@
 
 #import "TimeView.h"
 #import "BigWindow.h"
+#import "Iwatsu.h"
 
 @interface MonkeyAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
@@ -19,6 +20,7 @@
 	IBOutlet NSTextField *ch1scale;
 	IBOutlet NSTextField *ch2scale;
 	IBOutlet NSTextField *timescale;
+	IBOutlet NSSegmentedControl *conSelect;
 	int gridtype;
 
 	IBOutlet NSTextField *gpibaddr;
@@ -38,6 +40,7 @@
 	IBOutlet BigWindow *bigWin;
 	
 	int metex_willstop;
+	Iwatsu *iwa;
 }
 
 - (IBAction)big:(id)sender;

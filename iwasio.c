@@ -63,6 +63,7 @@ int getresponse(char *data, int datasize)
 //			printf("MORI MORI Debug %d\n", totalsize);
 			if(data[totalsize-1] == '\n') {
 				data[totalsize-1] = 0x00;
+				printf("MORI MORI %s\n", data);
 				return 1;
 			}
 		} else {
@@ -117,135 +118,6 @@ int que_idn()
 	return 0;
 }
 
-int que_samplingrate(int ch)
-{
-	char data[128];
-	
-	sprintf(data, ":ACQuire:SAMPlingrate? CHANnel%d\n", ch);
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		printf("%s\n", data);
-		return 1;
-	}
-	
-	return 0;
-}
-
-CFStringRef que_offset(int ch)
-{
-	char data[128];
-	
-	sprintf(data, ":CHANnel%d:OFFSet?\n", ch);
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
-CFStringRef que_scale(int ch)
-{
-	char data[128];
-	
-	sprintf(data, ":CHANnel%d:SCALe?\n", ch);
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
-CFStringRef que_timebasoffset()
-{
-	char data[128];
-	
-	strcpy(data, ":TIMebase:DELayed:OFFSet?\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
-CFStringRef que_timebasescale()
-{
-	char data[128];
-	
-	strcpy(data, ":TIMebase:DELayed:SCALe?\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
-CFStringRef que_triggermode()
-{
-	char data[128];
-	
-	strcpy(data, ":TRIGger:MODE?\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
-CFStringRef que_triggersource(CFStringRef mode)
-{
-	char data[128];
-	char modestr[1024];
-	
-    CFStringGetCString(mode,
-					   modestr,
-					   1024, 
-					   kCFStringEncodingASCII);
-	
-	sprintf(data, ":TRIGger:%s:SOURce?\n", modestr);
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		CFStringRef cfStringRef; 
-		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
-												data, 
-												kCFStringEncodingMacRoman);
-		return cfStringRef;
-	}
-	
-	return NULL;
-}
-
 CFStringRef que_triggerlevel(CFStringRef mode)
 {
 	char data[128];
@@ -270,73 +142,11 @@ CFStringRef que_triggerlevel(CFStringRef mode)
 	return NULL;
 }
 
-int cmd_keylock(int onoff)
-{
-	char data[128];
-	
-	if(onoff == 0) {
-		strcpy(data, ":KEY:LOCK DISable\n");
-	} else {
-		strcpy(data, ":KEY:LOCK ENABle\n");
-	}
-	write(iwatsu_port, data, strlen(data));
-	
-	return 0;
-}
-
-int cmd_auto()
-{
-	char data[128];
-	
-	strcpy(data, ":AUTO\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	return 0;
-}
-
-int cmd_stop()
-{
-	char data[128];
-	
-	strcpy(data, ":STOP\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	return 0;
-}
-
-int cmd_run()
-{
-	char data[128];
-	
-	strcpy(data, ":RUN\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	return 0;
-}
-
-int cmd_grid(int type)
-{
-	char data[128];
-	
-	strcpy(data, ":DISPlay:GRID ");
-	if(type == 0)
-		strcat(data, "FULL\n");
-	else if(type == 1)
-		strcat(data, "HALF\n");
-	else
-		strcat(data, "NONE\n");
-		
-	write(iwatsu_port, data, strlen(data));
-	
-	return 0;
-}
-
-CFDataRef que_wav(int ch)
+CFDataRef sio_wave(char *cmd)
 {
 	char data[1024*2];
 
-	sprintf(data, ":WAVeform:DATA? CHANnel%d\n", ch);
-	write(iwatsu_port, data, strlen(data));
+	write(iwatsu_port, cmd, strlen(cmd));
 	
 	if(getbinary((unsigned char*)data, 604)) {
 		/*
@@ -357,7 +167,33 @@ CFDataRef que_wav(int ch)
 	return NULL;
 }
 
-int iwatsu_init(CFStringRef devname, int speed)
+
+CFStringRef sio_query(char *cmd)
+{
+	char data[128];
+
+	write(iwatsu_port, cmd, strlen(cmd));
+	
+	if(getresponse(data, sizeof(data))) {
+		printf("%s\n", data);
+		CFStringRef cfStringRef; 
+		cfStringRef = CFStringCreateWithCString(kCFAllocatorDefault, 
+												data, 
+												kCFStringEncodingMacRoman);
+		return cfStringRef;
+	}
+	
+	return NULL;
+}
+
+void sio_command(char *cmd)
+{
+	write(iwatsu_port, cmd, strlen(cmd));
+
+	return;
+}
+
+int sio_init(CFStringRef devname, int speed)
 {
 	char devstr[1024];
 	
@@ -380,14 +216,14 @@ int iwatsu_init(CFStringRef devname, int speed)
 		usleep(200);
 		++i;
 		if(i == 4) {
-			iwatsu_close();
+			sio_close();
 			return 0;
 		}
 	}
 	return 1;
 }
 
-void iwatsu_close()
+void sio_close()
 {
 	close(iwatsu_port);
 }

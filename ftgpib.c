@@ -36,8 +36,10 @@ int ftgpib_write(unsigned char data)
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("NDAC Lo wait error\n");
 			return -1;
+		}
 	};
 
 	// data output
@@ -50,8 +52,10 @@ int ftgpib_write(unsigned char data)
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("NRFD Hi wait error\n");
 			return -1;
+		}
 	};
 
 	// DAV to Lo
@@ -64,8 +68,10 @@ int ftgpib_write(unsigned char data)
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("NDAC Hi wait error\n");
 			return -1;
+		}
 	};
 	
 	// DAV to Hi
@@ -78,8 +84,10 @@ int ftgpib_write(unsigned char data)
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("NDAC Lo wait error\n");
 			return -1;
+		}
 	};
 
 	return 0;
@@ -94,23 +102,31 @@ int ftgpib_read(unsigned char *data)
 	int result;
 	int retry;
 
+	printf("MORI MORI read\n");
+	ftgpib_debug();
+	usleep(1000*100);
 	// NRFD to Hi
-	outline = outline | (1 << NRFD);
-	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
-
+//	outline = outline | (1 << NRFD);
+//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	ftgpib_setlistener3();
+	ftgpib_debug();
+	
 	for(retry = 0;;) {	// wait for DAV Lo
 		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
 		if(!(stat & (1 << DAV)))
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("DAV Lo timeout\n");
 			return -1;
+		}
 	};
 	
 	// NRFD to Lo
-	outline = outline & ~(1 << NRFD);
-	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+//	outline = outline & ~(1 << NRFD);
+//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	ftgpib_setlistener();
 	
 	ftStatus = FT_GetBitMode(dataHandle, &revdata);
 	*data = ~revdata;
@@ -123,8 +139,9 @@ int ftgpib_read(unsigned char *data)
 	}
 
 	// NDAC to Hi
-	outline = outline | (1 << NDAC);
-	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+//	outline = outline | (1 << NDAC);
+//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	ftgpib_setlistener2();
 
 	for(retry = 0;;) {	// wait for DAV Hi
 		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
@@ -132,12 +149,15 @@ int ftgpib_read(unsigned char *data)
 			break;
 		++retry;
 		usleep(LOOPWAIT);
-		if(retry > MAXRETRY)
+		if(retry > MAXRETRY) {
+			printf("DAV Hi timeout\n");
 			return -1;
+		}
 	};
 	
-	outline = outline & ~(1 << NDAC);
-	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+//	outline = outline & ~(1 << NDAC);
+//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	ftgpib_setlistener();
 
 	return result;
 }
@@ -146,6 +166,7 @@ int ftgpib_settalker()
 {
 	FT_STATUS	ftStatus;
 	DWORD writesize;
+	FT_ResetDevice(ctrlHandle);
 	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)SETTALKER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
@@ -158,13 +179,15 @@ int ftgpib_settalker()
 	}
 	outline = SETTALKER;
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
-
+	ftgpib_debug();
+	
 	return 1;
 }
 
 int ftgpib_setlistener()
 {
 	FT_STATUS	ftStatus;
+	DWORD writesize;
 	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)SETLISTENER, 0x01);
 	if(ftStatus != FT_OK) {
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
@@ -175,9 +198,53 @@ int ftgpib_setlistener()
 		printf("FT_SetBitMode failed = %d\n", ftStatus);
 		return 0;
 	}
+	outline = outline & ~(1 << NRFD);
+	outline = outline & ~(1 << NDAC);
 //	outline = SETLISTENER;
-//	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 
+	return 1;
+}
+
+int ftgpib_setlistener2()
+{
+	FT_STATUS	ftStatus;
+	DWORD writesize;
+	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)(SETCONTROLLER | (1 << NRFD)), 0x01);
+	if(ftStatus != FT_OK) {
+		printf("FT_SetBitMode failed = %d\n", ftStatus);
+		return 0;
+	}
+	ftStatus = FT_SetBitMode(dataHandle, 0x00, 0x01);
+	if(ftStatus != FT_OK) {
+		printf("FT_SetBitMode failed = %d\n", ftStatus);
+		return 0;
+	}
+	outline = outline & ~(1 << NRFD);
+	//	outline = SETLISTENER;
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	
+	return 1;
+}
+
+int ftgpib_setlistener3()
+{
+	FT_STATUS	ftStatus;
+	DWORD writesize;
+	ftStatus = FT_SetBitMode(ctrlHandle, (unsigned char)(SETCONTROLLER | (1 << NDAC)), 0x01);
+	if(ftStatus != FT_OK) {
+		printf("FT_SetBitMode failed = %d\n", ftStatus);
+		return 0;
+	}
+	ftStatus = FT_SetBitMode(dataHandle, 0x00, 0x01);
+	if(ftStatus != FT_OK) {
+		printf("FT_SetBitMode failed = %d\n", ftStatus);
+		return 0;
+	}
+	outline = outline & ~(1 << NDAC);
+	//	outline = SETLISTENER;
+	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
+	
 	return 1;
 }
 
@@ -200,6 +267,7 @@ int ftgpib_ifc()
 	outline = outline & ~(1 << IFC);
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	// may be 500us pause
+	usleep(100);
 	// IFC to Hi
 	outline = outline | (1 << IFC);
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
@@ -377,8 +445,11 @@ atn:
 	datalen = strlen(buf);
 	for(i = 0; i < (datalen - 1); ++i)
 	{
-		if(ftgpib_write(buf[i]) != 0)
+		if(ftgpib_write(buf[i]) != 0) {
+			printf("ftgpib_talk error %d\n", i);
 			return 0;
+		}
+		printf("ftgpib_write %c\n", buf[i]);
 	}
 	if(useeoi) {
 		outline = outline & ~(1 << EOI);
@@ -410,12 +481,12 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 	tmpptr = buf;
 	outline = outline & ~(1 << ATN);
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
-	
+
 	if(ftgpib_write(UNL) != 0) {
 		result = 0;
 		goto atn;
 	}
-		
+
 	if(ftgpib_write(0x40 + taraddr) != 0) {
 		result = 0;
 		goto atn;
@@ -426,18 +497,26 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 		goto atn;
 	}
 
-	ftgpib_setlistener();	
+	printf("MORI MORI Debug\n");
+	ftgpib_setlistener();
+
 atn:
+	ftgpib_debug();
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	if(result == 0)
 		return result;
-	
+	printf("MORI MORI ATN\n");
+	ftgpib_debug();
+
 	do {
 		dataend = ftgpib_read(&readdata);
-		if(dataend == -1)
+		if(dataend == -1) {
+			printf("ftgpib_read error\n");
 			return 0;
+		}
+		printf("ftgpib_read %c\n", readdata);
 		if((tmpptr - buf - 1) < bufsize)
 		   *tmpptr++ = readdata;
 		if(!useeoi && readdata == '\n') {
@@ -489,16 +568,15 @@ int ftgpib_init(int addr, int ftdev)
 		return 0;
 	}
 	printf("Open FT\n");
-	
-	myaddr = addr;
-	/*
-	 ftStatus = FT_SetBaudRate(ctrlHandle, 9600);
-	 if(ftStatus != FT_OK) {
-	 printf("Failed to FT_SetBaudRate\n");	
-	 return 0;
-	 }
-	 */
 
+	myaddr = addr;
+/*
+	ftStatus = FT_SetBaudRate(ctrlHandle, 19200);
+	if(ftStatus != FT_OK) {
+		printf("Failed to FT_SetBaudRate\n");	
+		return 0;
+	}
+*/	
 	ftgpib_settalker();
 
 	return 1;
@@ -544,7 +622,7 @@ void ftgpib_debug()
 	printf("REN = %d\n",  (buf[0] >> REN) & 1);
 }
 
-int ftgpib_test(int addr, char *buf, int bufsize)
+int ftgpib_tr5822(int addr, char *buf, int bufsize)
 {
 	ftgpib_debug();
 
@@ -564,7 +642,7 @@ int ftgpib_test(int addr, char *buf, int bufsize)
 	//	usleep(1000);
 
 	if(ftgpib_sdc(addr) == 0) {
-		printf("gpib error on dsc\n");
+		printf("gpib error on sdc\n");
 		return 0;
 	}
 	usleep(1000);
@@ -592,5 +670,52 @@ int ftgpib_test(int addr, char *buf, int bufsize)
 
 	printf("%s", buf);
 
+	return 1;
+}
+
+int ftgpib_856g(int addr, char *buf, int bufsize)
+{
+	ftgpib_debug();
+	
+	ftgpib_ifc();
+	usleep(1000);
+/*
+	if(ftgpib_dcl() == 0) {
+		printf("gpib error on dcl\n");
+		return 0;
+	}
+	usleep(1000);
+*/
+	ftgpib_ren(0);
+	usleep(1000);
+	
+//	ftgpib_get(addr);
+//	usleep(1000);
+/*	
+	if(ftgpib_sdc(addr) == 0) {
+		printf("gpib error on sdc\n");
+		return 0;
+	}
+	usleep(1000);
+	// test for 
+//	if(ftgpib_talk(addr, "*IDN?\r\n", 1) == 0) {
+	if(ftgpib_talk(addr, "C\r\n", 1) == 0) {
+		printf("gpib error on talk\n");
+		return 0;
+	}
+	usleep(1000);
+ */
+
+	if(ftgpib_listen(addr, buf, bufsize, 0) == 0) {
+		printf("gpib error on listen\n");
+		ftgpib_debug();
+		return 0;
+	}
+
+	ftgpib_ren(1);
+	usleep(1000);
+	
+	printf("%s", buf);
+	
 	return 1;
 }
