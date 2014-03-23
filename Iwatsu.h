@@ -12,6 +12,7 @@
 #include "iwausb.h"
 #import "iwaspp.h"
 
+#define CONNON		0
 #define CONSERIAL	1
 #define CONUSB		2
 #define CONSPP		3

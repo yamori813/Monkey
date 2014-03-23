@@ -112,7 +112,7 @@
 {
 	ftgpib_close();
 
-//	iwatsu_close();
+	[iwa Close];
 }
 
 - (IBAction)dummy:(id)sender
@@ -154,12 +154,12 @@
 	MyDocument *mydoc = [[MyDocument alloc] init];
 	[mydoc makeWindowControllers];
 	ds5100_info info;
-/*	info.ch1scale = [(NSString *)que_scale(1) doubleValue];
-	info.ch2scale = [(NSString *)que_scale(2) doubleValue];
-	info.ch1offset = [(NSString *)que_offset(1) doubleValue];
-	info.ch2offset = [(NSString *)que_offset(2) doubleValue];
-	info.timebasescale = [(NSString *)que_timebasescale() doubleValue];
-*/
+	info.ch1scale = [(NSString *)[iwa QueScale:1] doubleValue];
+	info.ch2scale = [(NSString *)[iwa QueScale:2] doubleValue];
+	info.ch1offset = [(NSString *)[iwa QueOffset:1] doubleValue];
+	info.ch2offset = [(NSString *)[iwa QueOffset:2] doubleValue];
+	info.timebasescale = [(NSString *)[iwa QueTimeBaseOffset] doubleValue];
+
 	[mydoc readFromData:[NSData dataWithBytes:&info length:sizeof(ds5100_info)]
 				 ofType:@"INFO" error:NULL];
 	wavedata = (NSData *)[iwa Wave:1];

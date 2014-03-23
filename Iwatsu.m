@@ -10,6 +10,13 @@
 
 @implementation Iwatsu
 
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+		ConnectType = CONNON;
+    }
+    return self;
+}
 
 - (void) Command:(char *)cmd
 {
