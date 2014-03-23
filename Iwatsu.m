@@ -31,6 +31,7 @@
 	} else if(ConnectType == CONSPP) {
 		return [spp Query:cmd];
 	}
+	return nil;
 }
 
 - (BOOL) SerialOpen:(CFStringRef)devname speed:(int)speed

@@ -21,4 +21,22 @@
 	iwaspp *spp;
 }
 
+- (BOOL) SerialOpen:(CFStringRef)devname speed:(int)speed;
+- (BOOL) USBOpen;
+- (BOOL) SPPOpen;
+- (NSData *) Wave:(int)ch;
+- (NSString *) QueSamplingRate:(int)ch;
+- (NSString *) QueOffset:(int)ch;
+- (NSString *) QueTriggerMode;
+- (NSString *) QueTimeBaseOffset;
+- (NSString *) QueScale:(int) ch;
+- (NSString *) QueTimeBaseScale;
+- (NSString *) QueTriggorsource:(char *)mode;
+- (void) CmdKeyLock:(int)onoff;
+- (void) CmdGrid:(int)type;
+- (void) CmdAuto;
+- (void) CmdRun;
+- (void) CmdStop;
+- (void) Close;
+
 @end

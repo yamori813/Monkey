@@ -202,24 +202,24 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>F5B6B84A18DE6364005D21BC</string>
+				<string>F5B6B86418DE6A88005D21BC</string>
 				<key>PBXProjectModuleLabel</key>
-				<string>BASE と ローカル — ftgpib.c を比較</string>
+				<string>Iwatsu.m</string>
 				<key>PBXSplitModuleInNavigatorKey</key>
 				<dict>
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>F5B6B84B18DE6364005D21BC</string>
+						<string>F5B6B86518DE6A88005D21BC</string>
 						<key>PBXProjectModuleLabel</key>
-						<string>BASE と ローカル — ftgpib.c を比較</string>
+						<string>Iwatsu.m</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F5B6B84D18DE6364005D21BC</string>
+						<string>F5B6B86618DE6A88005D21BC</string>
 						<key>history</key>
 						<array>
-							<string>F5B6B84C18DE6364005D21BC</string>
+							<string>F5B6B85618DE6A20005D21BC</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -235,7 +235,47 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>1295 99 1041 831 1280 -145 1920 1080 </string>
+				<string>1853 68 1041 831 1280 -145 1920 1080 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>F5B6B86718DE6A88005D21BC</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>Iwatsu.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>F5B6B86818DE6A88005D21BC</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>Iwatsu.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>F5B6B86918DE6A88005D21BC</string>
+						<key>history</key>
+						<array>
+							<string>F5B6B85318DE6971005D21BC</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1041, 790}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>1318 78 1041 831 1280 -145 1920 1080 </string>
 			</dict>
 		</dict>
 	</array>
@@ -322,28 +362,12 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>24</integer>
-									<integer>18</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>25</integer>
-									<integer>18</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>26</integer>
-									<integer>18</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>27</integer>
-									<integer>18</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 68}, {186, 575}}</string>
+							<string>{{0, 0}, {186, 575}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -378,7 +402,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iwaspp.h</string>
+								<string>MonkeyAppDelegate.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -386,11 +410,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iwaspp.h</string>
+										<string>MonkeyAppDelegate.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>F5B6B84918DE6364005D21BC</string>
+										<string>F5B6B86318DE6A88005D21BC</string>
 										<key>history</key>
 										<array>
 											<string>F5DD4E7914B33A5200D8CC61</string>
@@ -414,18 +438,18 @@
 											<string>F5C4828518DB24FF00FB271D</string>
 											<string>F5CEB0CF18DBE0B40033EA4C</string>
 											<string>F5B6B7EA18DE56F1005D21BC</string>
-											<string>F5B6B7EC18DE56F1005D21BC</string>
 											<string>F5B6B7ED18DE56F1005D21BC</string>
-											<string>F5B6B7EE18DE56F1005D21BC</string>
 											<string>F5B6B7EF18DE56F1005D21BC</string>
 											<string>F5B6B7F118DE56F1005D21BC</string>
 											<string>F5B6B80818DE5859005D21BC</string>
 											<string>F5B6B80918DE5859005D21BC</string>
-											<string>F5B6B84418DE6364005D21BC</string>
 											<string>F5B6B84518DE6364005D21BC</string>
-											<string>F5B6B84618DE6364005D21BC</string>
 											<string>F5B6B84718DE6364005D21BC</string>
-											<string>F5B6B84818DE6364005D21BC</string>
+											<string>F5B6B85E18DE6A88005D21BC</string>
+											<string>F5B6B85F18DE6A88005D21BC</string>
+											<string>F5B6B86018DE6A88005D21BC</string>
+											<string>F5B6B86118DE6A88005D21BC</string>
+											<string>F5B6B86218DE6A88005D21BC</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -628,8 +652,9 @@
 		<string>1C78EAAD065D492600B07095</string>
 		<string>F5DB5E4E14A6ACE400218ED2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>F5B6B84A18DE6364005D21BC</string>
 		<string>/Users/hiroki/Develop/Device/Monkey/Monkey.xcodeproj</string>
+		<string>F5B6B86718DE6A88005D21BC</string>
+		<string>F5B6B86418DE6A88005D21BC</string>
 	</array>
 	<key>WindowString</key>
 	<string>350 134 803 634 0 0 1280 778 </string>
@@ -653,7 +678,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>Iwatsu.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
