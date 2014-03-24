@@ -14,6 +14,7 @@
     self = [super init];
     if (self != nil) {
 		ConnectType = CONNON;
+		spp = [[iwaspp alloc] init];
     }
     return self;
 }
@@ -43,21 +44,29 @@
 
 - (BOOL) SerialOpen:(CFStringRef)devname speed:(int)speed
 {
-	ConnectType = CONSERIAL;
-	return sio_init(devname, speed);
+	if(sio_init(devname, speed) == 1) {
+		ConnectType = CONSERIAL;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 - (BOOL) USBOpen
 {
-	ConnectType = CONUSB;
-	return usb_init();
+	if(usb_init() == 1) {
+		ConnectType = CONUSB;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 - (BOOL) SPPOpen
 {
-	ConnectType = CONSPP;
-	spp = [[iwaspp alloc] init];
-	return [spp Open];
+	if([spp Open] == TRUE) {
+		ConnectType = CONSPP;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 - (NSData *) Wave:(int)ch

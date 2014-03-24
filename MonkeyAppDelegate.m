@@ -32,6 +32,8 @@
         [ metexDevSelect setEnabled : true];
 	}
 	gridtype = 0;
+
+	iwa = [[Iwatsu alloc] init];
 }
 
 - (IBAction)big:(id)sender
@@ -49,29 +51,37 @@
 
 - (IBAction)open:(id)sender
 {
-	iwa = [[Iwatsu alloc] init];
+	BOOL isopen = FALSE;
 	if([conSelect selectedSegment] == 0) {
-	[iwa SerialOpen:(CFStringRef)[[devSelect selectedItem] title]
-			  speed:[[[speedSelect selectedItem] title] intValue]];
+		if([iwa SerialOpen:(CFStringRef)[[devSelect selectedItem] title]
+					 speed:[[[speedSelect selectedItem] title] intValue]] == TRUE) {
+			isopen = TRUE;
+		}
 	} else if([conSelect selectedSegment] == 1) {
-		[iwa USBOpen];
+		if([iwa USBOpen] == TRUE) {
+			isopen = TRUE;
+		}
 	} else {
-		[iwa SPPOpen];
+		if([iwa SPPOpen] == TRUE) {
+			isopen = TRUE;
+		}
 	}
-	NSString *scalestr;
-	scalestr = [iwa QueScale:1];
-	if(scalestr) {
-		[ch1scale setStringValue:scalestr];
+	if(isopen == TRUE) {
+		NSString *scalestr;
+		scalestr = [iwa QueScale:1];
+		if(scalestr) {
+			[ch1scale setStringValue:scalestr];
+		}
+		scalestr = [iwa QueScale:2];
+		if(scalestr) {
+			[ch2scale setStringValue:scalestr];
+		}	
+		scalestr = [iwa QueTimeBaseScale];
+		if(scalestr) {
+			[timescale setStringValue:scalestr];
+		}
+		[sender setEnabled:NO];
 	}
-	scalestr = [iwa QueScale:2];
-	if(scalestr) {
-		[ch2scale setStringValue:scalestr];
-	}	
-	scalestr = [iwa QueTimeBaseScale];
-	if(scalestr) {
-		[timescale setStringValue:scalestr];
-	}
-	[sender setEnabled:NO];
 }
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification
