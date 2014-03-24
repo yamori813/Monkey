@@ -50,40 +50,6 @@
 
 - (IBAction)open:(id)sender
 {
-#if 0
-	if(iwatsu_init((CFStringRef)[[devSelect selectedItem] title], 
-				   [[[speedSelect selectedItem] title] intValue])) {
-		NSString *scalestr;
-		scalestr = (NSString *)que_scale(1);
-		if(scalestr) {
-			[ch1scale setStringValue:scalestr];
-		}
-		scalestr = (NSString *)que_scale(2);
-		if(scalestr) {
-			[ch2scale setStringValue:scalestr];
-		}	
-		scalestr = (NSString *)que_timebasescale();
-		if(scalestr) {
-			[timescale setStringValue:scalestr];
-		}
-	}
-	iwaspp *spp = [[iwaspp alloc] init];
-	[spp openSerialPortProfile];
-	[spp test];
-	NSString *scalestr;
-	scalestr = [spp que_scale:1];
-	if(scalestr) {
-		[ch1scale setStringValue:scalestr];
-	}
-	scalestr = [spp que_scale:2];
-	if(scalestr) {
-		[ch2scale setStringValue:scalestr];
-	}
-	scalestr = [spp que_timebasescale];
-	if(scalestr) {
-		[timescale setStringValue:scalestr];
-	}
-#endif
 	iwa = [[Iwatsu alloc] init];
 	if([conSelect selectedSegment] == 0) {
 	[iwa SerialOpen:(CFStringRef)[[devSelect selectedItem] title]
@@ -106,6 +72,7 @@
 	if(scalestr) {
 		[timescale setStringValue:scalestr];
 	}
+	[sender setEnabled:NO];
 }
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification
