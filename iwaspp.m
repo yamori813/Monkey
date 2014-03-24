@@ -12,6 +12,22 @@
 
 @implementation iwaspp
 
+- (void)closeDeviceConnectionOnDevice:(IOBluetoothDevice*)device
+{
+	if ( mBluetoothDevice == device )
+	{
+		IOReturn error = [mBluetoothDevice closeConnection];
+		if ( error != kIOReturnSuccess )
+		{
+			// I failed to close the connection, maybe the device is busy, no problem, as soon as the device is no more busy it will close the connetion itself.
+			NSLog(@"Error - failed to close the device connection with error %08lx.\n", (UInt32)error);
+		}
+		
+		[mBluetoothDevice release];
+		mBluetoothDevice = nil;
+	}
+	
+}
 
 - (void)idn
 {
@@ -175,28 +191,18 @@
 	[mRFCOMMChannel closeChannel];
 }
 
-- (void)closeDeviceConnectionOnDevice:(IOBluetoothDevice*)device
-{
-	if ( mBluetoothDevice == device )
-	{
-		IOReturn error = [mBluetoothDevice closeConnection];
-		if ( error != kIOReturnSuccess )
-		{
-			// I failed to close the connection, maybe the device is busy, no problem, as soon as the device is no more busy it will close the connetion itself.
-			NSLog(@"Error - failed to close the device connection with error %08lx.\n", (UInt32)error);
-		}
-		
-		[mBluetoothDevice release];
-		mBluetoothDevice = nil;
-	}
-	
-}
-
 #if 0
 #pragma mark -
 #pragma mark These are methods that are called when "things" happen on the
 #pragma mark bluetooth connection, read along and it will all be clearer:
 #endif
+
+// Called by the RFCOMM channel on us when something happens and the connection is lost:
+- (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel *)rfcommChannel
+{
+	// wait a second and close the device connection as well:
+	[self performSelector:@selector(closeDeviceConnectionOnDevice:) withObject:mBluetoothDevice afterDelay:1.0];
+}
 
 // Called by the RFCOMM channel on us once the baseband and rfcomm connection is completed:
 - (void)rfcommChannelOpenComplete:(IOBluetoothRFCOMMChannel*)rfcommChannel status:(IOReturn)error
@@ -233,13 +239,6 @@
 			btStat = 4;
 		}
 	}
-}
-
-// Called by the RFCOMM channel on us when something happens and the connection is lost:
-- (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel *)rfcommChannel
-{
-	// wait a second and close the device connection as well:
-	[self performSelector:@selector(closeDeviceConnectionOnDevice:) withObject:mBluetoothDevice afterDelay:1.0];
 }
 
 @end
