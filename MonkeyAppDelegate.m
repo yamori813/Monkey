@@ -10,7 +10,6 @@
 
 #import "MyDocument.h"
 
-#include "iwasio.h"
 #include "serial.h"
 #include "ftgpib.h"
 
