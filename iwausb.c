@@ -2,8 +2,8 @@
  *  iwausb.c
  *  Monkey
  *
- *  Created by hiroki on 14/03/22.
- *  Copyright 2014 __MyCompanyName__. All rights reserved.
+ *  Created by Hiroki Mori on 14/03/22.
+ *  Copyright 2014 Hiroki Mori. All rights reserved.
  *
  */
 
@@ -17,7 +17,7 @@ libusb_device **devs; //pointer to pointer of device, used to retrieve a list of
 libusb_device_handle *dev_handle; //a device handle
 libusb_context *ctx = NULL; //a libusb session
 
-CFStringRef usb_wave(char *cmd)
+CFDataRef usb_wave(char *cmd)
 {
 	char data[1024];
 	int r; //for return values
@@ -25,7 +25,7 @@ CFStringRef usb_wave(char *cmd)
 
 	cmd1[4] = strlen(cmd) - 1; // ignore LF
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd1, sizeof(cmd1), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd, strlen(cmd) - 1, &actual, 0);
+	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), (unsigned char *)cmd, strlen(cmd) - 1, &actual, 0);
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd2, sizeof(cmd2), &actual, 0);
 	
 	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), (unsigned char*)data, sizeof(data), &actual, 500);
@@ -48,7 +48,7 @@ CFStringRef usb_query(char *cmd)
 	
 	cmd1[4] = strlen(cmd) - 1; // ignore LF
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd1, sizeof(cmd1), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd, strlen(cmd) - 1, &actual, 0);
+	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), (unsigned char *)cmd, strlen(cmd) - 1, &actual, 0);
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd2, sizeof(cmd2), &actual, 0);
 	
 	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), (unsigned char*)data, sizeof(data), &actual, 500);
@@ -67,13 +67,12 @@ CFStringRef usb_query(char *cmd)
 
 void usb_command(char *cmd)
 {
-	char data[128];
 	int r; //for return values
 	int actual; //used to find out how many bytes were written
 	
-	cmd1[4] = strlen(cmd) - 1;
+	cmd1[4] = strlen(cmd) - 1;  // ignore LF
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd1, sizeof(cmd1), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd, strlen(cmd) - 1, &actual, 0);
+	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), (unsigned char *)cmd, strlen(cmd) - 1, &actual, 0);
 	
 	return;
 }
@@ -107,11 +106,11 @@ int usb_init() {
 	char *cmd = "*IDN?";
 	cmd1[4] = strlen(cmd);
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd1, sizeof(cmd1), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd, strlen(cmd), &actual, 0);
+	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), (unsigned char *)cmd, strlen(cmd), &actual, 0);
 	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd2, sizeof(cmd2), &actual, 0);
 	/* read */
 	char data[128];
-	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), (unsigned char*)data, sizeof(data), &actual, 500); //my device's out endpoint was 2, found with trial- the device had 2 endpoints: 2 and 129
+	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), (unsigned char*)data, sizeof(data), &actual, 500);
 	if(r == 0) {
 		data[actual] = '\0';
 		printf("%s\n", data + 12);
@@ -126,7 +125,7 @@ void usb_close()
 
 	r = libusb_release_interface(dev_handle, 0); //release the claimed interface
 	if(r!=0) {
-		return 1;
+		return;
 	}
 	
 	libusb_close(dev_handle); //close the device we opened
