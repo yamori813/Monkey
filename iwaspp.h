@@ -19,7 +19,6 @@
 	IOBluetoothRFCOMMChannel *mRFCOMMChannel;
 	
 	int btStat;
-	NSCondition *btCondition;
 	NSMutableData *readData;
 }
 

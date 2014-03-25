@@ -9,6 +9,7 @@
 #import "iwaspp.h"
 
 #define LOOPSEC 0.1
+#define MAXWAIT 20
 
 @implementation iwaspp
 
@@ -29,24 +30,28 @@
 	
 }
 
-- (void)idn
+- (BOOL)idn
 {
-//	[btCondition lock];
+	int count;
 	btStat = 1;
 	[readData setLength:0];
 	[mRFCOMMChannel writeSync:"*IDN?\n" length:6];
+	count = 0;
 	while(btStat != 2) {
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
+		++count;
+		if(count == MAXWAIT) {
+			return FALSE;
+		}
 	}
 	
-//	[btCondition unlock];
 	NSString *myString = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
-	NSLog(@"MORI MORI %@", myString);
+	NSLog(@"DS: %@", myString);
+	return TRUE;
 }
 
 -(NSString *)Query:(char *)cmd
 {
-	//	[btCondition lock];
 	btStat = 1;
 	[readData setLength:0];
 
@@ -55,14 +60,12 @@
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
 	}
 	
-	//	[btCondition unlock];
 	NSString *myString = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
 	return myString;
 }
 
 -(void)Command:(char *)cmd
 {
-	//	[btCondition lock];	
 	[mRFCOMMChannel writeSync:cmd length:strlen(cmd)];
 
 	return;
@@ -70,7 +73,6 @@
 
 -(NSData *)Wave:(char *)cmd
 {
-	//	[btCondition lock];
 	btStat = 3;
 	[readData setLength:0];
 	
@@ -79,7 +81,6 @@
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
 	}
 	
-	//	[btCondition unlock];
 	NSData *myData = [[NSData alloc] initWithData:readData];
 	return myData;
 }
@@ -99,7 +100,6 @@
 	IOBluetoothSDPUUID					*sppServiceUUID;
 	NSArray								*deviceArray;
 	
- 	btCondition = [[NSCondition alloc] init];
 	readData = [[NSMutableData alloc] init];
 	
 	// The device selector will provide UI to the end user to find a remote device
@@ -178,10 +178,14 @@
 	
 	btStat = 0;
 	while(btStat != 1) {
-		CFRunLoopRunInMode(kCFRunLoopDefaultMode, .1, false);
+		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
 	}
 	
-	[self idn];
+	if([self idn] != TRUE) {
+		[self closeDeviceConnectionOnDevice:device];
+		
+		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -215,11 +219,7 @@
 		[self rfcommChannelClosed:rfcommChannel];
 		return;
 	}
-	[btCondition lock];
-	++btStat;
-	[btCondition signal];
-	[btCondition unlock];
-	NSLog(@"MORI MORI rfcommChannelOpenComplete");
+	btStat = 1;
 	// The RFCOMM channel is now completly open so it is possible to send and receive data
 	// ... add the code that begin the send data ... for example to reset a modem:
 }
