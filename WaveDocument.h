@@ -1,5 +1,5 @@
 //
-//  MyDocument.h
+//  WaveDocument.h
 //  Untitled
 //
 //  Created by Hiroki Mori on 11/12/30.
@@ -9,14 +9,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "MyWindowController.h"
+#import "WaveWindowController.h"
 
 
-@interface MyDocument : NSDocument {
+@interface WaveDocument : NSDocument {
 	ds5100_info *info;
 	NSData *myData1;
 	NSData *myData2;
-	MyWindowController *myctl;
+	WaveWindowController *myctl;
 	NSSavePanel*		savePanel;
 	IBOutlet NSView*	saveDialogCustomView;
 	IBOutlet NSPopUpButton *fileTypePopup;

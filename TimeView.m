@@ -149,7 +149,6 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextStrokePath(gc);
 	
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
-	CGContextSetRGBFillColor( gc, 0, 98, 255, 1.0);
 	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 	

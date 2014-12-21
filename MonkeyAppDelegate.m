@@ -8,7 +8,7 @@
 
 #import "MonkeyAppDelegate.h"
 
-#import "MyDocument.h"
+#import "WaveDocument.h"
 
 #include "serial.h"
 #include "ftgpib.h"
@@ -127,7 +127,7 @@
 {
 	NSData *wavedata;
 
-	MyDocument *mydoc = [[MyDocument alloc] init];
+	WaveDocument *mydoc = [[WaveDocument alloc] init];
 	[mydoc makeWindowControllers];
 	ds5100_info info;
 	info.ch1scale = [(NSString *)[iwa QueScale:1] doubleValue];
@@ -270,6 +270,7 @@
 {
 	if([[sender title] compare:@"Start"] == NSOrderedSame) {
 		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
+			metexview = [[TimeView alloc] init];
 			[NSThread detachNewThreadSelector:@selector(metex_poll)
 									 toTarget:self withObject:nil];
 			[sender setTitle:@"Stop"];

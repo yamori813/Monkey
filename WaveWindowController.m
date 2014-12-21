@@ -1,14 +1,14 @@
 //
-//  MyWindowController.m
+//  WaveWindowController.m
 //  Monkey
 //
 //  Created by Hiroki Mori on 11/12/30.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 __WaveCompanyName__. All rights reserved.
 //
 
-#import "MyWindowController.h"
+#import "WaveWindowController.h"
 
-@implementation MyWindowController
+@implementation WaveWindowController
 
 - (id)initWithWindowNibName:(NSString *)windowNibName owner:(id)owner
 {

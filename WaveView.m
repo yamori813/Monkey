@@ -9,7 +9,7 @@
 #import "WaveView.h"
 
 #import "MonkeyAppDelegate.h"
-#import "MyDocument.h"
+#import "WaveDocument.h"
 
 #define OFFSETX 10
 #define OFFSETY 10
@@ -50,7 +50,7 @@ CGRect convertToCGRect(NSRect inRect)
 		CGContextAddLineToPoint(gc, OFFSETX + j*x/12, OFFSETY + y);
 		CGContextStrokePath(gc);
 	}
-	MyDocument *thedoc = [[[self window] windowController] document];
+	WaveDocument *thedoc = [[[self window] windowController] document];
 	ds5100_info *info = [thedoc getInfo];
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
 	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
@@ -75,7 +75,7 @@ CGRect convertToCGRect(NSRect inRect)
 {
 	int i;
 	unsigned char *buff;
-	MyDocument *thedoc = [[[self window] windowController] document];
+	WaveDocument *thedoc = [[[self window] windowController] document];
 	if([thedoc getData1] != NULL) {
 		buff = malloc([[thedoc getData1] length]);
 		CGContextSetRGBStrokeColor(

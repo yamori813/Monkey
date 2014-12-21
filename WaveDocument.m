@@ -1,14 +1,14 @@
 //
-//  MyDocument.m
+//  WaveDocument.m
 //  Untitled
 //
 //  Created by Hiroki Mori on 11/12/30.
 //  Copyright 2011 Hiroki Mori. All rights reserved.
 //
 
-#import "MyDocument.h"
+#import "WaveDocument.h"
 
-@implementation MyDocument
+@implementation WaveDocument
 
 - (id)init
 {
@@ -29,13 +29,13 @@
 {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return @"MyDocument";
+    return @"WaveDocument";
 }
  */
 
 -(void)makeWindowControllers
 {
-	myctl = [[MyWindowController alloc] initWithWindowNibName:@"MyDocument" owner:self];
+	myctl = [[WaveWindowController alloc] initWithWindowNibName:@"WaveDocument" owner:self];
 	[self addWindowController:myctl];
 }
 

@@ -12,9 +12,9 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		F587F51814AD446F00F2EBAE /* MyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51714AD446F00F2EBAE /* MyWindowController.m */; };
-		F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51C14AD453100F2EBAE /* MyDocument.m */; };
-		F587F60514AD5C1A00F2EBAE /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F587F60314AD5C1A00F2EBAE /* MyDocument.xib */; };
+		F587F51814AD446F00F2EBAE /* WaveWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51714AD446F00F2EBAE /* WaveWindowController.m */; };
+		F587F51D14AD453100F2EBAE /* WaveDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F587F51C14AD453100F2EBAE /* WaveDocument.m */; };
+		F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */; };
 		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
 		F5A3872818DD669300E96337 /* Iwatsu.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3872718DD669300E96337 /* Iwatsu.m */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
@@ -59,11 +59,11 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Monkey-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Monkey-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Monkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F587F51614AD446F00F2EBAE /* MyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWindowController.h; sourceTree = "<group>"; };
-		F587F51714AD446F00F2EBAE /* MyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWindowController.m; sourceTree = "<group>"; };
-		F587F51B14AD453100F2EBAE /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
-		F587F51C14AD453100F2EBAE /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
-		F587F60414AD5C1A00F2EBAE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
+		F587F51614AD446F00F2EBAE /* WaveWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveWindowController.h; sourceTree = "<group>"; };
+		F587F51714AD446F00F2EBAE /* WaveWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveWindowController.m; sourceTree = "<group>"; };
+		F587F51B14AD453100F2EBAE /* WaveDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveDocument.h; sourceTree = "<group>"; };
+		F587F51C14AD453100F2EBAE /* WaveDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveDocument.m; sourceTree = "<group>"; };
+		F587F60414AD5C1A00F2EBAE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WaveDocument.xib; sourceTree = "<group>"; };
 		F588012314BB2A8800850BD0 /* monkey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = monkey.h; sourceTree = "<group>"; };
 		F59FC82314A9E99F00AC50E3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
@@ -112,14 +112,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F587F51B14AD453100F2EBAE /* MyDocument.h */,
-				F587F51C14AD453100F2EBAE /* MyDocument.m */,
-				F587F51614AD446F00F2EBAE /* MyWindowController.h */,
-				F587F51714AD446F00F2EBAE /* MyWindowController.m */,
+				F5C1C1F11A477E4500615C27 /* Wave */,
 				256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */,
-				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
-				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
 				F5A7229414BA70F70035F5B8 /* TimeView.h */,
 				F5A7229514BA70F70035F5B8 /* TimeView.m */,
 				F5CAB1DD17E5452F005E8F84 /* BigView.h */,
@@ -198,7 +193,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F587F60314AD5C1A00F2EBAE /* MyDocument.xib */,
+				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
 				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -222,6 +217,19 @@
 				F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */,
 			);
 			name = "My Framework";
+			sourceTree = "<group>";
+		};
+		F5C1C1F11A477E4500615C27 /* Wave */ = {
+			isa = PBXGroup;
+			children = (
+				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
+				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
+				F587F51B14AD453100F2EBAE /* WaveDocument.h */,
+				F587F51C14AD453100F2EBAE /* WaveDocument.m */,
+				F587F51614AD446F00F2EBAE /* WaveWindowController.h */,
+				F587F51714AD446F00F2EBAE /* WaveWindowController.m */,
+			);
+			name = Wave;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,7 +285,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				F587F60514AD5C1A00F2EBAE /* MyDocument.xib in Resources */,
+				F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,8 +301,8 @@
 				F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */,
 				F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */,
 				F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */,
-				F587F51814AD446F00F2EBAE /* MyWindowController.m in Sources */,
-				F587F51D14AD453100F2EBAE /* MyDocument.m in Sources */,
+				F587F51814AD446F00F2EBAE /* WaveWindowController.m in Sources */,
+				F587F51D14AD453100F2EBAE /* WaveDocument.m in Sources */,
 				F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */,
 				F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */,
 				F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */,
@@ -325,12 +333,12 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		F587F60314AD5C1A00F2EBAE /* MyDocument.xib */ = {
+		F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F587F60414AD5C1A00F2EBAE /* English */,
 			);
-			name = MyDocument.xib;
+			name = WaveDocument.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
