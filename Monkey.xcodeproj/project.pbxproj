@@ -222,12 +222,12 @@
 		F5C1C1F11A477E4500615C27 /* Wave */ = {
 			isa = PBXGroup;
 			children = (
-				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
-				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
 				F587F51B14AD453100F2EBAE /* WaveDocument.h */,
 				F587F51C14AD453100F2EBAE /* WaveDocument.m */,
 				F587F51614AD446F00F2EBAE /* WaveWindowController.h */,
 				F587F51714AD446F00F2EBAE /* WaveWindowController.m */,
+				F59FC82314A9E99F00AC50E3 /* WaveView.h */,
+				F59FC82414A9E99F00AC50E3 /* WaveView.m */,
 			);
 			name = Wave;
 			sourceTree = "<group>";

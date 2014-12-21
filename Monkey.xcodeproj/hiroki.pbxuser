@@ -307,7 +307,7 @@
 	};
 	F587F51714AD446F00F2EBAE /* WaveWindowController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {534, 403}}";
+			sepNavIntBoundsRect = "{{0, 0}, {534, 364}}";
 			sepNavSelRange = "{409, 0}";
 			sepNavVisRange = "{0, 148}";
 			sepNavWindowFrame = "{{15, 59}, {956, 719}}";
@@ -315,15 +315,15 @@
 	};
 	F587F51B14AD453100F2EBAE /* WaveDocument.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {534, 364}}";
+			sepNavIntBoundsRect = "{{0, 0}, {897, 592}}";
 			sepNavSelRange = "{474, 0}";
-			sepNavVisRange = "{161, 130}";
+			sepNavVisRange = "{0, 480}";
 			sepNavWindowFrame = "{{15, 58}, {956, 720}}";
 		};
 	};
 	F587F51C14AD453100F2EBAE /* WaveDocument.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {579, 2262}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1748, 2067}}";
 			sepNavSelRange = "{3521, 22}";
 			sepNavVisRange = "{161, 89}";
 			sepNavWindowFrame = "{{1533, 18}, {920, 652}}";
@@ -384,9 +384,9 @@
 	};
 	F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {897, 1612}}";
-			sepNavSelRange = "{93, 2}";
-			sepNavVisRange = "{0, 1207}";
+			sepNavIntBoundsRect = "{{0, 0}, {558, 1599}}";
+			sepNavSelRange = "{187, 0}";
+			sepNavVisRange = "{135, 116}";
 			sepNavWindowFrame = "{{2115, -145}, {956, 723}}";
 		};
 	};
