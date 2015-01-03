@@ -8,8 +8,6 @@
 
 #import "MonkeyAppDelegate.h"
 
-#import "WaveDocument.h"
-
 #include "serial.h"
 #include "ftgpib.h"
 
@@ -269,22 +267,36 @@
 - (IBAction)metex_action:(id)sender
 {
 	if([[sender title] compare:@"Start"] == NSOrderedSame) {
+#if 0
 		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
 			metexview = [[TimeView alloc] init];
 			[NSThread detachNewThreadSelector:@selector(metex_poll)
 									 toTarget:self withObject:nil];
-			[sender setTitle:@"Stop"];
 			metex_willstop = 0;
 			metexlasttime = 0;
 		}
+#endif
+		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
+			timedoc = [[TimeDocument alloc] init];
+			[timedoc makeWindowControllers];
+			[timedoc showWindows];
+			[timedoc start:self];
+			[sender setTitle:@"Stop"];
+		}
 	} else {
-		metex_willstop = 1;
+//		metex_willstop = 1;
+		[timedoc stop];
 		[sender setTitle:@"Start"];
 	}
 }
 
--(void)metex_poll
+-(double)metex_poll
 {
+	measure_value data;
+	metex_value(&data);
+	[metexmeter setDoubleValue:data.value];
+	return data.value;
+#if 0
 	int interval = 0;
 	measure_value data;
     NSAutoreleasePool* pool;
@@ -318,5 +330,6 @@
 	metex_close();
     [pool release];
     [NSThread exit];
+#endif
 }
 @end

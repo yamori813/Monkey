@@ -8,6 +8,9 @@
 
 #import "TimeView.h"
 
+#import "MonkeyAppDelegate.h"
+#import "TimeDocument.h"
+
 #define OFFSETX 10
 #define OFFSETY 10
 
@@ -20,7 +23,6 @@ CGRect convertToCGRect(NSRect inRect);
     if (self) {
 		minscale = 0.0;
 		maxscale = 12.0;
-		protdata = NULL;
     }
     return self;
 }
@@ -31,16 +33,17 @@ CGRect convertToCGRect(NSRect inRect);
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
 	float vscale = (therect.size.height - OFFSETY * 2) / (maxscale - minscale);
-
-	if(datasize > x) {
+	TimeDocument *thedoc = [[[self window] windowController] document];
+	
+	if([thedoc count] > x) {
 		if([metexscroller isEnabled] == NO) {
 			[metexscroller setEnabled:YES];
 			[metexscroller setDoubleValue:1.0];
 		} else {
-			double value = (double)x / datasize;
+			double value = (double)x / [thedoc count];
 			[metexscroller setKnobProportion:value];
 			if([metexscroller doubleValue] == 1.0) {
-				startpos = (datasize - x) * [metexscroller doubleValue];
+				startpos = ([thedoc count] - x) * [metexscroller doubleValue];
 			}
 		}
 	} else {
@@ -48,12 +51,12 @@ CGRect convertToCGRect(NSRect inRect);
 		startpos = 0;
 	}
 	
-	if(datasize > 1) {
+	if([thedoc count] > 1) {
 		CGContextSetRGBStrokeColor(
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
-		CGContextMoveToPoint(gc, OFFSETX, (int)((protdata[startpos] - minscale)*vscale + OFFSETY));
-		for(i = startpos+1; i < datasize; ++i) {
-			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)((protdata[i] - minscale)*vscale + OFFSETY));
+		CGContextMoveToPoint(gc, OFFSETX, (int)(([thedoc value:startpos] - minscale)*vscale + OFFSETY));
+		for(i = startpos+1; i < [thedoc count]; ++i) {
+			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)(([thedoc value:i] - minscale)*vscale + OFFSETY));
 			if(i-startpos == x)
 				break;
 		}
@@ -68,35 +71,12 @@ CGRect convertToCGRect(NSRect inRect);
 }
 
 
-- (void)addData:(double)data time:(int)msec
-{
-	if(msec == 0) {
-		if(protdata != NULL)
-			free(protdata);
-		datasize = 0;
-		protdata = malloc(sizeof(double)*1024);
-		buffersize = 1024;
-		[metexscroller setEnabled:NO];
-		[metexscroller setDoubleValue:0.0];
-	}
-	if(datasize == buffersize) {
-		// expand buffer
-		double *newbuf = malloc(sizeof(double)*(buffersize+1024));
-		memcpy(newbuf, protdata, buffersize*sizeof(double));
-		free(protdata);
-		protdata = newbuf;
-		buffersize += 1024;
-	}
-	protdata[datasize] = data;
-	++datasize;
-	[self setNeedsDisplay:YES];
-}
-
 - (IBAction)scroll:(id)sender
 {
 	NSRect therect = [self frame];
 	int x = therect.size.width - OFFSETX * 2;
 	double curpos = [metexscroller doubleValue];
+	TimeDocument *thedoc = [[[self window] windowController] document];
 
 	int part = [sender hitPart];
 	switch ( part ) {
@@ -121,7 +101,7 @@ CGRect convertToCGRect(NSRect inRect);
 		case NSScrollerKnobSlot:
 			break;
 	}
-	startpos = (datasize - x) * [metexscroller doubleValue];
+	startpos = ([thedoc count] - x) * [metexscroller doubleValue];
 	[self setNeedsDisplay:YES];
 }
 

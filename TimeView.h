@@ -12,9 +12,7 @@
 @interface TimeView : NSView {
 	CGContextRef gc;
 	IBOutlet NSScroller *metexscroller;
-	double *protdata;
 	int buffersize;
-	int datasize;
 	double minscale;
 	double maxscale;
 	int startpos;

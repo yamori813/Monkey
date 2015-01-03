@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "WaveDocument.h"
+#import "TimeDocument.h"
+
 #import "TimeView.h"
 #import "BigWindow.h"
 #import "Iwatsu.h"
@@ -34,6 +37,8 @@
 	IBOutlet NSTextField *metexmeter;
 	IBOutlet TimeView *metexview;
 	uint64_t metexlasttime;
+	
+	TimeDocument *timedoc;
 
 	IBOutlet NSMenuItem *voiceMenu;
 

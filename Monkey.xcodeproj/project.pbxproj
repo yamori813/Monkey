@@ -20,6 +20,9 @@
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5AF802718DD2339007CD1E3 /* iwausb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AF802618DD2339007CD1E3 /* iwausb.c */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
+		F5B76E581A575C37007893A2 /* TimeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B76E571A575C37007893A2 /* TimeDocument.m */; };
+		F5B76E5E1A575C56007893A2 /* TimeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B76E5D1A575C56007893A2 /* TimeWindowController.m */; };
+		F5B76E8D1A576026007893A2 /* TimeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5B76E8B1A576026007893A2 /* TimeDocument.xib */; };
 		F5CAB1DF17E5452F005E8F84 /* BigView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CAB1DE17E5452F005E8F84 /* BigView.m */; };
 		F5CAB22817E54772005E8F84 /* BigWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CAB22717E54772005E8F84 /* BigWindow.m */; };
 		F5CEAFA918DBD5930033EA4C /* iwaspp.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CEAFA818DBD5930033EA4C /* iwaspp.m */; };
@@ -75,6 +78,11 @@
 		F5AF802618DD2339007CD1E3 /* iwausb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwausb.c; sourceTree = "<group>"; };
 		F5B5C14514AFFF6B002E5677 /* ftgpib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftgpib.h; sourceTree = "<group>"; };
 		F5B5C14614AFFF6B002E5677 /* ftgpib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgpib.c; sourceTree = "<group>"; };
+		F5B76E561A575C37007893A2 /* TimeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDocument.h; sourceTree = "<group>"; };
+		F5B76E571A575C37007893A2 /* TimeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeDocument.m; sourceTree = "<group>"; };
+		F5B76E5C1A575C56007893A2 /* TimeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeWindowController.h; sourceTree = "<group>"; };
+		F5B76E5D1A575C56007893A2 /* TimeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeWindowController.m; sourceTree = "<group>"; };
+		F5B76E8C1A576026007893A2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TimeDocument.xib; sourceTree = "<group>"; };
 		F5CAB1DD17E5452F005E8F84 /* BigView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigView.h; sourceTree = "<group>"; };
 		F5CAB1DE17E5452F005E8F84 /* BigView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigView.m; sourceTree = "<group>"; };
 		F5CAB22617E54772005E8F84 /* BigWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigWindow.h; sourceTree = "<group>"; };
@@ -112,11 +120,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F5B7706D1A5786CB007893A2 /* Time */,
 				F5C1C1F11A477E4500615C27 /* Wave */,
 				256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */,
-				F5A7229414BA70F70035F5B8 /* TimeView.h */,
-				F5A7229514BA70F70035F5B8 /* TimeView.m */,
 				F5CAB1DD17E5452F005E8F84 /* BigView.h */,
 				F5CAB1DE17E5452F005E8F84 /* BigView.m */,
 				F5CAB22617E54772005E8F84 /* BigWindow.h */,
@@ -193,6 +200,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5B76E8B1A576026007893A2 /* TimeDocument.xib */,
 				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
 				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -217,6 +225,19 @@
 				F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */,
 			);
 			name = "My Framework";
+			sourceTree = "<group>";
+		};
+		F5B7706D1A5786CB007893A2 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				F5B76E561A575C37007893A2 /* TimeDocument.h */,
+				F5B76E571A575C37007893A2 /* TimeDocument.m */,
+				F5B76E5C1A575C56007893A2 /* TimeWindowController.h */,
+				F5B76E5D1A575C56007893A2 /* TimeWindowController.m */,
+				F5A7229414BA70F70035F5B8 /* TimeView.h */,
+				F5A7229514BA70F70035F5B8 /* TimeView.m */,
+			);
+			name = Time;
 			sourceTree = "<group>";
 		};
 		F5C1C1F11A477E4500615C27 /* Wave */ = {
@@ -286,6 +307,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */,
+				F5B76E8D1A576026007893A2 /* TimeDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +333,8 @@
 				F5CEAFA918DBD5930033EA4C /* iwaspp.m in Sources */,
 				F5AF802718DD2339007CD1E3 /* iwausb.c in Sources */,
 				F5A3872818DD669300E96337 /* Iwatsu.m in Sources */,
+				F5B76E581A575C37007893A2 /* TimeDocument.m in Sources */,
+				F5B76E5E1A575C56007893A2 /* TimeWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +363,14 @@
 				F587F60414AD5C1A00F2EBAE /* English */,
 			);
 			name = WaveDocument.xib;
+			sourceTree = "<group>";
+		};
+		F5B76E8B1A576026007893A2 /* TimeDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5B76E8C1A576026007893A2 /* English */,
+			);
+			name = TimeDocument.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
