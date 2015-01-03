@@ -39,6 +39,7 @@
 	uint64_t metexlasttime;
 	
 	TimeDocument *timedoc;
+	TimeDocument *gpibdoc;
 
 	IBOutlet NSMenuItem *voiceMenu;
 
@@ -66,6 +67,7 @@
 - (IBAction)gpib_tct:(id)sender;
 - (IBAction)gpib_listen:(id)sender;
 - (IBAction)gpib_talk:(id)sender;
+- (IBAction)gpib_start:(id)sender;
 - (IBAction)gpib_close:(id)sender;
 
 - (IBAction)metex_action:(id)sender;

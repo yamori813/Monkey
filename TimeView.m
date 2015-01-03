@@ -22,7 +22,8 @@ CGRect convertToCGRect(NSRect inRect);
     self = [super initWithFrame:frame];
     if (self) {
 		minscale = 0.0;
-		maxscale = 12.0;
+//		maxscale = 12.0;
+		maxscale = 20000000.000000;
     }
     return self;
 }
@@ -143,7 +144,7 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextSetTextMatrix(gc, trans);
 	for(j = 0;j <= 4; ++j) {
 		sprintf(strbuf, "%.02f", (maxscale - minscale)* j / 4 + minscale);
-		CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
+		CGContextShowTextAtPoint(gc, 0, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
 	}
 }
 

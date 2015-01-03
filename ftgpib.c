@@ -102,14 +102,14 @@ int ftgpib_read(unsigned char *data)
 	int result;
 	int retry;
 
-	printf("MORI MORI read\n");
-	ftgpib_debug();
+//	printf("MORI MORI read\n");
+//	ftgpib_debug();
 	usleep(1000*100);
 	// NRFD to Hi
 //	outline = outline | (1 << NRFD);
 //	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	ftgpib_setlistener3();
-	ftgpib_debug();
+//	ftgpib_debug();
 	
 	for(retry = 0;;) {	// wait for DAV Lo
 		ftStatus = FT_GetBitMode(ctrlHandle, &stat);
@@ -179,7 +179,7 @@ int ftgpib_settalker()
 	}
 	outline = SETTALKER;
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
-	ftgpib_debug();
+//	ftgpib_debug();
 	
 	return 1;
 }
@@ -501,14 +501,14 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 	ftgpib_setlistener();
 
 atn:
-	ftgpib_debug();
+//	ftgpib_debug();
 	usleep(ATNPAUSE);
 	outline = outline | (1 << ATN);
 	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
 	if(result == 0)
 		return result;
-	printf("MORI MORI ATN\n");
-	ftgpib_debug();
+//	printf("MORI MORI ATN\n");
+//	ftgpib_debug();
 
 	do {
 		dataend = ftgpib_read(&readdata);
@@ -624,7 +624,7 @@ void ftgpib_debug()
 
 int ftgpib_tr5822(int addr, char *buf, int bufsize)
 {
-	ftgpib_debug();
+//	ftgpib_debug();
 
 	ftgpib_ifc();
 	usleep(1000);
@@ -675,7 +675,7 @@ int ftgpib_tr5822(int addr, char *buf, int bufsize)
 
 int ftgpib_856g(int addr, char *buf, int bufsize)
 {
-	ftgpib_debug();
+//	ftgpib_debug();
 	
 	ftgpib_ifc();
 	usleep(1000);

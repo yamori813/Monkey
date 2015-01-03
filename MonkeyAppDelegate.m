@@ -207,7 +207,7 @@
 	printf("gpib terget address = %d\n", [gpibaddr intValue]);
 	ftgpib_debug();
 
-#if 0
+#if 1
 	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
 		printf("gpib error on listen\n");
 		return;
@@ -245,6 +245,20 @@
 	}
 }
 
+- (IBAction)gpib_start:(id)sender
+{
+	if([[sender title] compare:@"Start"] == NSOrderedSame) {
+		gpibdoc = [[TimeDocument alloc] init];
+		[gpibdoc makeWindowControllers];
+		[gpibdoc showWindows];
+		[gpibdoc start:@selector(gpib_poll) src:self];
+		[sender setTitle:@"Stop"];
+	} else {
+		[gpibdoc stop];
+		[sender setTitle:@"Start"];
+	}
+}
+
 - (IBAction)gpib_test:(id)sender
 {
 	char buf[128];
@@ -259,6 +273,64 @@
 {
 	ftgpib_close();
 }
+
+-(double)gpibval:(NSString *)str
+{
+	int seisu = 0;
+	double result = 0.0;
+	char p[256];
+	int part = 0; // 0 intager, 1 decimal, 2　exponent
+	int decount = 1;
+	int i;
+	int ex = 0;
+	[str getCString:p maxLength:256 encoding:NSUTF8StringEncoding];
+	// 8840A +03.3275E+0
+	// TR5822 1.0000000E+07
+	for(i = 0; p[i] != '\0'; ++i) {
+		if(part == 0) {
+			if(p[i] >= '0' && p[i] <= '9') {
+				seisu *= 10;
+				seisu += (p[i] - '0');
+			} else if(p[i] == '.') {
+				part = 1;
+			}
+		} else if(part == 1) {
+			if(p[i] >= '0' && p[i] <= '9') {
+				result += ((double)(p[i] - '0') / pow(10,decount));
+				++decount;
+			} else if(p[i] == 'E') {
+				part = 2;
+			}
+		} else {
+			if(p[i] >= '0' && p[i] <= '9') {
+				ex *= 10;
+				ex += (p[i] - '0');
+			}
+		}
+	}
+	result += seisu;
+	result *= pow(10, ex);
+	return result;
+}
+
+-(NSNumber *)gpib_poll
+{
+	char buf[128];
+	printf("gpib terget address = %d\n", [gpibaddr intValue]);
+	ftgpib_debug();
+	
+	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
+		printf("gpib error on listen\n");
+		return;
+	}
+	
+	NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
+	[gpiblisten setStringValue:freqstr];
+	printf("%s", buf);
+
+	return [NSNumber numberWithDouble:[self gpibval:freqstr]];
+}
+
 
 //
 //
@@ -280,7 +352,7 @@
 			timedoc = [[TimeDocument alloc] init];
 			[timedoc makeWindowControllers];
 			[timedoc showWindows];
-			[timedoc start:self];
+			[timedoc start:@selector(metex_poll) src:self];
 			[sender setTitle:@"Stop"];
 		}
 	} else {
@@ -290,12 +362,12 @@
 	}
 }
 
--(double)metex_poll
+-(NSNumber *)metex_poll
 {
 	measure_value data;
 	metex_value(&data);
 	[metexmeter setDoubleValue:data.value];
-	return data.value;
+	return [NSNumber numberWithDouble:data.value];
 #if 0
 	int interval = 0;
 	measure_value data;
