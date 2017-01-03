@@ -23,7 +23,8 @@ CGRect convertToCGRect(NSRect inRect);
     if (self) {
 		minscale = 0.0;
 //		maxscale = 12.0;
-		maxscale = 20000000.000000;
+//		maxscale = 20000000.000000;
+		maxscale = 30.000000;
     }
     return self;
 }

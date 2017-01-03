@@ -32,12 +32,15 @@ static void sioinit(int speed)
 	tcsetattr(metex_port, TCSADRAIN, &rstio);
 }
 
+int remainsize;
+char remaindata[32];
+
 int metex_value(measure_value *data)
 {
 	int readsize;
 	fd_set sio_fd;
 	struct timeval wtime;
-	unsigned char buf[32];
+	unsigned char buf[1024];
 	int result;
 	
 	FD_ZERO(&sio_fd);
