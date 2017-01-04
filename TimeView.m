@@ -21,10 +21,6 @@ CGRect convertToCGRect(NSRect inRect);
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		minscale = 0.0;
-//		maxscale = 12.0;
-//		maxscale = 20000000.000000;
-		maxscale = 30.000000;
     }
     return self;
 }
@@ -36,6 +32,10 @@ CGRect convertToCGRect(NSRect inRect);
 	int x = therect.size.width - OFFSETX * 2;
 	float vscale = (therect.size.height - OFFSETY * 2) / (maxscale - minscale);
 	TimeDocument *thedoc = [[[self window] windowController] document];
+
+	minscale = [thedoc min];
+	maxscale = [thedoc max];
+	unittype = [thedoc unit];
 	
 	if([thedoc count] > x) {
 		if([metexscroller isEnabled] == NO) {
@@ -66,12 +66,13 @@ CGRect convertToCGRect(NSRect inRect);
 	}
 }
 
+/*
 - (void)setScale:(double)min max:(double)max
 {
 	minscale = min;
 	maxscale = max;
 }
-
+ */
 
 - (IBAction)scroll:(id)sender
 {
@@ -133,6 +134,7 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
 	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
+	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 	
 	for(j = 0;j <= OFFSETX + x;j += 100) {
 		sprintf(strbuf, "%d", ((startpos / 100) + 1) * 100 + j);
@@ -143,10 +145,17 @@ CGRect convertToCGRect(NSRect inRect);
 	trans = CGAffineTransformMakeScale(1.0, 1.0);
 	trans = CGAffineTransformRotate(trans, 3.14/2);
 	CGContextSetTextMatrix(gc, trans);
-	for(j = 0;j <= 4; ++j) {
-		sprintf(strbuf, "%.02f", (maxscale - minscale)* j / 4 + minscale);
-		CGContextShowTextAtPoint(gc, 0, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
+	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
+	for(j = 0;j < 4; ++j) {
+		if(maxscale < 100.0)
+			sprintf(strbuf, "%.02f", (maxscale - minscale)* j / 4 + minscale);
+		else
+			sprintf(strbuf, "%d", (int)((maxscale - minscale)* j / 4 + minscale));
+		CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
 	}
+	sprintf(strbuf, "%s", unitstr(unittype));
+	CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4 - 8, strbuf, strlen(strbuf));
+	CGContextStrokePath(gc);
 }
 
 - (void)drawRect:(NSRect)rect

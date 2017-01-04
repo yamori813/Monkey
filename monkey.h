@@ -25,3 +25,5 @@ typedef struct ds5100_info {
 	double ch2offset;
 	double timebasescale;
 } ds5100_info;
+
+char *unitstr(int type);

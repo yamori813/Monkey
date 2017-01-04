@@ -349,9 +349,10 @@
 		}
 #endif
 		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
-			timedoc = [[TimeDocument alloc] init];
+			timedoc = [[TimeDocument alloc] initWithScale:[metexmin doubleValue] max:[metexmax doubleValue]];
 			[timedoc makeWindowControllers];
 			[timedoc showWindows];
+			[timedoc setUnit:[self metex_unit]];
 			[timedoc start:@selector(metex_poll) src:self];
 			[sender setTitle:@"Stop"];
 		}
@@ -360,6 +361,13 @@
 		[timedoc stop];
 		[sender setTitle:@"Start"];
 	}
+}
+
+-(int)metex_unit
+{
+	measure_value data;
+	metex_value(&data);
+	return data.unittype;
 }
 
 -(NSNumber *)metex_poll

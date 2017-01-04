@@ -15,11 +15,10 @@
 	int buffersize;
 	double minscale;
 	double maxscale;
+	int unittype;
 	int startpos;
 }
 
-- (void)setScale:(double)min max:(double)max;
-- (void)addData:(double)data time:(int)msec;
 - (IBAction)scroll:(id)sender;
 
 @end

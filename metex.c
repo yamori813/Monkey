@@ -93,9 +93,13 @@ int metex_value(measure_value *data)
 		data->value = (double)value / 10;
 		data->unittype = UNIT_dB;
 	} else if(buf[5] == 0x3e)	{
-		// Lux
+		// LUX
 		data->value = value;
 		data->unittype = UNIT_LUX;
+	} else if(buf[5] == 0x3f)	{
+		// A
+		data->value = value * pow(10, (buf[0] - 0x64)/2);
+		data->unittype = UNIT_AMPERE;
 	}
 	
 	return result;
@@ -124,4 +128,34 @@ int metex_init(CFStringRef devname)
 void metex_close()
 {
 	close(metex_port);
+}
+
+char *unitstr(int type)
+{
+	char *res;
+
+	switch (type) {
+		case UNIT_VOLT:
+			res = "V";
+			break;
+		case UNIT_AMPERE:
+			res = "A";
+			break;
+		case UNIT_OHM:
+			res = "Ω";
+			break;
+		case UNIT_C:
+			res = "F";
+			break;
+		case UNIT_LUX:
+			res = "Lux";
+			break;
+		case UNIT_dB:
+			res = "dB";
+			break;
+		default:
+			res = "-";
+			break;
+	}
+	return res;
 }
