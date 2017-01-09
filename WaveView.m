@@ -11,8 +11,8 @@
 #import "MonkeyAppDelegate.h"
 #import "WaveDocument.h"
 
-#define OFFSETX 10
-#define OFFSETY 10
+#define OFFSETX 40
+#define OFFSETY 40
 
 @implementation WaveView
 
@@ -53,15 +53,22 @@ CGRect convertToCGRect(NSRect inRect)
 	WaveDocument *thedoc = [[[self window] windowController] document];
 	ds5100_info *info = [thedoc getInfo];
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
-	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
+	CGContextSelectFont(gc, "Geneva", 20, kCGEncodingMacRoman);
+	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
+
+	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
+	sprintf(strbuf, "MONKEY", info->ch1scale);
+	CGContextShowTextAtPoint(gc, OFFSETX, y + OFFSETY + 20, strbuf, strlen(strbuf));
+	
+	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
-	sprintf(strbuf, "CH1 %f V", info->ch1scale);
+	sprintf(strbuf, "CH1 %.02f V", info->ch1scale);
 	CGContextShowTextAtPoint(gc, OFFSETX, 2, strbuf, strlen(strbuf));
 
 	CGContextSetRGBFillColor( gc,236/255.0f,0/255.0f,140/255.0f,1.0f);
-	sprintf(strbuf, "CH2 %f V", info->ch2scale);
+	sprintf(strbuf, "CH2 %.02f V", info->ch2scale);
 	CGContextShowTextAtPoint(gc, OFFSETX + 100, 2, strbuf, strlen(strbuf));
 
 	CGContextSetRGBFillColor( gc, 255, 255, 255, 1.0f);

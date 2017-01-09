@@ -132,7 +132,7 @@
 	info.ch2scale = [(NSString *)[iwa QueScale:2] doubleValue];
 	info.ch1offset = [(NSString *)[iwa QueOffset:1] doubleValue];
 	info.ch2offset = [(NSString *)[iwa QueOffset:2] doubleValue];
-	info.timebasescale = [(NSString *)[iwa QueTimeBaseOffset] doubleValue];
+	info.timebasescale = [(NSString *)[iwa QueTimeBaseScale] doubleValue];
 
 	[mydoc readFromData:[NSData dataWithBytes:&info length:sizeof(ds5100_info)]
 				 ofType:@"INFO" error:NULL];
