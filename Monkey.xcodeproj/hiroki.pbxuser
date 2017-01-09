@@ -205,6 +205,11 @@
 			F5DBB9731E23ACE7003C1934 /* PBXTextBookmark */ = F5DBB9731E23ACE7003C1934 /* PBXTextBookmark */;
 			F5DBB9741E23ACE7003C1934 /* PBXTextBookmark */ = F5DBB9741E23ACE7003C1934 /* PBXTextBookmark */;
 			F5DBB9751E23ACE7003C1934 /* PBXTextBookmark */ = F5DBB9751E23ACE7003C1934 /* PBXTextBookmark */;
+			F5DBB9811E23B020003C1934 /* PBXBookmark */ = F5DBB9811E23B020003C1934 /* PBXBookmark */;
+			F5DBB9861E23B06F003C1934 /* PBXTextBookmark */ = F5DBB9861E23B06F003C1934 /* PBXTextBookmark */;
+			F5DBB9871E23B06F003C1934 /* PBXTextBookmark */ = F5DBB9871E23B06F003C1934 /* PBXTextBookmark */;
+			F5DBB9881E23B06F003C1934 /* PBXTextBookmark */ = F5DBB9881E23B06F003C1934 /* PBXTextBookmark */;
+			F5DBB98B1E23B06F003C1934 /* PBXTextBookmark */ = F5DBB98B1E23B06F003C1934 /* PBXTextBookmark */;
 			F5DD4E7914B33A5200D8CC61 = F5DD4E7914B33A5200D8CC61 /* PBXTextBookmark */;
 			F5DD4E7B14B33A5200D8CC61 = F5DD4E7B14B33A5200D8CC61 /* PBXTextBookmark */;
 			F5F83FE518DFB17B00B28B9B = F5F83FE518DFB17B00B28B9B /* PBXTextBookmark */;
@@ -583,15 +588,15 @@
 	};
 	F587F51C14AD453100F2EBAE /* WaveDocument.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {579, 2119}}";
-			sepNavSelRange = "{3521, 22}";
-			sepNavVisRange = "{0, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1678, 2041}}";
+			sepNavSelRange = "{1929, 0}";
+			sepNavVisRange = "{812, 1986}";
 			sepNavWindowFrame = "{{1305, -117}, {920, 652}}";
 		};
 	};
 	F588012314BB2A8800850BD0 /* monkey.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {897, 572}}";
+			sepNavIntBoundsRect = "{{0, 0}, {897, 595}}";
 			sepNavSelRange = "{427, 23}";
 			sepNavVisRange = "{0, 491}";
 			sepNavWindowFrame = "{{324, 55}, {956, 723}}";
@@ -624,10 +629,10 @@
 	};
 	F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {897, 1638}}";
-			sepNavSelRange = "{1754, 0}";
-			sepNavVisRange = "{799, 1810}";
-			sepNavWindowFrame = "{{324, 50}, {956, 723}}";
+			sepNavIntBoundsRect = "{{0, 0}, {558, 1729}}";
+			sepNavSelRange = "{187, 0}";
+			sepNavVisRange = "{157, 75}";
+			sepNavWindowFrame = "{{292, 55}, {956, 723}}";
 		};
 	};
 	F5A24D4814CBFD6700D8A4A5 /* PBXTextBookmark */ = {
@@ -774,17 +779,17 @@
 	};
 	F5B76E561A575C37007893A2 /* TimeDocument.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {534, 585}}";
+			sepNavIntBoundsRect = "{{0, 0}, {534, 598}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 134}";
+			sepNavVisRange = "{0, 36}";
 			sepNavWindowFrame = "{{71, 50}, {1041, 728}}";
 		};
 	};
 	F5B76E571A575C37007893A2 /* TimeDocument.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {782, 2522}}";
+			sepNavIntBoundsRect = "{{0, 0}, {782, 2574}}";
 			sepNavSelRange = "{528, 0}";
-			sepNavVisRange = "{460, 68}";
+			sepNavVisRange = "{494, 32}";
 			sepNavWindowFrame = "{{239, 50}, {1041, 728}}";
 		};
 	};
@@ -1518,6 +1523,50 @@
 		rType = 0;
 		vrLen = 491;
 		vrLoc = 0;
+	};
+	F5DBB9811E23B020003C1934 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = F587F51C14AD453100F2EBAE /* WaveDocument.m */;
+	};
+	F5DBB9861E23B06F003C1934 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */;
+		name = "WaveView.m: 12";
+		rLen = 0;
+		rLoc = 187;
+		rType = 0;
+		vrLen = 75;
+		vrLoc = 157;
+	};
+	F5DBB9871E23B06F003C1934 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5B76E561A575C37007893A2 /* TimeDocument.h */;
+		name = "TimeDocument.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 36;
+		vrLoc = 0;
+	};
+	F5DBB9881E23B06F003C1934 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5B76E571A575C37007893A2 /* TimeDocument.m */;
+		name = "TimeDocument.m: 46";
+		rLen = 0;
+		rLoc = 528;
+		rType = 0;
+		vrLen = 32;
+		vrLoc = 494;
+	};
+	F5DBB98B1E23B06F003C1934 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F587F51C14AD453100F2EBAE /* WaveDocument.m */;
+		name = "WaveDocument.m: 55";
+		rLen = 0;
+		rLoc = 1929;
+		rType = 0;
+		vrLen = 1986;
+		vrLoc = 812;
 	};
 	F5DD4E0514B2FD2400D8CC61 /* metex.h */ = {
 		uiCtxt = {
