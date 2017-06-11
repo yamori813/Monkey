@@ -35,8 +35,10 @@
 
 	IBOutlet NSPopUpButton *metexDevSelect;
 	IBOutlet NSTextField *metexmeter;
+	IBOutlet NSTextField *metexunit;
 	IBOutlet NSTextField *metexmin;
 	IBOutlet NSTextField *metexmax;
+	IBOutlet NSButton *inductor;
 	IBOutlet TimeView *metexview;
 	uint64_t metexlasttime;
 	

@@ -65,7 +65,7 @@
 
 -(void)poll:(NSTimer*)timer{
 	double val = [[datasrc performSelector:sel] doubleValue];
-	NSLog(@"MORI MORI poll %f\n", val);
+	NSLog(@"MORI MORI poll %lf\n", val);
 	data[datasize] = val;
 	++datasize;
 	if(datasize == buffsize) {

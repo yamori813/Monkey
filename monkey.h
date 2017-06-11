@@ -12,6 +12,8 @@
 #define UNIT_C		4
 #define UNIT_LUX	5
 #define UNIT_dB		6
+#define UNIT_Hz		7
+#define UNIT_H		8
 
 typedef struct measure_value {
 	double value;

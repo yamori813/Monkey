@@ -373,8 +373,9 @@
 -(NSNumber *)metex_poll
 {
 	measure_value data;
-	metex_value(&data);
+	metex_value(&data, [inductor state] == NSOnState);
 	[metexmeter setDoubleValue:data.value];
+	[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSASCIIStringEncoding]];
 	return [NSNumber numberWithDouble:data.value];
 #if 0
 	int interval = 0;

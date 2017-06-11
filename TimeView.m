@@ -58,7 +58,12 @@ CGRect convertToCGRect(NSRect inRect);
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 		CGContextMoveToPoint(gc, OFFSETX, (int)(([thedoc value:startpos] - minscale)*vscale + OFFSETY));
 		for(i = startpos+1; i < [thedoc count]; ++i) {
-			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)(([thedoc value:i] - minscale)*vscale + OFFSETY));
+			int val = [thedoc value:i];
+			if(val < minscale)
+				val = minscale;
+			if(val > maxscale)
+				val = maxscale;
+			CGContextAddLineToPoint(gc, OFFSETX+i-startpos, (int)((val - minscale)*vscale + OFFSETY));
 			if(i-startpos == x)
 				break;
 		}

@@ -35,13 +35,14 @@ static void sioinit(int speed)
 int remainsize;
 char remaindata[32];
 
-int metex_value(measure_value *data)
+int metex_value(measure_value *data, int ind)
 {
 	int readsize;
 	fd_set sio_fd;
 	struct timeval wtime;
 	unsigned char buf[1024];
 	int result;
+	double tmp;
 	
 	FD_ZERO(&sio_fd);
 	FD_SET(metex_port, &sio_fd);
@@ -100,6 +101,24 @@ int metex_value(measure_value *data)
 		// A
 		data->value = value * pow(10, (buf[0] - 0x64)/2);
 		data->unittype = UNIT_AMPERE;
+	} else if(buf[5] == 0x32)	{
+		// Hz
+		if(ind) {
+			// This is H caricurate
+			tmp = value * pow(10, (buf[0] - 0x64)/2) / 10;
+			tmp = pow(tmp * 2 * 3.14, 2) * 50;
+			tmp = (1 / tmp) * 1000 * 1000 * 1000;
+			if(tmp < 1) {
+				tmp = round((tmp * 10000) + 0.5) / 10000;
+			} else {
+				tmp = round((tmp * 100) + 0.5) / 100;
+			}
+			data->value = tmp;
+			data->unittype = UNIT_H;
+		} else {
+			data->value = value * pow(10, (buf[0] - 0x64)/2);
+			data->unittype = UNIT_Hz;
+		}
 	}
 	
 	return result;
@@ -139,7 +158,7 @@ char *unitstr(int type)
 			res = "V";
 			break;
 		case UNIT_AMPERE:
-			res = "A";
+			res = "mA";
 			break;
 		case UNIT_OHM:
 			res = "Ω";
@@ -152,6 +171,12 @@ char *unitstr(int type)
 			break;
 		case UNIT_dB:
 			res = "dB";
+			break;
+		case UNIT_Hz:
+			res = "Hz";
+			break;
+		case UNIT_H:
+			res = "H";
 			break;
 		default:
 			res = "-";
