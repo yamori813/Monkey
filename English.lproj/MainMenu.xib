@@ -12,11 +12,11 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="782"/>
 			<integer value="534"/>
 			<integer value="648"/>
-			<integer value="754"/>
+			<integer value="782"/>
 			<integer value="628"/>
+			<integer value="754"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3557,6 +3557,14 @@
 					</object>
 					<int key="connectionID">832</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">metexget</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="374130961"/>
+					</object>
+					<int key="connectionID">833</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -6392,7 +6400,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">832</int>
+			<int key="maxID">833</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6601,6 +6609,7 @@
 							<string>inductor</string>
 							<string>metexDevSelect</string>
 							<string>metexc</string>
+							<string>metexget</string>
 							<string>metexmax</string>
 							<string>metexmeter</string>
 							<string>metexmin</string>
@@ -6630,6 +6639,7 @@
 							<string>NSButton</string>
 							<string>NSPopUpButton</string>
 							<string>NSTextField</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -6662,6 +6672,7 @@
 							<string>inductor</string>
 							<string>metexDevSelect</string>
 							<string>metexc</string>
+							<string>metexget</string>
 							<string>metexmax</string>
 							<string>metexmeter</string>
 							<string>metexmin</string>
@@ -6738,6 +6749,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">metexc</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">metexget</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">metexmax</string>

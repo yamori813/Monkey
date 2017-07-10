@@ -313,7 +313,7 @@
 		metex_value(&data, [inductor state] == NSOnState, [metexc doubleValue]);
 		[metexmeter setStringValue:[NSString stringWithFormat:@"%.*lf", 
 									data.edig, data.value]];
-		[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSASCIIStringEncoding]];	
+		[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSUTF8StringEncoding]];	
 		metex_close();
 		NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
 		[synthesizer setRate:100.0];
@@ -342,12 +342,14 @@
 			[timedoc setUnit:[self metex_unit]];
 			[timedoc start:@selector(metex_poll) src:self];
 			[sender setTitle:@"Stop"];
+			[metexget setEnabled:NO];
 		}
 	} else {
 //		metex_willstop = 1;
 		[timedoc stop];
 		[sender setTitle:@"Start"];
 		metex_close();
+		[metexget setEnabled:YES];
 	}
 }
 
@@ -363,7 +365,7 @@
 	measure_value data;
 	metex_value(&data, [inductor state] == NSOnState, [metexc doubleValue]);
 	[metexmeter setDoubleValue:data.value];
-	[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSASCIIStringEncoding]];
+	[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSUTF8StringEncoding]];
 	return [NSNumber numberWithDouble:data.value];
 #if 0
 	int interval = 0;

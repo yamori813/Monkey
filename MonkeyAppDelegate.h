@@ -40,6 +40,7 @@
 	IBOutlet NSTextField *metexunit;
 	IBOutlet NSTextField *metexmin;
 	IBOutlet NSTextField *metexmax;
+	IBOutlet NSButton *metexget;
 	IBOutlet NSButton *inductor;
 	IBOutlet NSTextField *metexc;
 	IBOutlet TimeView *metexview;

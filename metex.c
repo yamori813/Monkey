@@ -322,6 +322,9 @@ char *unitstr(int type)
 			res = "MΩ";
 			break;
 		case UNIT_C:
+			res = "C";
+			break;
+		case UNIT_F:
 			res = "F";
 			break;
 		case UNIT_nF:
