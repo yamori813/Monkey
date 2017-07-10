@@ -25,6 +25,8 @@
 #define UNIT_nF		15
 #define UNIT_uF		16
 #define UNIT_mF		17
+#define UNIT_mA		18
+#define UNIT_uA		19
 
 typedef struct measure_value {
 	double value;
