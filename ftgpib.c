@@ -104,7 +104,8 @@ int ftgpib_read(unsigned char *data)
 
 //	printf("MORI MORI read\n");
 //	ftgpib_debug();
-	usleep(1000*100);
+//	usleep(1000*100);
+	usleep(100);
 	// NRFD to Hi
 //	outline = outline | (1 << NRFD);
 //	ftStatus = FT_Write(ctrlHandle, &outline, 1, &writesize);
@@ -497,7 +498,6 @@ int ftgpib_listen(int taraddr, char *buf, int bufsize, int useeoi)
 		goto atn;
 	}
 
-	printf("MORI MORI Debug\n");
 	ftgpib_setlistener();
 
 atn:
@@ -516,7 +516,7 @@ atn:
 			printf("ftgpib_read error\n");
 			return 0;
 		}
-		printf("ftgpib_read %c\n", readdata);
+//		printf("ftgpib_read %c\n", readdata);
 		if((tmpptr - buf - 1) < bufsize)
 		   *tmpptr++ = readdata;
 		if(!useeoi && readdata == '\n') {

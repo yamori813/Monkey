@@ -14,6 +14,17 @@
 #define UNIT_dB		6
 #define UNIT_Hz		7
 #define UNIT_H		8
+#define UNIT_F		9
+
+
+#define UNIT_KHz	10
+#define UNIT_MHz	11
+#define UNIT_mVOLT	12
+#define UNIT_KOHM	13
+#define UNIT_MOHM	14
+#define UNIT_nF		15
+#define UNIT_uF		16
+#define UNIT_mF		17
 
 typedef struct measure_value {
 	double value;

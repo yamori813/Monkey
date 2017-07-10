@@ -10,6 +10,7 @@
 
 #include "serial.h"
 #include "ftgpib.h"
+#include "gpibutil.h"
 
 @implementation MonkeyAppDelegate
 
@@ -222,6 +223,12 @@
 	NSString *freqstr = [NSString stringWithCString:buf encoding:NSASCIIStringEncoding];
 	[gpiblisten setStringValue:freqstr];
 	printf("%s", buf);
+	gpioval gpib = gpibstr2val(buf);
+	printf("%.*lf", gpib.edig > gpib.exp ? gpib.edig - gpib.exp : 0, gpib.val);
+	NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
+	[synthesizer setRate:100.0];
+	[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
+									  gpib.edig > gpib.exp ? gpib.edig - gpib.exp : 0, gpib.val]];
 }
 
 - (IBAction)gpib_talk:(id)sender
@@ -248,7 +255,7 @@
 - (IBAction)gpib_start:(id)sender
 {
 	if([[sender title] compare:@"Start"] == NSOrderedSame) {
-		gpibdoc = [[TimeDocument alloc] init];
+		gpibdoc = [[TimeDocument alloc] initWithScale:[gpiomin doubleValue] max:[gpiomax doubleValue]];
 		[gpibdoc makeWindowControllers];
 		[gpibdoc showWindows];
 		[gpibdoc start:@selector(gpib_poll) src:self];
@@ -274,45 +281,6 @@
 	ftgpib_close();
 }
 
--(double)gpibval:(NSString *)str
-{
-	int seisu = 0;
-	double result = 0.0;
-	char p[256];
-	int part = 0; // 0 intager, 1 decimal, 2　exponent
-	int decount = 1;
-	int i;
-	int ex = 0;
-	[str getCString:p maxLength:256 encoding:NSUTF8StringEncoding];
-	// 8840A +03.3275E+0
-	// TR5822 1.0000000E+07
-	for(i = 0; p[i] != '\0'; ++i) {
-		if(part == 0) {
-			if(p[i] >= '0' && p[i] <= '9') {
-				seisu *= 10;
-				seisu += (p[i] - '0');
-			} else if(p[i] == '.') {
-				part = 1;
-			}
-		} else if(part == 1) {
-			if(p[i] >= '0' && p[i] <= '9') {
-				result += ((double)(p[i] - '0') / pow(10,decount));
-				++decount;
-			} else if(p[i] == 'E') {
-				part = 2;
-			}
-		} else {
-			if(p[i] >= '0' && p[i] <= '9') {
-				ex *= 10;
-				ex += (p[i] - '0');
-			}
-		}
-	}
-	result += seisu;
-	result *= pow(10, ex);
-	return result;
-}
-
 -(NSNumber *)gpib_poll
 {
 	char buf[128];
@@ -328,7 +296,8 @@
 	[gpiblisten setStringValue:freqstr];
 	printf("%s", buf);
 
-	return [NSNumber numberWithDouble:[self gpibval:freqstr]];
+	gpioval gpib = gpibstr2val(buf);
+	return [NSNumber numberWithDouble:gpib.val];
 }
 
 
@@ -373,7 +342,7 @@
 -(NSNumber *)metex_poll
 {
 	measure_value data;
-	metex_value(&data, [inductor state] == NSOnState);
+	metex_value(&data, [inductor state] == NSOnState, [metexc doubleValue]);
 	[metexmeter setDoubleValue:data.value];
 	[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSASCIIStringEncoding]];
 	return [NSNumber numberWithDouble:data.value];

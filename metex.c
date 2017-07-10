@@ -35,7 +35,9 @@ static void sioinit(int speed)
 int remainsize;
 char remaindata[32];
 
-int metex_value(measure_value *data, int ind)
+// ES51986 datasheet
+
+int metex_value(measure_value *data, int ind, double c)
 {
 	int readsize;
 	fd_set sio_fd;
@@ -63,32 +65,101 @@ int metex_value(measure_value *data, int ind)
 	printf("\n");
 	
 	int value = (buf[1] - '0') * 1000 + (buf[2] - '0') * 100 + (buf[3] - '0') * 10 + (buf[4] - '0');
-	printf("%d %d %f %02x\n", value, (buf[0] - 0x60), value * pow(10, (buf[0] - 0x66)/2), buf[5]);
+	if(buf[6] & 0x04)
+		value *= -1;
+	printf("%d %d %02x\n", buf[0] / 2 - 0x30, value, buf[5]);
 
-	// DC V
 	if(buf[5] == 0x3b) {
+		// DC V
 		if(value != 6000) {
-			data->value = value * pow(10, (buf[0] - 0x66)/2);
 			result = 1;
+			int renge = buf[0] / 2 - 0x30;   // ???
+			if(renge == 0) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_VOLT;
+			} else if(renge == 1) {
+				data->value = (double)value / 100;
+				data->unittype = UNIT_VOLT;
+			} else if(renge == 2) {
+				data->value = (double)value / 10;
+				data->unittype = UNIT_VOLT;
+			} else if(renge == 3) {
+				data->value = (double)value;
+				data->unittype = UNIT_VOLT;
+			} else if(renge == 4){
+				data->value = (double)value / 10;
+				data->unittype = UNIT_mVOLT;
+			}
 		} else {
 			data->value = 0.0;
 			result = 0;
+			data->unittype = UNIT_VOLT;
 		}
-		data->unittype = UNIT_VOLT;
+	} else if(buf[5] == 0x36) {
+		// Cap
+		if(value != 6000) {
+			result = 1;
+			int renge = buf[0] / 2 - 0x30;   // ???
+			if(renge == 0) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_nF;
+			} else if(renge == 1) {
+				data->value = (double)value / 100;
+				data->unittype = UNIT_nF;
+			} else if(renge == 2) {
+				data->value = (double)value / 10;
+				data->unittype = UNIT_nF;
+			} else if(renge == 3) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_uF;
+			} else if(renge == 4){
+				data->value = (double)value / 100;
+				data->unittype = UNIT_uF;
+			} else if(renge == 4){
+				data->value = (double)value / 10;
+				data->unittype = UNIT_uF;
+			} else if(renge == 4){
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_mF;
+			}
+		} else {
+			data->value = 0.0;
+			result = 0;
+			data->unittype = UNIT_VOLT;
+		}
 	} else if(buf[5] == 0x34) {
 		// Temp
 		data->value = value;
 		data->unittype = UNIT_C;
 	} else if(buf[5] == 0x33) {
-		// R
+		// Resistance
 		if(value != 6000) {
-			data->value = value * pow(10, (buf[0] - 0x62)/2);
 			result = 1;
+			int renge = buf[0] / 2 - 0x30;   // ???
+			if(renge == 0) {
+				data->value = (double)value / 100;
+				data->unittype = UNIT_OHM;
+			} else if(renge == 1) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_KOHM;
+			} else if(renge == 2) {
+				data->value = (double)value / 100;
+				data->unittype = UNIT_KOHM;
+			} else if(renge == 3) {
+				data->value = (double)value / 10;
+				data->unittype = UNIT_KOHM;
+			} else if(renge == 4){
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_MOHM;
+			} else if(renge == 5){
+				data->value = (double)value / 100;
+				data->unittype = UNIT_MOHM;
+			}
 		} else {
 			data->value = 0.0;
 			result = 0;
+			data->unittype = UNIT_OHM;
 		}
-		data->unittype = UNIT_OHM;
 	} else if(buf[5] == 0x3c) {
 		// dB
 		data->value = (double)value / 10;
@@ -101,23 +172,47 @@ int metex_value(measure_value *data, int ind)
 		// A
 		data->value = value * pow(10, (buf[0] - 0x64)/2);
 		data->unittype = UNIT_AMPERE;
-	} else if(buf[5] == 0x32)	{
-		// Hz
-		if(ind) {
-			// This is H caricurate
-			tmp = value * pow(10, (buf[0] - 0x64)/2) / 10;
-			tmp = pow(tmp * 2 * 3.14, 2) * 50;
-			tmp = (1 / tmp) * 1000 * 1000 * 1000;
-			if(tmp < 1) {
-				tmp = round((tmp * 10000) + 0.5) / 10000;
-			} else {
-				tmp = round((tmp * 100) + 0.5) / 100;
+	} else if(buf[5] == 0x32) {
+		// Freq
+		if(value != 6000) {
+			int renge = buf[0] / 2 - 0x30;   // ???
+			if(renge == 0) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_KHz;
+			} else if(renge == 1) {
+				data->value = (double)value / 100;
+				data->unittype = UNIT_KHz;
+			} else if(renge == 2) {
+				data->value = (double)value / 10;
+				data->unittype = UNIT_KHz;
+			} else if(renge == 3) {
+				data->value = (double)value / 1000;
+				data->unittype = UNIT_MHz;
+			} else if(renge == 4){
+				data->value = (double)value / 100;
+				data->unittype = UNIT_MHz;
 			}
-			data->value = tmp;
-			data->unittype = UNIT_H;
+			// Hz
+			if(ind) {
+				// This is H caricurate
+				if(data->unittype == UNIT_MHz)
+					tmp = data->value * 1000;
+				else
+					tmp = data->value;
+				tmp = pow(tmp * 2 * 3.14, 2) * c;
+				tmp = (1 / tmp) * 1000 * 1000 * 1000;
+				if(tmp < 1) {
+					tmp = round((tmp * 10000) + 0.5) / 10000;
+				} else {
+					tmp = round((tmp * 100) + 0.5) / 100;
+				}
+				data->value = tmp;
+				data->unittype = UNIT_H;
+			}
 		} else {
-			data->value = value * pow(10, (buf[0] - 0x64)/2);
-			data->unittype = UNIT_Hz;
+			data->value = 0.0;
+			result = 0;
+			data->unittype = UNIT_MHz;
 		}
 	}
 	
@@ -157,14 +252,32 @@ char *unitstr(int type)
 		case UNIT_VOLT:
 			res = "V";
 			break;
+		case UNIT_mVOLT:
+			res = "mV";
+			break;
 		case UNIT_AMPERE:
 			res = "mA";
 			break;
 		case UNIT_OHM:
 			res = "Ω";
 			break;
+		case UNIT_KOHM:
+			res = "KΩ";
+			break;
+		case UNIT_MOHM:
+			res = "MΩ";
+			break;
 		case UNIT_C:
 			res = "F";
+			break;
+		case UNIT_nF:
+			res = "nF";
+			break;
+		case UNIT_uF:
+			res = "uF";
+			break;
+		case UNIT_mF:
+			res = "mF";
 			break;
 		case UNIT_LUX:
 			res = "Lux";
@@ -175,8 +288,14 @@ char *unitstr(int type)
 		case UNIT_Hz:
 			res = "Hz";
 			break;
+		case UNIT_KHz:
+			res = "KHz";
+			break;
+		case UNIT_MHz:
+			res = "MHz";
+			break;
 		case UNIT_H:
-			res = "H";
+			res = "uH";
 			break;
 		default:
 			res = "-";

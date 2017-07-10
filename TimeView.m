@@ -58,7 +58,7 @@ CGRect convertToCGRect(NSRect inRect);
 								   gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 		CGContextMoveToPoint(gc, OFFSETX, (int)(([thedoc value:startpos] - minscale)*vscale + OFFSETY));
 		for(i = startpos+1; i < [thedoc count]; ++i) {
-			int val = [thedoc value:i];
+			double val = [thedoc value:i];
 			if(val < minscale)
 				val = minscale;
 			if(val > maxscale)
