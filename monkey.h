@@ -29,6 +29,7 @@
 typedef struct measure_value {
 	double value;
 	int unittype;
+	int edig;
 } measure_value;
 
 typedef struct ds5100_info {

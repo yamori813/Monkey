@@ -77,6 +77,7 @@
 - (IBAction)gpib_start:(id)sender;
 - (IBAction)gpib_close:(id)sender;
 
+- (IBAction)metex_get:(id)sender;
 - (IBAction)metex_action:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;

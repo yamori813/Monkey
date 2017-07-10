@@ -8,3 +8,8 @@
  */
 
 #include <Carbon/Carbon.h>
+
+int metex_init(CFStringRef devname);
+int metex_value(measure_value *data, int ind, double c);
+void metex_close();
+char *unitstr(int type);

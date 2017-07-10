@@ -77,18 +77,23 @@ int metex_value(measure_value *data, int ind, double c)
 			if(renge == 0) {
 				data->value = (double)value / 1000;
 				data->unittype = UNIT_VOLT;
+				data->edig = 3;
 			} else if(renge == 1) {
 				data->value = (double)value / 100;
 				data->unittype = UNIT_VOLT;
+				data->edig = 2;
 			} else if(renge == 2) {
 				data->value = (double)value / 10;
 				data->unittype = UNIT_VOLT;
+				data->edig = 1;
 			} else if(renge == 3) {
 				data->value = (double)value;
 				data->unittype = UNIT_VOLT;
+				data->edig = 0;
 			} else if(renge == 4){
 				data->value = (double)value / 10;
 				data->unittype = UNIT_mVOLT;
+				data->edig = 1;
 			}
 		} else {
 			data->value = 0.0;

@@ -11,6 +11,7 @@
 #include "serial.h"
 #include "ftgpib.h"
 #include "gpibutil.h"
+#include "metex.h"
 
 @implementation MonkeyAppDelegate
 
@@ -305,6 +306,23 @@
 //
 //
 
+- (IBAction)metex_get:(id)sender
+{
+	if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
+		measure_value data;
+		metex_value(&data, [inductor state] == NSOnState, [metexc doubleValue]);
+		[metexmeter setStringValue:[NSString stringWithFormat:@"%.*lf", 
+									data.edig, data.value]];
+		[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSASCIIStringEncoding]];	
+		metex_close();
+		NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
+		[synthesizer setRate:100.0];
+		[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
+										  data.edig, data.value]];
+		
+	}
+}
+
 - (IBAction)metex_action:(id)sender
 {
 	if([[sender title] compare:@"Start"] == NSOrderedSame) {
@@ -329,13 +347,14 @@
 //		metex_willstop = 1;
 		[timedoc stop];
 		[sender setTitle:@"Start"];
+		metex_close();
 	}
 }
 
 -(int)metex_unit
 {
 	measure_value data;
-	metex_value(&data);
+	metex_value(&data, [inductor state] == NSOnState, [metexc doubleValue]);
 	return data.unittype;
 }
 
