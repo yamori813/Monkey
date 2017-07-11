@@ -11,6 +11,11 @@
 #import "TimeWindowController.h"
 #import "TimeView.h"
 
+typedef struct {
+	double time;
+	double val;
+} plotdate;
+
 @protocol TimeDocumentDelegate <NSObject>
 
 - (double)metex_poll;
@@ -28,8 +33,9 @@
 	SEL sel;
 
 	int datasize;
-	double *data;
+	plotdate *data;
 	int buffsize;
+	uint64_t pollstart;
 
 	double minscale;
 	double maxscale;
@@ -41,5 +47,6 @@
 -(int)unit;
 -(int)count;
 -(double)value:(int)num;
+-(double)time:(int)num;
 
 @end

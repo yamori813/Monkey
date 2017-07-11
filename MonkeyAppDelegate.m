@@ -206,8 +206,8 @@
 - (IBAction)gpib_listen:(id)sender
 {
 	char buf[128];
-	printf("gpib terget address = %d\n", [gpibaddr intValue]);
-	ftgpib_debug();
+//	printf("gpib terget address = %d\n", [gpibaddr intValue]);
+//	ftgpib_debug();
 
 #if 1
 	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
@@ -259,6 +259,7 @@
 		gpibdoc = [[TimeDocument alloc] initWithScale:[gpiomin doubleValue] max:[gpiomax doubleValue]];
 		[gpibdoc makeWindowControllers];
 		[gpibdoc showWindows];
+		[gpibdoc setUnit:UNIT_VOLT];
 		[gpibdoc start:@selector(gpib_poll) src:self];
 		[sender setTitle:@"Stop"];
 	} else {
@@ -285,8 +286,8 @@
 -(NSNumber *)gpib_poll
 {
 	char buf[128];
-	printf("gpib terget address = %d\n", [gpibaddr intValue]);
-	ftgpib_debug();
+//	printf("gpib terget address = %d\n", [gpibaddr intValue]);
+//	ftgpib_debug();
 	
 	if(ftgpib_listen([gpibaddr intValue], buf, sizeof(buf), 1) == 0) {
 		printf("gpib error on listen\n");

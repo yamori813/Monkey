@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="100024"/>
-			<integer value="100044"/>
+			<integer value="100045"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -102,11 +102,11 @@
 								<int key="NSKeyEquivModMask">1048576</int>
 								<int key="NSMnemonicLoc">2147483647</int>
 								<int key="NSState">1</int>
-								<object class="NSCustomResource" key="NSOnImage" id="631061411">
+								<object class="NSCustomResource" key="NSOnImage" id="1034485700">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSMenuCheckmark</string>
 								</object>
-								<object class="NSCustomResource" key="NSMixedImage" id="582448968">
+								<object class="NSCustomResource" key="NSMixedImage" id="48866825">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSMenuMixedState</string>
 								</object>
@@ -125,8 +125,19 @@
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
-										<reference key="NSOnImage" ref="631061411"/>
-										<reference key="NSMixedImage" ref="582448968"/>
+										<reference key="NSOnImage" ref="1034485700"/>
+										<reference key="NSMixedImage" ref="48866825"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<reference key="NSTarget" ref="857257218"/>
+									</object>
+									<object class="NSMenuItem" id="353312736">
+										<reference key="NSMenu" ref="710286610"/>
+										<string key="NSTitle">CSV</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="1034485700"/>
+										<reference key="NSMixedImage" ref="48866825"/>
 										<string key="NSAction">_popUpItemAction:</string>
 										<reference key="NSTarget" ref="857257218"/>
 									</object>
@@ -150,7 +161,7 @@
 			<object class="NSWindowTemplate" id="11098638">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{330, 310}, {525, 397}}</string>
+				<string key="NSWindowRect">{{330, 195}, {720, 512}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -164,19 +175,19 @@
 						<object class="NSCustomView" id="470198090">
 							<reference key="NSNextResponder" ref="1048650361"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{20, 33}, {485, 349}}</string>
+							<string key="NSFrame">{{20, 32}, {680, 460}}</string>
 							<reference key="NSSuperview" ref="1048650361"/>
 							<string key="NSClassName">TimeView</string>
 						</object>
 						<object class="NSCustomView" id="563155484">
 							<reference key="NSNextResponder" ref="1048650361"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{20, 18}, {485, 15}}</string>
+							<string key="NSFrame">{{20, 20}, {680, 15}}</string>
 							<reference key="NSSuperview" ref="1048650361"/>
 							<string key="NSClassName">NSScroller</string>
 						</object>
 					</object>
-					<string key="NSFrameSize">{525, 397}</string>
+					<string key="NSFrameSize">{720, 512}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
@@ -306,6 +317,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="46256574"/>
 							<reference ref="494401411"/>
+							<reference ref="353312736"/>
 						</object>
 						<reference key="parent" ref="857257218"/>
 					</object>
@@ -347,8 +359,8 @@
 						<reference key="object" ref="1048650361"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="563155484"/>
 							<reference ref="470198090"/>
+							<reference ref="563155484"/>
 						</object>
 						<reference key="parent" ref="11098638"/>
 					</object>
@@ -361,6 +373,11 @@
 						<int key="objectID">100047</int>
 						<reference key="object" ref="470198090"/>
 						<reference key="parent" ref="1048650361"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100054</int>
+						<reference key="object" ref="353312736"/>
+						<reference key="parent" ref="710286610"/>
 					</object>
 				</object>
 			</object>
@@ -392,6 +409,7 @@
 					<string>100046.IBViewBoundsToFrameTransform</string>
 					<string>100047.IBPluginDependency</string>
 					<string>100047.IBViewBoundsToFrameTransform</string>
+					<string>100054.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -405,7 +423,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDHwAAwegAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{123, 679}, {100, 43}}</string>
+					<string>{{452, 659}, {100, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -414,19 +432,20 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABBiAAAwhAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{97, 109}, {525, 397}}</string>
+					<string>{{-963, 5}, {720, 512}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{97, 109}, {525, 397}}</string>
+					<string>{{-963, 5}, {720, 512}}</string>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUHIAABCNAAAA</bytes>
+						<bytes key="NSTransformStruct">AUGgAABCgAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUH4AABDCwAAA</bytes>
+						<bytes key="NSTransformStruct">AUIoAABCFAAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -445,7 +464,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100053</int>
+			<int key="maxID">100054</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -11,8 +11,8 @@
 #import "MonkeyAppDelegate.h"
 #import "TimeDocument.h"
 
-#define OFFSETX 10
-#define OFFSETY 10
+#define OFFSETX 40
+#define OFFSETY 40
 
 @implementation TimeView
 
@@ -119,6 +119,8 @@ CGRect convertToCGRect(NSRect inRect);
 	int j;
 	int x = size.width - OFFSETX * 2;
 	int y = size.height - OFFSETY * 2;
+	TimeDocument *thedoc = [[[self window] windowController] document];
+
 	CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.3);
 	for(j = 0;j <= 8; ++j) {
 		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + j * y / 8);
@@ -128,7 +130,7 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextMoveToPoint(gc, OFFSETX, OFFSETY);
 	CGContextAddLineToPoint(gc, OFFSETX, OFFSETY + y);
 	int xx = ((startpos / 100) + 1) * 100 - startpos;
-	for(j = 1; j < OFFSETX + x; j += 100) {
+	for(j = 1; j + xx < x; j += 100) {
 		CGContextMoveToPoint(gc, OFFSETX + j + xx, OFFSETY);
 		CGContextAddLineToPoint(gc, OFFSETX + j + xx, OFFSETY + y);
 	}
@@ -137,13 +139,24 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextStrokePath(gc);
 	
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
-	CGContextSelectFont(gc, "Geneva", 7, kCGEncodingMacRoman);
+	CGContextSelectFont(gc, "Geneva", 20, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
+
+	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
+	strcpy(strbuf, "MONKEY");
+	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
+
+	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
+	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
+	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 	
-	for(j = 0;j <= OFFSETX + x;j += 100) {
-		sprintf(strbuf, "%d", ((startpos / 100) + 1) * 100 + j);
-		CGContextShowTextAtPoint(gc, OFFSETX + j + xx, 2, strbuf, strlen(strbuf));
+	for(j = 0;j + xx < x; j += 100) {
+		int pos = ((startpos / 100) + 1) * 100 + j;
+		if(pos < [thedoc count]) {
+			sprintf(strbuf, "%ds", (int)[thedoc time:pos]);
+			CGContextShowTextAtPoint(gc, OFFSETX + j + xx, 22, strbuf, strlen(strbuf));
+		}
 	}
 
 	CGAffineTransform trans;
@@ -156,10 +169,25 @@ CGRect convertToCGRect(NSRect inRect);
 			sprintf(strbuf, "%.02f", (maxscale - minscale)* j / 4 + minscale);
 		else
 			sprintf(strbuf, "%d", (int)((maxscale - minscale)* j / 4 + minscale));
-		CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
+		CGContextShowTextAtPoint(gc, 28, OFFSETY + j * y / 4, strbuf, strlen(strbuf));
 	}
+	/*
 	sprintf(strbuf, "%s", unitstr(unittype));
-	CGContextShowTextAtPoint(gc, 8, OFFSETY + j * y / 4 - 8, strbuf, strlen(strbuf));
+	CGContextShowTextAtPoint(gc, 28, OFFSETY + j * y / 4 - 16, strbuf, strlen(strbuf));
+	 */
+	NSDictionary* fontAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+							   [NSColor colorWithCalibratedRed:255/255.0f green:255/255.0f blue:0/255.0f alpha:1.0f],
+							   NSForegroundColorAttributeName,
+							   [NSFont systemFontOfSize:14], NSFontAttributeName,
+							   nil];
+	
+	NSString *upArrow = [NSString stringWithCString:unitstr(unittype) encoding:NSUTF8StringEncoding];
+	CGContextSaveGState(gc);
+	[upArrow drawAtPoint:NSMakePoint(18, OFFSETY + j * y / 4 - 16) withAttributes:fontAttrs];
+
+	CGContextRestoreGState(gc);
+	CGContextSetTextMatrix(gc, CGAffineTransformIdentity);
+	
 	CGContextStrokePath(gc);
 }
 

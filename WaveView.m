@@ -57,8 +57,8 @@ CGRect convertToCGRect(NSRect inRect)
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 
 	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
-	sprintf(strbuf, "MONKEY", info->ch1scale);
-	CGContextShowTextAtPoint(gc, OFFSETX, y + OFFSETY + 20, strbuf, strlen(strbuf));
+	strcpy(strbuf, "MONKEY");
+	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
 	
 	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
