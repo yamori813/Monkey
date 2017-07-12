@@ -11,6 +11,8 @@
 #import "MonkeyAppDelegate.h"
 #import "WaveDocument.h"
 
+#include "gpibutil.h"
+
 #define OFFSETX 40
 #define OFFSETY 40
 
@@ -59,23 +61,65 @@ CGRect convertToCGRect(NSRect inRect)
 	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
 	strcpy(strbuf, "MONKEY");
 	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
+
+	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
+	CGContextShowTextAtPoint(gc, 450, y + OFFSETY + 16, info->model, strlen(info->model));
+	CGContextShowTextAtPoint(gc, 550, y + OFFSETY + 16, info->version, strlen(info->version));
 	
 	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 
+	gpioval gpib;
+
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
-	sprintf(strbuf, "CH1 %.02f V", info->ch1scale);
-	CGContextShowTextAtPoint(gc, OFFSETX, 2, strbuf, strlen(strbuf));
+	gpib = convval(info->ch1scale);
+	if(gpib.exp == 0) {
+		sprintf(strbuf, "CH1 %.02f V", gpib.val);
+	} else {
+		sprintf(strbuf, "CH1 %.02f mV", gpib.val);
+	}
+	CGContextShowTextAtPoint(gc, OFFSETX, 16, strbuf, strlen(strbuf));
 
 	CGContextSetRGBFillColor( gc,236/255.0f,0/255.0f,140/255.0f,1.0f);
-	sprintf(strbuf, "CH2 %.02f V", info->ch2scale);
-	CGContextShowTextAtPoint(gc, OFFSETX + 100, 2, strbuf, strlen(strbuf));
+	gpib = convval(info->ch2scale);
+	if(gpib.exp == 0) {
+		sprintf(strbuf, "CH2 %.02f V", gpib.val);
+	} else {
+		sprintf(strbuf, "CH2 %.02f mV", gpib.val);
+	}
+	CGContextShowTextAtPoint(gc, OFFSETX + 150, 16, strbuf, strlen(strbuf));
 
 	CGContextSetRGBFillColor( gc, 255, 255, 255, 1.0f);
-	sprintf(strbuf, "Time %f S", info->timebasescale);
-	CGContextShowTextAtPoint(gc, OFFSETX + 200, 2, strbuf, strlen(strbuf));
+	
+	gpib = convval(info->timebasescale);
+	if(gpib.exp == 0) {
+		sprintf(strbuf, "Time %d S", (int)gpib.val);
+	} else {
+		char unit[3] = {'m', 'u', 'n'};
+		int i = abs(gpib.exp) - 1;
+		sprintf(strbuf, "Time %d %cS", (int)gpib.val, unit[i]);
+	}
+	CGContextShowTextAtPoint(gc, OFFSETX + 300, 16, strbuf, strlen(strbuf));
 
+	int zpos = y / 2 + (y / 8) * info->ch1offset / info->ch1scale + OFFSETY;
+	CGContextSetRGBStrokeColor( gc, 255/255.0f,255/255.0f,0/255.0f,1.0f);
+	CGContextMoveToPoint(gc, 10,zpos-8);
+	CGContextAddLineToPoint(gc, 25,zpos-8);
+	CGContextAddLineToPoint(gc, 30,zpos);
+	CGContextAddLineToPoint(gc, 25,zpos+8);
+	CGContextAddLineToPoint(gc, 10,zpos+8);
+	CGContextAddLineToPoint(gc, 10,zpos-8);	
 	CGContextStrokePath(gc);
+
+	zpos = y / 2 + (y / 8) * info->ch2offset / info->ch2scale + OFFSETY;
+	CGContextSetRGBStrokeColor( gc, 236/255.0f,0/255.0f,140/255.0f,1.0f);
+	CGContextMoveToPoint(gc, 10,zpos-8);
+	CGContextAddLineToPoint(gc, 25,zpos-8);
+	CGContextAddLineToPoint(gc, 30,zpos);
+	CGContextAddLineToPoint(gc, 25,zpos+8);
+	CGContextAddLineToPoint(gc, 10,zpos+8);
+	CGContextAddLineToPoint(gc, 10,zpos-8);	
+	CGContextStrokePath(gc);	
 }
 
 - (void)plotData

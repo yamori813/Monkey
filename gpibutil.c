@@ -25,6 +25,7 @@ gpioval gpibstr2val(char *str)
 	// 8840A	+03.3275E+0
 	// TR5822	1.0000000E+07
 	// 856G		DV     4.984E+0
+	// DS-5102A	2.000e-07
 	for(i = 0; str[i] != '\0'; ++i) {
 		if(part == 0) {
 			if(str[i] == '+')
@@ -41,7 +42,7 @@ gpioval gpibstr2val(char *str)
 			if(str[i] >= '0' && str[i] <= '9') {
 				result.val += ((double)(str[i] - '0') / pow(10,decount));
 				++decount;
-			} else if(str[i] == 'E') {
+			} else if(str[i] == 'E' || str[i] == 'e') {
 				part = 2;
 			}
 		} else {
@@ -55,11 +56,44 @@ gpioval gpibstr2val(char *str)
 			}
 		}
 	}
-	result.val += seisu;
-	result.val *= pow(10, exp * expsin);
+	printf("MORI MORI Sei %d\n", seisu);
+	printf("MORI MORI Ex %d\n", exp);
+	result.val = seisu;
+	if(expsin == 1)
+		result.val *= pow(10, exp);
+	else
+		result.val /= pow(10, exp);
 	result.val *= sin;
 	result.edig = decount - 1;
 	result.exp = exp * expsin;
 
+	return result;
+}
+
+gpioval convval(double val)
+{
+	gpioval result;
+
+	// m k - m u n
+	
+	if(val >= 1000 * 1000) {
+		result.val = val / (1000 * 1000);
+		result.exp = 2;
+	} else if(val >= 1000 && val < 1000 * 1000) {
+		result.val = val / (1000 * 1000);
+		result.exp = 1;
+	} else if(val >= 1 && val < 1000) {
+		result.val = val;
+		result.exp = 0;
+	} else if(val >= 0.001 && val < 1) {
+		result.val = val * 1000;
+		result.exp = -1;
+	} else if(val >= 0.000001 && val < 0.001) {
+		result.val = val * 1000 * 1000;
+		result.exp = -2;
+	} else if(val >= 0.000000001 && val < 0.000001) {
+		result.val = val * 1000 * 1000 * 1000;
+		result.exp = -3;
+	}
 	return result;
 }

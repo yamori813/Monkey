@@ -55,6 +55,8 @@
 	
 	int metex_willstop;
 	Iwatsu *iwa;
+	
+	NSArray *idnarr;
 }
 
 - (IBAction)big:(id)sender;

@@ -67,18 +67,23 @@
 		}
 	}
 	if(isopen == TRUE) {
-		NSString *scalestr;
-		scalestr = [iwa QueScale:1];
-		if(scalestr) {
-			[ch1scale setStringValue:scalestr];
+		NSString *questr;
+		questr = [iwa QueIDN];
+		if(questr) {
+			idnarr = [[NSArray arrayWithArray:[questr componentsSeparatedByString:@","]] retain];
 		}
-		scalestr = [iwa QueScale:2];
-		if(scalestr) {
-			[ch2scale setStringValue:scalestr];
+		
+		questr = [iwa QueScale:1];
+		if(questr) {
+			[ch1scale setStringValue:questr];
+		}
+		questr = [iwa QueScale:2];
+		if(questr) {
+			[ch2scale setStringValue:questr];
 		}	
-		scalestr = [iwa QueTimeBaseScale];
-		if(scalestr) {
-			[timescale setStringValue:scalestr];
+		questr = [iwa QueTimeBaseScale];
+		if(questr) {
+			[timescale setStringValue:questr];
 		}
 		[sender setEnabled:NO];
 	}
@@ -130,11 +135,16 @@
 	WaveDocument *mydoc = [[WaveDocument alloc] init];
 	[mydoc makeWindowControllers];
 	ds5100_info info;
+	strcpy(info.model, [[idnarr objectAtIndex:1] cStringUsingEncoding:NSASCIIStringEncoding]);
+	strcpy(info.version, [[idnarr objectAtIndex:3] cStringUsingEncoding:NSASCIIStringEncoding]);
 	info.ch1scale = [(NSString *)[iwa QueScale:1] doubleValue];
 	info.ch2scale = [(NSString *)[iwa QueScale:2] doubleValue];
 	info.ch1offset = [(NSString *)[iwa QueOffset:1] doubleValue];
 	info.ch2offset = [(NSString *)[iwa QueOffset:2] doubleValue];
-	info.timebasescale = [(NSString *)[iwa QueTimeBaseScale] doubleValue];
+//	info.timebasescale = [(NSString *)[iwa QueTimeBaseScale] doubleValue];
+	char *ptr = [(NSString *)[iwa QueTimeBaseScale] cStringUsingEncoding:NSASCIIStringEncoding];
+	gpioval gpio = gpibstr2val(ptr);
+	info.timebasescale = gpio.val;
 
 	[mydoc readFromData:[NSData dataWithBytes:&info length:sizeof(ds5100_info)]
 				 ofType:@"INFO" error:NULL];

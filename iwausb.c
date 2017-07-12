@@ -102,20 +102,7 @@ int usb_init() {
 	if(r < 0) {
 		return 0;
 	}
-	/* write */
-	char *cmd = "*IDN?";
-	cmd1[4] = strlen(cmd);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd1, sizeof(cmd1), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), (unsigned char *)cmd, strlen(cmd), &actual, 0);
-	r = libusb_bulk_transfer(dev_handle, (1 | LIBUSB_ENDPOINT_OUT), cmd2, sizeof(cmd2), &actual, 0);
-	/* read */
-	char data[128];
-	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), (unsigned char*)data, sizeof(data), &actual, 500);
-	if(r == 0) {
-		data[actual] = '\0';
-		printf("%s\n", data + 12);
-	}
-	
+
 	return 1;
 }
 

@@ -103,21 +103,6 @@ int getbinary(unsigned char *data, int datasize)
 	}
 }
 
-int que_idn()
-{
-	char data[128];
-	
-	strcpy(data, "*IDN?\n");
-	write(iwatsu_port, data, strlen(data));
-	
-	if(getresponse(data, sizeof(data))) {
-		printf("%s\n", data);
-		return 1;
-	}
-
-	return 0;
-}
-
 CFStringRef que_triggerlevel(CFStringRef mode)
 {
 	char data[128];
@@ -211,16 +196,8 @@ int sio_init(CFStringRef devname, int speed)
 	sioinit(speed);
 	
 	iwatsu_dummy();
-	int i = 0;
-	while(que_idn() != 1) {
-		usleep(200);
-		++i;
-		if(i == 4) {
-			sio_close();
-			return 0;
-		}
-	}
-	return 1;
+
+	return 0;
 }
 
 void sio_close()

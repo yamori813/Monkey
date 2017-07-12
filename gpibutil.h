@@ -15,3 +15,4 @@ typedef struct {
 } gpioval;
 
 gpioval gpibstr2val(char *str);
+gpioval convval(double val);

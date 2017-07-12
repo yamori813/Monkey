@@ -30,26 +30,6 @@
 	
 }
 
-- (BOOL)idn
-{
-	int count;
-	btStat = 1;
-	[readData setLength:0];
-	[mRFCOMMChannel writeSync:"*IDN?\n" length:6];
-	count = 0;
-	while(btStat != 2) {
-		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
-		++count;
-		if(count == MAXWAIT) {
-			return FALSE;
-		}
-	}
-	
-	NSString *myString = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
-	NSLog(@"DS: %@", myString);
-	return TRUE;
-}
-
 -(NSString *)Query:(char *)cmd
 {
 	btStat = 1;
@@ -181,11 +161,6 @@
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, LOOPSEC, false);
 	}
 	
-	if([self idn] != TRUE) {
-		[self closeDeviceConnectionOnDevice:device];
-		
-		return FALSE;
-	}
 	return TRUE;
 }
 

@@ -85,6 +85,15 @@
 	return nil;
 }
 
+- (NSString *) QueIDN
+{
+	char data[128];
+	
+	strcpy(data, "*IDN?\n");
+	
+	return [self Query:data];
+}
+
 - (NSString *) QueSamplingRate:(int)ch
 {
 	char data[128];

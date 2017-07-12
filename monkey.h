@@ -35,6 +35,8 @@ typedef struct measure_value {
 } measure_value;
 
 typedef struct ds5100_info {
+	char model[32];
+	char version[32];
 	double ch1scale;
 	double ch2scale;
 	double ch1offset;
