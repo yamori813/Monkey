@@ -56,9 +56,7 @@ gpioval gpibstr2val(char *str)
 			}
 		}
 	}
-	printf("MORI MORI Sei %d\n", seisu);
-	printf("MORI MORI Ex %d\n", exp);
-	result.val = seisu;
+	result.val += seisu;
 	if(expsin == 1)
 		result.val *= pow(10, exp);
 	else
