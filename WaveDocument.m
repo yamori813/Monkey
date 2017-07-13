@@ -85,11 +85,6 @@
     
 	if([typeName isEqualToString:@"INFO"] == YES) {
 		[data getBytes:info];
-		NSLog(@"MORI MORI readFromData %f", info->ch1scale);
-		NSLog(@"MORI MORI readFromData %f", info->ch2scale);
-		NSLog(@"MORI MORI readFromData %f", info->ch1offset);
-		NSLog(@"MORI MORI readFromData %f", info->ch2offset);
-		NSLog(@"MORI MORI readFromData %f", info->timebasescale);
 	}
 	
 	if([typeName isEqualToString:@"CH1"] == YES) {
