@@ -59,7 +59,7 @@ CGRect convertToCGRect(NSRect inRect)
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 
 	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
-	strcpy(strbuf, "MONKEY");
+	strcpy(strbuf, "Monkey");
 	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
 
 	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
@@ -103,23 +103,59 @@ CGRect convertToCGRect(NSRect inRect)
 
 	int zpos = y / 2 + (y / 8) * info->ch1offset / info->ch1scale + OFFSETY;
 	CGContextSetRGBStrokeColor( gc, 255/255.0f,255/255.0f,0/255.0f,1.0f);
-	CGContextMoveToPoint(gc, 10,zpos-8);
-	CGContextAddLineToPoint(gc, 25,zpos-8);
-	CGContextAddLineToPoint(gc, 30,zpos);
-	CGContextAddLineToPoint(gc, 25,zpos+8);
-	CGContextAddLineToPoint(gc, 10,zpos+8);
-	CGContextAddLineToPoint(gc, 10,zpos-8);	
-	CGContextStrokePath(gc);
+	if(zpos > OFFSETY && zpos < y + OFFSETY) {
+		CGContextMoveToPoint(gc, 10,zpos-8);
+		CGContextAddLineToPoint(gc, 25,zpos-8);
+		CGContextAddLineToPoint(gc, 30,zpos);
+		CGContextAddLineToPoint(gc, 25,zpos+8);
+		CGContextAddLineToPoint(gc, 10,zpos+8);
+		CGContextAddLineToPoint(gc, 10,zpos-8);	
+		CGContextStrokePath(gc);
+	} else if(zpos < OFFSETY){
+		CGContextMoveToPoint(gc, 10,OFFSETY+10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY);
+		CGContextAddLineToPoint(gc, 18,OFFSETY-8);
+		CGContextAddLineToPoint(gc, 10,OFFSETY);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+10);	
+		CGContextStrokePath(gc);
+	} else {
+		CGContextMoveToPoint(gc, 10,OFFSETY+y-10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+y-10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+y);
+		CGContextAddLineToPoint(gc, 18,OFFSETY+y+8);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+y);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+y-10);	
+		CGContextStrokePath(gc);
+	}
 
 	zpos = y / 2 + (y / 8) * info->ch2offset / info->ch2scale + OFFSETY;
 	CGContextSetRGBStrokeColor( gc, 236/255.0f,0/255.0f,140/255.0f,1.0f);
-	CGContextMoveToPoint(gc, 10,zpos-8);
-	CGContextAddLineToPoint(gc, 25,zpos-8);
-	CGContextAddLineToPoint(gc, 30,zpos);
-	CGContextAddLineToPoint(gc, 25,zpos+8);
-	CGContextAddLineToPoint(gc, 10,zpos+8);
-	CGContextAddLineToPoint(gc, 10,zpos-8);	
-	CGContextStrokePath(gc);	
+	if(zpos > OFFSETY && zpos < y + OFFSETY) {
+		CGContextMoveToPoint(gc, 10,zpos-8);
+		CGContextAddLineToPoint(gc, 25,zpos-8);
+		CGContextAddLineToPoint(gc, 30,zpos);
+		CGContextAddLineToPoint(gc, 25,zpos+8);
+		CGContextAddLineToPoint(gc, 10,zpos+8);
+		CGContextAddLineToPoint(gc, 10,zpos-8);	
+		CGContextStrokePath(gc);	
+	} else if(zpos < OFFSETY){
+		CGContextMoveToPoint(gc, 10,OFFSETY+10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY);
+		CGContextAddLineToPoint(gc, 18,OFFSETY-8);
+		CGContextAddLineToPoint(gc, 10,OFFSETY);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+10);	
+		CGContextStrokePath(gc);
+	} else {
+		CGContextMoveToPoint(gc, 10,OFFSETY+y-10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+y-10);
+		CGContextAddLineToPoint(gc, 26,OFFSETY+y);
+		CGContextAddLineToPoint(gc, 18,OFFSETY+y+8);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+y);
+		CGContextAddLineToPoint(gc, 10,OFFSETY+y-10);	
+		CGContextStrokePath(gc);
+	}
 }
 
 - (void)plotData
@@ -134,7 +170,8 @@ CGRect convertToCGRect(NSRect inRect)
 		[[thedoc getData1] getBytes:buff length:[[thedoc getData1] length]];
 		CGContextMoveToPoint(gc, OFFSETX, 400 - (buff[4] - 28)*2+OFFSETY);
 		for(i = 5; i < 604; ++i) {
-			CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
+			if(buff[i] >= 28 && buff[i] <= 227)
+				CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
 		}
 		CGContextStrokePath(gc);
 		free(buff);
@@ -146,7 +183,8 @@ CGRect convertToCGRect(NSRect inRect)
 		[[thedoc getData2] getBytes:buff length:[[thedoc getData2] length]];
 		CGContextMoveToPoint(gc, OFFSETX, 400 - (buff[4] - 28)*2+OFFSETY);
 		for(i = 5; i < 604; ++i) {
-			CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
+			if(buff[i] >= 28 && buff[i] <= 227)
+				CGContextAddLineToPoint(gc, i-4+OFFSETX, 400 - (buff[i] - 28)*2+OFFSETY); 
 		}
 		CGContextStrokePath(gc);
 		free(buff);

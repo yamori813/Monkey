@@ -144,7 +144,7 @@ CGRect convertToCGRect(NSRect inRect);
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,0/255.0f,1.0f);
 
 	CGContextSetRGBFillColor( gc,256/255.0f,128/255.0f,0/255.0f,1.0f);
-	strcpy(strbuf, "MONKEY");
+	strcpy(strbuf, "Monkey");
 	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
 
 	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
