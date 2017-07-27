@@ -17,6 +17,10 @@
 		F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */; };
 		F59FC82514A9E99F00AC50E3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59FC82414A9E99F00AC50E3 /* WaveView.m */; };
 		F5A3872818DD669300E96337 /* Iwatsu.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3872718DD669300E96337 /* Iwatsu.m */; };
+		F5A698231F288434006B7A49 /* LogicDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A698221F288434006B7A49 /* LogicDocument.m */; };
+		F5A698281F288481006B7A49 /* LogicWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A698271F288481006B7A49 /* LogicWindowController.m */; };
+		F5A6982D1F288499006B7A49 /* LogicView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A6982C1F288499006B7A49 /* LogicView.m */; };
+		F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5AF802718DD2339007CD1E3 /* iwausb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AF802618DD2339007CD1E3 /* iwausb.c */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
@@ -33,6 +37,7 @@
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
 		F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4E0614B2FD2400D8CC61 /* metex.c */; };
+		F5E90BDE1F284CAD005B5364 /* pickit2.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E90BDD1F284CAD005B5364 /* pickit2.c */; };
 		F5F19EFA17E3FDC200A3C110 /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
 		F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
 /* End PBXBuildFile section */
@@ -73,6 +78,13 @@
 		F59FC82414A9E99F00AC50E3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		F5A3872618DD669300E96337 /* Iwatsu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Iwatsu.h; sourceTree = "<group>"; };
 		F5A3872718DD669300E96337 /* Iwatsu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Iwatsu.m; sourceTree = "<group>"; };
+		F5A698211F288434006B7A49 /* LogicDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicDocument.h; sourceTree = "<group>"; };
+		F5A698221F288434006B7A49 /* LogicDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicDocument.m; sourceTree = "<group>"; };
+		F5A698261F288481006B7A49 /* LogicWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicWindowController.h; sourceTree = "<group>"; };
+		F5A698271F288481006B7A49 /* LogicWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicWindowController.m; sourceTree = "<group>"; };
+		F5A6982B1F288499006B7A49 /* LogicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicView.h; sourceTree = "<group>"; };
+		F5A6982C1F288499006B7A49 /* LogicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicView.m; sourceTree = "<group>"; };
+		F5A6982F1F2884D0006B7A49 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/LogicDocument.xib; sourceTree = "<group>"; };
 		F5A7229414BA70F70035F5B8 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
 		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		F5AF802518DD2339007CD1E3 /* iwausb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwausb.h; sourceTree = "<group>"; };
@@ -101,6 +113,8 @@
 		F5DB614614A6E4EC00218ED2 /* iwasio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwasio.h; sourceTree = "<group>"; };
 		F5DD4E0514B2FD2400D8CC61 /* metex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metex.h; sourceTree = "<group>"; };
 		F5DD4E0614B2FD2400D8CC61 /* metex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = metex.c; sourceTree = "<group>"; };
+		F5E90BDC1F284CAD005B5364 /* pickit2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pickit2.h; sourceTree = "<group>"; };
+		F5E90BDD1F284CAD005B5364 /* pickit2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pickit2.c; sourceTree = "<group>"; };
 		F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +137,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F5A698191F2883EE006B7A49 /* Logic */,
 				F5B7706D1A5786CB007893A2 /* Time */,
 				F5C1C1F11A477E4500615C27 /* Wave */,
 				256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */,
@@ -198,6 +213,8 @@
 				F5DD4E0614B2FD2400D8CC61 /* metex.c */,
 				F5C11E0F1F12F94100E92D63 /* gpibutil.h */,
 				F5C11E101F12F94100E92D63 /* gpibutil.c */,
+				F5E90BDC1F284CAD005B5364 /* pickit2.h */,
+				F5E90BDD1F284CAD005B5364 /* pickit2.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -205,6 +222,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */,
 				F5B76E8B1A576026007893A2 /* TimeDocument.xib */,
 				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
 				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
@@ -222,6 +240,19 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5A698191F2883EE006B7A49 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				F5A698211F288434006B7A49 /* LogicDocument.h */,
+				F5A698221F288434006B7A49 /* LogicDocument.m */,
+				F5A698261F288481006B7A49 /* LogicWindowController.h */,
+				F5A698271F288481006B7A49 /* LogicWindowController.m */,
+				F5A6982B1F288499006B7A49 /* LogicView.h */,
+				F5A6982C1F288499006B7A49 /* LogicView.m */,
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 		F5B5C13C14AFFF23002E5677 /* My Framework */ = {
@@ -313,6 +344,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */,
 				F5B76E8D1A576026007893A2 /* TimeDocument.xib in Resources */,
+				F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +373,10 @@
 				F5B76E581A575C37007893A2 /* TimeDocument.m in Sources */,
 				F5B76E5E1A575C56007893A2 /* TimeWindowController.m in Sources */,
 				F5C11E111F12F94100E92D63 /* gpibutil.c in Sources */,
+				F5E90BDE1F284CAD005B5364 /* pickit2.c in Sources */,
+				F5A698231F288434006B7A49 /* LogicDocument.m in Sources */,
+				F5A698281F288481006B7A49 /* LogicWindowController.m in Sources */,
+				F5A6982D1F288499006B7A49 /* LogicView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +405,14 @@
 				F587F60414AD5C1A00F2EBAE /* English */,
 			);
 			name = WaveDocument.xib;
+			sourceTree = "<group>";
+		};
+		F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5A6982F1F2884D0006B7A49 /* English */,
+			);
+			name = LogicDocument.xib;
 			sourceTree = "<group>";
 		};
 		F5B76E8B1A576026007893A2 /* TimeDocument.xib */ = {

@@ -10,6 +10,7 @@
 
 #import "WaveDocument.h"
 #import "TimeDocument.h"
+#import "LogicDocument.h"
 
 #import "TimeView.h"
 #import "BigWindow.h"
@@ -49,6 +50,14 @@
 	TimeDocument *timedoc;
 	TimeDocument *gpibdoc;
 
+	IBOutlet NSPopUpButton *ch1Select;
+	IBOutlet NSPopUpButton *ch2Select;
+	IBOutlet NSPopUpButton *ch3Select;
+	IBOutlet NSTextField *trigCount;
+	IBOutlet NSPopUpButton *windowSelect;
+	IBOutlet NSPopUpButton *samplingSelect;
+	IBOutlet NSButton *lastart;
+
 	IBOutlet NSMenuItem *voiceMenu;
 
 	IBOutlet BigWindow *bigWin;
@@ -82,6 +91,8 @@
 
 - (IBAction)metex_get:(id)sender;
 - (IBAction)metex_action:(id)sender;
+
+- (IBAction)logic_action:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 

@@ -12,6 +12,7 @@
 #include "ftgpib.h"
 #include "gpibutil.h"
 #include "metex.h"
+#include "pickit2.h"
 
 @implementation MonkeyAppDelegate
 
@@ -414,4 +415,41 @@
     [NSThread exit];
 #endif
 }
+
+
+-(void)logic_thread
+{
+    NSAutoreleasePool* pool;
+    pool = [[NSAutoreleasePool alloc]init];
+	if(pk2_usb_init()) {
+		pk2_usb_version();
+		NSData *data = (NSData *)pk2_usb_start([ch1Select indexOfSelectedItem], [ch2Select indexOfSelectedItem], 
+									  [ch3Select indexOfSelectedItem], [trigCount intValue],
+									  [samplingSelect indexOfSelectedItem], [windowSelect indexOfSelectedItem]);
+		pk2_usb_close();
+		if(data != nil) {
+			LogicDocument *logicdoc = [[LogicDocument alloc] init];
+			[logicdoc setData:data];
+			[logicdoc makeWindowControllers];
+			[logicdoc showWindows];
+		}
+	}
+	[lastart setEnabled: YES];
+    [pool release];
+    [NSThread exit];
+}
+
+- (IBAction)logic_action:(id)sender
+{
+
+	if([[sender title] compare:@"Start"] == NSOrderedSame) {
+		[NSThread detachNewThreadSelector:@selector(logic_thread)
+								 toTarget:self withObject:nil];
+		[sender setEnabled: NO];
+	} else {
+		// I don' know how to cancel.
+		pk2_usb_cancel();
+	}
+}
+
 @end
