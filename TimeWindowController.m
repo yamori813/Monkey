@@ -28,4 +28,10 @@
 {
 	return titlestr;
 }
+
+-(NSString*)getTitle
+{
+	return titlestr;
+}
+
 @end

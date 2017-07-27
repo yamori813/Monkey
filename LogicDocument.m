@@ -116,6 +116,9 @@
 	//	[inSavePanel setMessage:@"This is a customized save dialog for saving text files:"];
 	
 	savePanel = inSavePanel;	// keep track of the save panel for later
+
+	if( [savePanel.nameFieldStringValue isEqualToString:@"Untitled"] )
+        [savePanel setNameFieldStringValue:[myctl getTitle]];
 	
     return YES;
 }
