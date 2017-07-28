@@ -48,7 +48,9 @@ typedef struct logic_info {
 	char model[32];
 	char version[32];
 	int channel;
+	int sample;
 	double div;
+	int triggerpos;
 } logic_info;
 
 char *unitstr(int type);

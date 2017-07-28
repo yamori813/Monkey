@@ -102,74 +102,38 @@ static CGRect convertToCGRect(NSRect inRect)
 	
 	int chhight = y / CHANNEL;
 	
+	logic_info *info = [thedoc getInfo];
+	
+	if(info->triggerpos > 0) {
+		CGContextSetRGBStrokeColor( gc, 255, 0, 0, 1.0);
+		CGContextMoveToPoint(gc, OFFSETX + info->triggerpos, OFFSETY);
+		CGContextAddLineToPoint(gc, OFFSETX + info->triggerpos, OFFSETY + y);
+		CGContextStrokePath(gc);
+	}
+
 	const char *bytes = [data bytes];
 	CGContextSetRGBStrokeColor(
 							   gc,127/255.0f,246/255.0f,85/255.0f,1.0f);
-	if((bytes[0] >> 4) & 4)
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * 2 + HIOFFSET); 
-	else
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * 2 + LOOFFSET); 	
-	if(bytes[0] & 4)
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight * 2 + HIOFFSET); 
-	else
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight * 2 + LOOFFSET); 
-	for (int i = 1; i < [data length]; i++)
-	{
-		if((bytes[i] >> 4) & 4)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight * 2 + HIOFFSET); 
-		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight * 2 + LOOFFSET); 
-		if(bytes[i] & 4)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * 2 + HIOFFSET); 
-		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * 2 + LOOFFSET); 
-		
-	}
-	CGContextStrokePath(gc);
 
-	if((bytes[0] >> 4) & 8)
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight + HIOFFSET); 
-	else
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight + LOOFFSET); 	
-	if(bytes[0] & 8)
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight + HIOFFSET); 
-	else
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight + LOOFFSET); 
-	for (int i = 1; i < [data length]; i++)
-	{
-		if((bytes[i] >> 4) & 8)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight + HIOFFSET); 
+	for(int j = 0;j < CHANNEL; ++j) {
+		int bit = 1 << j;
+		int off = CHANNEL - j - 1;
+		if(bytes[0] & bit)
+			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + HIOFFSET); 
 		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight + LOOFFSET); 
-		if(bytes[i] & 8)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight + HIOFFSET); 
-		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight + LOOFFSET); 
-		
+			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + LOOFFSET); 
+		for (int i = 1; i < [data length]; i++)
+		{
+			if(bytes[i] & bit)
+				CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+			else
+				CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+			
+		}
+		CGContextStrokePath(gc);
 	}
-	CGContextStrokePath(gc);
 
-	if((bytes[0] >> 4) & 1)
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + HIOFFSET); 
-	else
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + LOOFFSET); 	
-	if(bytes[0] & 1)
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + HIOFFSET); 
-	else
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + LOOFFSET); 
-	for (int i = 1; i < [data length]; i++)
-	{
-		if((bytes[i] >> 4) & 1)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + HIOFFSET); 
-		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + LOOFFSET); 
-		if(bytes[i] & 1)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + HIOFFSET); 
-		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + LOOFFSET); 
-		
-	}
-	CGContextStrokePath(gc);
+	
 }
 
 - (void)drawRect:(NSRect)rect

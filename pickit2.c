@@ -295,45 +295,41 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int po
 	do {
 		r = ReadFromeDevice(buffer, 65, 0.5);
 	} while (r == -1);
-	printf("MORI MORI Pickit2 %d %02x %02x %02d\n", r, buffer[1], buffer[2], (buffer[1] + ((buffer[2] & 0x7) << 8)) - 0x600);
 
-	if(buffer[2] & 0x40)   // cancel
+	if(buffer[2] & 0x40)   // cancel by PICkit 2 button
 		return nil;
 	
 	int trigloc = (buffer[1] + ((buffer[2] & 0x7) << 8)) - 0x600;
-	trigloc += 1;
-	if(trigloc == 512)
-		trigloc = 0;
-	printf("MORI %d %d\n", 64*2*4 - trigloc , trigloc);
+	++trigloc;
+	trigloc *= 2;
+	if((buffer[2] & 0x80) == 0x80)
+		++trigloc;
+	int startpos;
+	startpos = (trigloc + (1023 - (PostTrigCount[post] % 1024)) / 2);		// ???
+	startpos %= 1024;
+	
 	uint8_t data[64*2*4];
 	pk2_usb_read(6, 0, data);
 	pk2_usb_read(6, 0x80, data + 64*2);
 	pk2_usb_read(7, 0, data + 64*2*2);
 	pk2_usb_read(7, 0x80, data + 64*2*3);
 	
-	int lastTrigPos = 1023 - ( PostTrigCount[post] % 1000);
-	trigloc += ((lastTrigPos/2) + ( PostTrigCount[post]/1000)*12);
-
-	bool upperData = ((buffer[2] & 0x80) > 0);
-
-	if (( PostTrigCount[post] % 2) > 0)
+	uint8_t redata[64*2*4*2];
+	int rawdata;
+	int j = startpos;
+	for (int i = 0; i < 1024; i++)
 	{
-		upperData = !upperData;
-		if (upperData)
-			trigloc++;
-	}
-	trigloc %= 512;
-
-	uint8_t redata[64*2*4];
-//	memcpy(redata, data + trigloc, 64*2*4 - trigloc);
-//	memcpy(redata + 64*2*4 - trigloc, data, trigloc);
-	for (int i = 0; i < 512; i++)
-	{
-		uint8_t sample = data[trigloc];
-		trigloc--;
-		if (trigloc < 0)
-			trigloc += 512;
-		redata[i] = (sample >> 4) | ((sample & 0xf) << 4);
+		uint8_t sample = data[j / 2];
+		if(j % 2) {
+			rawdata = sample & 0xf;
+			redata[i] = (rawdata & 0x03) << 2 | (rawdata >> 2);
+		} else {
+			rawdata = sample >> 4;
+			redata[i] = (rawdata & 0x03) << 2 | (rawdata >> 2);
+		}
+		--j;
+		if(j < 0)
+			j = 1023;
 	}
 	
 	CFDataRef cfDataRef;

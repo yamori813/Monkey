@@ -427,12 +427,14 @@
 									  [samplingSelect indexOfSelectedItem], [windowSelect indexOfSelectedItem]);
 		if(data != nil) {
 			int divlist[8] = {50, 100, 200, 500, 1000, 2000, 5000, 10000};
+			int PostTrigCount[6] = {973, 523, 73, 1973, 2973, 3973};
 			LogicDocument *logicdoc = [[LogicDocument alloc] init];
 			logic_info info;
 			strcpy(info.model, "PICkit 2");
 			pk2_usb_version(&info.version);
 			info.channel = 3;
 			info.div = divlist[[samplingSelect indexOfSelectedItem]];
+			info.triggerpos = 1024 - PostTrigCount[[windowSelect indexOfSelectedItem]];
 			[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]
 						 ofType:@"INFO" error:NULL];
 			[logicdoc readFromData:data ofType:@"DATA" error:NULL];
