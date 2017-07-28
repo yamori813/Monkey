@@ -13,6 +13,8 @@
 #define OFFSETX 40
 #define OFFSETY 40
 
+#define CHANNEL 3
+
 @implementation LogicView
 
 static CGRect convertToCGRect(NSRect inRect)
@@ -23,13 +25,13 @@ static CGRect convertToCGRect(NSRect inRect)
 - (void)drawScale:(NSSize) size
 {
 	char strbuf[32];
-	int j;
+	int i, j;
 	int x = size.width - OFFSETX * 2;
 	int y = size.height - OFFSETY * 2;
-	for(j = 0;j <= 3; ++j) {
+	for(j = 0;j <= CHANNEL; ++j) {
 		CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + j * y / 3);
-		CGContextAddLineToPoint(gc, OFFSETX + x, OFFSETY + j * y / 3);
+		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + j * y / CHANNEL);
+		CGContextAddLineToPoint(gc, OFFSETX + x, OFFSETY + j * y / CHANNEL);
 		CGContextStrokePath(gc);
 	}
 	CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
@@ -48,38 +50,28 @@ static CGRect convertToCGRect(NSRect inRect)
 	strcpy(strbuf, "Monkey");
 	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
 
+	int chhight = y / CHANNEL;
+
 	for(j = 1; j <= x / 10; j += 1) {
-		CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
-		CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + y);
-		if(j % 10 == 0)
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y-15);
-		else
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y-10);
-		CGContextStrokePath(gc);
-		CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + y*2/3);
-		if(j % 10 == 0)
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y*2/3-15);
-		else
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y*2/3-10);
-		CGContextStrokePath(gc);
-		CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + y/3);
-		if(j % 10 == 0)
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y/3-15);
-		else
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y/3-10);
-		CGContextStrokePath(gc);
+		for(i = 1; i <= CHANNEL; ++i) {
+			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
+			CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i);
+			if(j % 10 == 0)
+				CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i-15);
+			else
+				CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i-10);
+			CGContextStrokePath(gc);
+		}
 	}
 
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
 	CGContextSelectFont(gc, "Geneva", 16, kCGEncodingMacRoman);
 	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,255/255.0f,1.0f);
-	strcpy(strbuf, "Ch1");
-	CGContextShowTextAtPoint(gc, 4, OFFSETY + y * 5 / 6 - 4, strbuf, strlen(strbuf));
-	strcpy(strbuf, "Ch2");
-	CGContextShowTextAtPoint(gc, 4, OFFSETY + y * 3 / 6 - 4, strbuf, strlen(strbuf));
-	strcpy(strbuf, "Ch3");
-	CGContextShowTextAtPoint(gc, 4, OFFSETY + y * 1 / 6 - 4, strbuf, strlen(strbuf));
+	for(i = 1; i <= CHANNEL; ++i) {
+		sprintf(strbuf, "Ch%d", i);
+		CGContextShowTextAtPoint(gc, 4, OFFSETY + (chhight / 2) * ((CHANNEL - i) * 2 + 1) - 4, strbuf, strlen(strbuf));
+	}
 	
 }
 
@@ -94,49 +86,51 @@ static CGRect convertToCGRect(NSRect inRect)
 	LogicDocument *thedoc = [[[self window] windowController] document];
 	NSData *data = [thedoc getData];
 	
+	int chhight = y / CHANNEL;
+	
 	const char *bytes = [data bytes];
 	CGContextSetRGBStrokeColor(
 							   gc,127/255.0f,246/255.0f,85/255.0f,1.0f);
 	if((bytes[0] >> 4) & 4)
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + (y / 3) * 2 + HIOFFSET); 
+		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * 2 + HIOFFSET); 
 	else
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + (y / 3) * 2 + LOOFFSET); 	
+		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * 2 + LOOFFSET); 	
 	if(bytes[0] & 4)
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + (y / 3) * 2 + HIOFFSET); 
+		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight * 2 + HIOFFSET); 
 	else
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + (y / 3) * 2 + LOOFFSET); 
+		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight * 2 + LOOFFSET); 
 	for (int i = 1; i < [data length]; i++)
 	{
 		if((bytes[i] >> 4) & 4)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + (y / 3) * 2 + HIOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight * 2 + HIOFFSET); 
 		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + (y / 3) * 2 + LOOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight * 2 + LOOFFSET); 
 		if(bytes[i] & 4)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + (y / 3) * 2 + HIOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * 2 + HIOFFSET); 
 		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + (y / 3) * 2 + LOOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * 2 + LOOFFSET); 
 		
 	}
 	CGContextStrokePath(gc);
 
 	if((bytes[0] >> 4) & 8)
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + (y / 3) + HIOFFSET); 
+		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight + HIOFFSET); 
 	else
-		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + (y / 3) + LOOFFSET); 	
+		CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight + LOOFFSET); 	
 	if(bytes[0] & 8)
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + (y / 3) + HIOFFSET); 
+		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight + HIOFFSET); 
 	else
-		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + (y / 3) + LOOFFSET); 
+		CGContextAddLineToPoint(gc, OFFSETX+1, OFFSETY + chhight + LOOFFSET); 
 	for (int i = 1; i < [data length]; i++)
 	{
 		if((bytes[i] >> 4) & 8)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + (y / 3) + HIOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight + HIOFFSET); 
 		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + (y / 3) + LOOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2, OFFSETY + chhight + LOOFFSET); 
 		if(bytes[i] & 8)
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + (y / 3) + HIOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight + HIOFFSET); 
 		else
-			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + (y / 3) + LOOFFSET); 
+			CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight + LOOFFSET); 
 		
 	}
 	CGContextStrokePath(gc);

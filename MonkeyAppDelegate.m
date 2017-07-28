@@ -441,9 +441,18 @@
 
 - (IBAction)logic_action:(id)sender
 {
-	[NSThread detachNewThreadSelector:@selector(logic_thread)
-							 toTarget:self withObject:nil];
-	[sender setEnabled: NO];
+	if([ch1Select indexOfSelectedItem] == 0 && [ch2Select indexOfSelectedItem] == 0 &&
+	   [ch3Select indexOfSelectedItem] == 0) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Error"];
+		[alert setInformativeText:@"Please set toriger"];
+		[alert runModal];
+		[alert release];
+	} else {
+		[NSThread detachNewThreadSelector:@selector(logic_thread)
+								 toTarget:self withObject:nil];
+		[sender setEnabled: NO];		
+	}
 }
 
 @end
