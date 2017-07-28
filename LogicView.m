@@ -50,13 +50,27 @@ static CGRect convertToCGRect(NSRect inRect)
 	strcpy(strbuf, "Monkey");
 	CGContextShowTextAtPoint(gc, 20, y + OFFSETY + 16, strbuf, strlen(strbuf));
 
+	LogicDocument *thedoc = [[[self window] windowController] document];
+	logic_info *info = [thedoc getInfo];
+	CGContextSelectFont(gc, "Geneva", 14, kCGEncodingMacRoman);
+	CGContextShowTextAtPoint(gc, 900, y + OFFSETY + 16, info->model, strlen(info->model));
+	CGContextShowTextAtPoint(gc, 1000, y + OFFSETY + 16, info->version, strlen(info->version));	
+	
+	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,255/255.0f,1.0f);
+	if(info->div >= 1000) {
+		sprintf(strbuf, "%d ms/Dvi", (int)info->div/1000);
+	} else {
+		sprintf(strbuf, "%d us/Dvi", (int)info->div);
+	}
+	CGContextShowTextAtPoint(gc, OFFSETX, 16, strbuf, strlen(strbuf));
+	
 	int chhight = y / CHANNEL;
 
 	for(j = 1; j <= x / 10; j += 1) {
 		for(i = 1; i <= CHANNEL; ++i) {
 			CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
 			CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i);
-			if(j % 10 == 0)
+			if(j % 5 == 0)
 				CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i-15);
 			else
 				CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + chhight*i-10);

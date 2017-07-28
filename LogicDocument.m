@@ -18,6 +18,7 @@
 		
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
+		info = malloc(sizeof(logic_info));
 		myData = NULL;
     }
     return self;
@@ -31,17 +32,6 @@
  return @"WaveDocument";
  }
  */
-
-- (BOOL) setData:(NSData *)data
-{
-	myData = [[NSData alloc] initWithData:data];
-    return YES;
-}
-
-- (NSData *) getData
-{
-    return myData;
-}
 
 
 -(void)makeWindowControllers
@@ -86,7 +76,6 @@
 	 */
 }
 
-#if 0
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
     // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
@@ -94,10 +83,17 @@
     // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
     
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
-    
+
+	if([typeName isEqualToString:@"INFO"] == YES) {
+		[data getBytes:info];
+	}
+
+	if([typeName isEqualToString:@"DATA"] == YES) {
+		myData = [[NSData alloc ] initWithData:data];
+	}
+	
     return YES;
 }
-#endif
 
 - (BOOL)prepareSavePanel:(NSSavePanel*)inSavePanel
 {
@@ -139,4 +135,15 @@
 	// for not set proxy icon on window title
 	// my be this method call NSWindow setRepresentedFilename by default
 }
+
+- (logic_info *)getInfo
+{
+	return info;
+}
+
+- (NSData *) getData
+{
+    return myData;
+}
+
 @end

@@ -209,12 +209,10 @@ void pk2_usb_voltages()
 	return;
 }
 
-void pk2_usb_version()
+void pk2_usb_version(char *buff)
 {
 	int r; //for return values
 	uint8_t buffer[65];
-	float vdd;
-	float vpp;
 	
 	memset(buffer, 0, 65);
 	buffer[0] = 0;
@@ -223,7 +221,7 @@ void pk2_usb_version()
 	WriteToDevice(buffer, 65);
 	r = ReadFromeDevice(buffer, 65, 0.5);
 	
-	printf("MORI MORI Pickit2 Version %d.%d.%d\n", buffer[1], buffer[2], buffer[3]);
+	sprintf(buff, "%d.%d.%d", buffer[1], buffer[2], buffer[3]);
 	
 	return;
 }

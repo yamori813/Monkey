@@ -12,6 +12,7 @@
 
 
 @interface LogicDocument : NSDocument {
+	logic_info *info;
 	LogicWindowController *myctl;
 	NSSavePanel*		savePanel;
 	IBOutlet NSView*	saveDialogCustomView;
@@ -19,6 +20,6 @@
 	NSData *myData;
 }
 
-- (BOOL) setData:(NSData *)data;
+- (logic_info *)getInfo;
 - (NSData *) getData;
 @end

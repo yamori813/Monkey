@@ -122,5 +122,6 @@ enum ScriptCommands
 
 
 int pk2_usb_init();
+void pk2_usb_version(char *buff);
 CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int window);
 void pk2_usb_close();

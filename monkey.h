@@ -44,4 +44,11 @@ typedef struct ds5100_info {
 	double timebasescale;
 } ds5100_info;
 
+typedef struct logic_info {
+	char model[32];
+	char version[32];
+	int channel;
+	double div;
+} logic_info;
+
 char *unitstr(int type);
