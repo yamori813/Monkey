@@ -441,15 +441,9 @@
 
 - (IBAction)logic_action:(id)sender
 {
-
-	if([[sender title] compare:@"Start"] == NSOrderedSame) {
-		[NSThread detachNewThreadSelector:@selector(logic_thread)
-								 toTarget:self withObject:nil];
-		[sender setEnabled: NO];
-	} else {
-		// I don' know how to cancel.
-		pk2_usb_cancel();
-	}
+	[NSThread detachNewThreadSelector:@selector(logic_thread)
+							 toTarget:self withObject:nil];
+	[sender setEnabled: NO];
 }
 
 @end

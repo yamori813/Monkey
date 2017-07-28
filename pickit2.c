@@ -5,6 +5,7 @@
  *  Created by hiroki on 17/07/26.
  *  Copyright 2017 __MyCompanyName__. All rights reserved.
  *
+ * HID code use klab blog code
  */
 
 #include "pickit2.h"
@@ -140,7 +141,49 @@ IOReturn WriteToDevice(unsigned char *data, size_t len)
 
 
 int pk2_usb_init() {
-	return open_device();
+	uint8_t buffer[65];
+
+	if(open_device()) {
+		
+		memset(buffer, 0, 65);
+		buffer[0] = 0;
+		buffer[1] = FWCMD_EXECUTE_SCRIPT;
+		buffer[2] = 9;
+		buffer[3] = SCMD_VPP_OFF;
+		buffer[4] = SCMD_MCLR_GND_ON;
+		buffer[5] = SCMD_VPP_PWM_ON;
+		buffer[6] = SCMD_SET_ICSP_PINS;
+		buffer[7] = 0x03;
+		buffer[8] = SCMD_SET_AUX;
+		buffer[9] = 0x01;
+		buffer[10] = SCMD_DELAY_LONG;
+		buffer[11] = 20;
+		WriteToDevice(buffer, 65);
+
+		return 1;	
+	}
+	
+	return 0;	
+}
+
+void pk2_usb_close()
+{
+	uint8_t buffer[65];
+	
+	memset(buffer, 0, 65);
+	buffer[0] = 0;
+	buffer[1] = FWCMD_EXECUTE_SCRIPT;
+	buffer[2] = 7;
+	buffer[3] = SCMD_VPP_OFF;
+	buffer[4] = SCMD_MCLR_GND_ON;
+	buffer[5] = SCMD_VPP_PWM_OFF;
+	buffer[6] = SCMD_SET_ICSP_PINS;
+	buffer[7] = 0x03;
+	buffer[8] = SCMD_SET_AUX;
+	buffer[9] = 0x01;
+	WriteToDevice(buffer, 65);
+	
+	close_device();
 }
 
 void pk2_usb_voltages()
@@ -226,11 +269,12 @@ int edgemask(int ch1, int ch2, int ch3)
 	return result;
 }
 
-CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int window)
+CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int post)
 {
 	int r; //for return values
 	uint8_t buffer[65];
 	uint8_t SampleRateFactor[8] = {0, 1, 3, 9, 19, 39, 99, 199};
+	int PostTrigCount[6] = {973, 523, 73, 1973, 2973, 3973};
 
 	memset(buffer, 0, 64);
 	buffer[0] = 0;
@@ -243,32 +287,8 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int wi
 	buffer[4] = trigstates(ch1, ch2, ch3);
 	buffer[5] = edgemask(ch1, ch2, ch3);
 	buffer[6] = count;
-	switch(window) {
-		case 0:
-			buffer[7] = 0xcc;   // Start
-			buffer[8] = 0x03;
-			break;
-		case 1:
-			buffer[7] = 0x0a;   // Center
-			buffer[8] = 0x02;
-			break;
-		case 2:
-			buffer[7] = 0x48;   // End
-			buffer[8] = 0x00;
-			break;
-		case 3:
-			buffer[7] = 0xb4;   // 1 Window
-			buffer[8] = 0x07;
-			break;
-		case 4:
-			buffer[7] = 0x9c;   // 2 Window
-			buffer[8] = 0x0b;
-			break;
-		case 5:
-			buffer[7] = 0x84;   // 3 Window
-			buffer[8] = 0x0f;
-			break;
-	}
+	buffer[7] = PostTrigCount[post] & 0xff;
+	buffer[8] = (PostTrigCount[post] >> 8) & 0xff;
 	buffer[9] = SampleRateFactor[sample];
 	
 	buffer[10] = FWCMD_END_OF_BUFFER;
@@ -292,9 +312,32 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int wi
 	pk2_usb_read(6, 0x80, data + 64*2);
 	pk2_usb_read(7, 0, data + 64*2*2);
 	pk2_usb_read(7, 0x80, data + 64*2*3);
+	
+	int lastTrigPos = 1023 - ( PostTrigCount[post] % 1000);
+	trigloc += ((lastTrigPos/2) + ( PostTrigCount[post]/1000)*12);
+
+	bool upperData = ((buffer[2] & 0x80) > 0);
+
+	if (( PostTrigCount[post] % 2) > 0)
+	{
+		upperData = !upperData;
+		if (upperData)
+			trigloc++;
+	}
+	trigloc %= 512;
+
 	uint8_t redata[64*2*4];
-	memcpy(redata, data + trigloc, 64*2*4 - trigloc);
-	memcpy(redata + 64*2*4 - trigloc, data, trigloc);
+//	memcpy(redata, data + trigloc, 64*2*4 - trigloc);
+//	memcpy(redata + 64*2*4 - trigloc, data, trigloc);
+	for (int i = 0; i < 512; i++)
+	{
+		uint8_t sample = data[trigloc];
+		trigloc--;
+		if (trigloc < 0)
+			trigloc += 512;
+		redata[i] = (sample >> 4) | ((sample & 0xf) << 4);
+	}
+	
 	CFDataRef cfDataRef;
 	cfDataRef = CFDataCreate(kCFAllocatorDefault, 
 							 (unsigned char*)redata, 
@@ -332,18 +375,3 @@ void pk2_usb_read(int bank, int offset, uint8_t *data)
 	return;
 }
 
-void pk2_usb_cancel()
-{
-	uint8_t buffer[65];
-	
-	memset(buffer, 0, 65);
-	buffer[0] = 0;
-	buffer[1] = FWCMD_LOGIC_ANALYZER_GO;
-	buffer[2] = FWCMD_END_OF_BUFFER;
-	WriteToDevice(buffer, 65);
-}
-
-void pk2_usb_close()
-{
-	// how to cancel ?
-}
