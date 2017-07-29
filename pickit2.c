@@ -316,17 +316,32 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int po
 	
 	uint8_t redata[64*2*4*2];
 	int rawdata;
+	// Channel 1,2
 	int j = startpos;
 	for (int i = 0; i < 1024; i++)
 	{
 		uint8_t sample = data[j / 2];
 		if(j % 2) {
 			rawdata = sample & 0xf;
-			redata[i] = (rawdata & 0x03) << 2 | (rawdata >> 2);
 		} else {
 			rawdata = sample >> 4;
-			redata[i] = (rawdata & 0x03) << 2 | (rawdata >> 2);
 		}
+		redata[i] = (rawdata >> 2);
+		--j;
+		if(j < 0)
+			j = 1023;
+	}
+	// Channel 3
+	j = startpos;
+	for (int i = 0; i < 1024; i++)
+	{
+		uint8_t sample = data[j / 2];
+		if(j % 2) {
+			rawdata = sample >> 4;
+		} else {
+			rawdata = sample & 0xf;
+		}
+		redata[i] |= (rawdata & 0x03) << 2;
 		--j;
 		if(j < 0)
 			j = 1023;

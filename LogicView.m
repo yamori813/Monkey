@@ -109,6 +109,25 @@ static CGRect convertToCGRect(NSRect inRect)
 		CGContextMoveToPoint(gc, OFFSETX + info->triggerpos, OFFSETY);
 		CGContextAddLineToPoint(gc, OFFSETX + info->triggerpos, OFFSETY + y);
 		CGContextStrokePath(gc);
+
+		CGContextSetRGBFillColor( gc,255/255.0f,0/255.0f,0/255.0f,1.0f);
+		CGMutablePathRef pathRef = CGPathCreateMutable();
+		CGPathMoveToPoint(pathRef, NULL, OFFSETX + info->triggerpos, OFFSETY);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos+5, OFFSETY + 12);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos-5, OFFSETY + 12);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos, OFFSETY);
+		CGContextAddPath(gc, pathRef);
+		CGContextFillPath(gc);
+		CGPathRelease(pathRef);
+
+		pathRef = CGPathCreateMutable();
+		CGPathMoveToPoint(pathRef, NULL, OFFSETX + info->triggerpos, OFFSETY + y);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos+5, OFFSETY + y - 12);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos-5, OFFSETY + y - 12);
+		CGPathAddLineToPoint(pathRef, NULL, OFFSETX + info->triggerpos, OFFSETY + y);
+		CGContextAddPath(gc, pathRef);
+		CGContextFillPath(gc);
+		CGPathRelease(pathRef);
 	}
 
 	const char *bytes = [data bytes];
