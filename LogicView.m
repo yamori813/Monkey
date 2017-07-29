@@ -135,19 +135,31 @@ static CGRect convertToCGRect(NSRect inRect)
 							   gc,127/255.0f,246/255.0f,85/255.0f,1.0f);
 
 	for(int j = 0;j < CHANNEL; ++j) {
+		int lastbit;
 		int bit = 1 << j;
 		int off = CHANNEL - j - 1;
 		if(bytes[0] & bit)
 			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + HIOFFSET); 
 		else
 			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + LOOFFSET); 
+		lastbit = bytes[0] & bit;
 		for (int i = 1; i < [data length]; i++)
 		{
-			if(bytes[i] & bit)
-				CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
-			else
-				CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
-			
+			if((bytes[i] & bit) == lastbit) {
+				if(bytes[i] & bit)
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+				else
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+			} else {
+				if(bytes[i] & bit) {
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+				} else {
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+				}
+			}
+			lastbit = bytes[i] & bit;	
 		}
 		CGContextStrokePath(gc);
 	}

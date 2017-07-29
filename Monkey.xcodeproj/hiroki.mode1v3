@@ -202,47 +202,7 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>F5BCC4CB1F2C1DF0007758BA</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>pickit2.c</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>F5BCC4CC1F2C1DF0007758BA</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>pickit2.c</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>F5BCC50F1F2C274B007758BA</string>
-						<key>history</key>
-						<array>
-							<string>F5BCC4C41F2C1BA5007758BA</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1042, 912}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>-1660 10 1042 953 -1920 -92 1920 1080 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>F5BCC4A21F2C0F84007758BA</string>
+				<string>F5BCC51D1F2C2F19007758BA</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>LogicView.m</string>
 				<key>PBXSplitModuleInNavigatorKey</key>
@@ -250,16 +210,16 @@
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>F5BCC4A31F2C0F84007758BA</string>
+						<string>F5BCC51E1F2C2F19007758BA</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>LogicView.m</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F5BCC5101F2C274B007758BA</string>
+						<string>F5BCC52E1F2C307D007758BA</string>
 						<key>history</key>
 						<array>
-							<string>F5BCC4A01F2C0EAA007758BA</string>
+							<string>F5BCC5171F2C2CEA007758BA</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -364,13 +324,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>50</integer>
-									<integer>31</integer>
+									<integer>8</integer>
+									<integer>2</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 410}, {186, 652}}</string>
+							<string>{{0, 0}, {186, 652}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -417,7 +378,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>F5BCC50E1F2C274B007758BA</string>
+										<string>F5BCC52D1F2C307D007758BA</string>
 										<key>history</key>
 										<array>
 											<string>F5DD4E7914B33A5200D8CC61</string>
@@ -668,15 +629,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>F5BCC50B1F2C2568007758BA</string>
+		<string>F5BCC52F1F2C307D007758BA</string>
 		<string>F5BCC4181F2BEDF6007758BA</string>
 		<string>F5BCC4191F2BEDF6007758BA</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>F5DB5E4E14A6ACE400218ED2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>F5BCC4A21F2C0F84007758BA</string>
 		<string>/Users/hiroki/Develop/Device/Monkey/Monkey.xcodeproj</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>F5BCC4CB1F2C1DF0007758BA</string>
+		<string>F5BCC51D1F2C2F19007758BA</string>
 	</array>
 	<key>WindowString</key>
 	<string>-1895 256 825 711 -1920 -92 1920 1080 </string>
@@ -1050,7 +1010,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
