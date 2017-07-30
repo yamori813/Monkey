@@ -426,7 +426,7 @@
 									  [ch3Select indexOfSelectedItem], [trigCount intValue],
 									  [samplingSelect indexOfSelectedItem], [windowSelect indexOfSelectedItem]);
 		if(data != nil) {
-			int divlist[8] = {50, 100, 200, 500, 1000, 2000, 5000, 10000};
+			int divlist[8] = {25, 50, 100, 250, 500, 1000, 2500, 5000};
 			int PostTrigCount[6] = {973, 523, 73, 1973, 2973, 3973};
 			LogicDocument *logicdoc = [[LogicDocument alloc] init];
 			logic_info info;
