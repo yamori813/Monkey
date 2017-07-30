@@ -23,6 +23,7 @@
 		F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
 		F5AF802718DD2339007CD1E3 /* iwausb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AF802618DD2339007CD1E3 /* iwausb.c */; };
+		F5B4C6DC1F2D619900760234 /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B4C6DB1F2D619900760234 /* hid.c */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
 		F5B76E581A575C37007893A2 /* TimeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B76E571A575C37007893A2 /* TimeDocument.m */; };
 		F5B76E5E1A575C56007893A2 /* TimeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B76E5D1A575C56007893A2 /* TimeWindowController.m */; };
@@ -89,6 +90,8 @@
 		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		F5AF802518DD2339007CD1E3 /* iwausb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwausb.h; sourceTree = "<group>"; };
 		F5AF802618DD2339007CD1E3 /* iwausb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwausb.c; sourceTree = "<group>"; };
+		F5B4C6DA1F2D619900760234 /* hid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hid.h; sourceTree = "<group>"; };
+		F5B4C6DB1F2D619900760234 /* hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hid.c; sourceTree = "<group>"; };
 		F5B5C14514AFFF6B002E5677 /* ftgpib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftgpib.h; sourceTree = "<group>"; };
 		F5B5C14614AFFF6B002E5677 /* ftgpib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgpib.c; sourceTree = "<group>"; };
 		F5B76E561A575C37007893A2 /* TimeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDocument.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				F5C11E101F12F94100E92D63 /* gpibutil.c */,
 				F5E90BDC1F284CAD005B5364 /* pickit2.h */,
 				F5E90BDD1F284CAD005B5364 /* pickit2.c */,
+				F5B4C6DA1F2D619900760234 /* hid.h */,
+				F5B4C6DB1F2D619900760234 /* hid.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				F5A698231F288434006B7A49 /* LogicDocument.m in Sources */,
 				F5A698281F288481006B7A49 /* LogicWindowController.m in Sources */,
 				F5A6982D1F288499006B7A49 /* LogicView.m in Sources */,
+				F5B4C6DC1F2D619900760234 /* hid.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
