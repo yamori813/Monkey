@@ -22,6 +22,7 @@
 		F5A6982D1F288499006B7A49 /* LogicView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A6982C1F288499006B7A49 /* LogicView.m */; };
 		F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */; };
 		F5A7229614BA70F70035F5B8 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A7229514BA70F70035F5B8 /* TimeView.m */; };
+		F5AA89781F2EBE9C008070EA /* saru.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5AA89771F2EBE9C008070EA /* saru.icns */; };
 		F5AF802718DD2339007CD1E3 /* iwausb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AF802618DD2339007CD1E3 /* iwausb.c */; };
 		F5B4C6DC1F2D619900760234 /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B4C6DB1F2D619900760234 /* hid.c */; };
 		F5B5C14714AFFF6B002E5677 /* ftgpib.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B5C14614AFFF6B002E5677 /* ftgpib.c */; };
@@ -88,6 +89,7 @@
 		F5A6982F1F2884D0006B7A49 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/LogicDocument.xib; sourceTree = "<group>"; };
 		F5A7229414BA70F70035F5B8 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
 		F5A7229514BA70F70035F5B8 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
+		F5AA89771F2EBE9C008070EA /* saru.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = saru.icns; sourceTree = "<group>"; };
 		F5AF802518DD2339007CD1E3 /* iwausb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwausb.h; sourceTree = "<group>"; };
 		F5AF802618DD2339007CD1E3 /* iwausb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwausb.c; sourceTree = "<group>"; };
 		F5B4C6DA1F2D619900760234 /* hid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hid.h; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5AA89771F2EBE9C008070EA /* saru.icns */,
 				F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */,
 				F5B76E8B1A576026007893A2 /* TimeDocument.xib */,
 				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
@@ -350,6 +353,7 @@
 				F587F60514AD5C1A00F2EBAE /* WaveDocument.xib in Resources */,
 				F5B76E8D1A576026007893A2 /* TimeDocument.xib in Resources */,
 				F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */,
+				F5AA89781F2EBE9C008070EA /* saru.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
