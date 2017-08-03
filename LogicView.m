@@ -58,9 +58,9 @@ static CGRect convertToCGRect(NSRect inRect)
 	
 	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,255/255.0f,1.0f);
 	if(info->div >= 1000) {
-		sprintf(strbuf, "%d ms/Dvi", (int)info->div/1000);
+		sprintf(strbuf, "%d ms/Div", (int)info->div/1000);
 	} else {
-		sprintf(strbuf, "%d us/Dvi", (int)info->div);
+		sprintf(strbuf, "%d us/Div", (int)info->div);
 	}
 	CGContextShowTextAtPoint(gc, OFFSETX, 16, strbuf, strlen(strbuf));
 	
@@ -139,24 +139,24 @@ static CGRect convertToCGRect(NSRect inRect)
 		int bit = 1 << j;
 		int off = CHANNEL - j - 1;
 		if(bytes[0] & bit)
-			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + HIOFFSET); 
+			CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * off + HIOFFSET); 
 		else
-			CGContextMoveToPoint(gc, OFFSETX+1, OFFSETY + chhight * off + LOOFFSET); 
+			CGContextMoveToPoint(gc, OFFSETX, OFFSETY + chhight * off + LOOFFSET); 
 		lastbit = bytes[0] & bit;
 		for (int i = 1; i < [data length]; i++)
 		{
 			if((bytes[i] & bit) == lastbit) {
 				if(bytes[i] & bit)
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + HIOFFSET); 
 				else
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + LOOFFSET); 
 			} else {
 				if(bytes[i] & bit) {
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + LOOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + HIOFFSET); 
 				} else {
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + HIOFFSET); 
-					CGContextAddLineToPoint(gc, OFFSETX+i*2+1, OFFSETY + chhight * off + LOOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + HIOFFSET); 
+					CGContextAddLineToPoint(gc, OFFSETX+i, OFFSETY + chhight * off + LOOFFSET); 
 				}
 			}
 			lastbit = bytes[i] & bit;	

@@ -12,12 +12,12 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="648"/>
-			<integer value="754"/>
-			<integer value="782"/>
 			<integer value="534"/>
-			<integer value="628"/>
+			<integer value="648"/>
+			<integer value="903"/>
 			<integer value="835"/>
+			<integer value="628"/>
+			<integer value="782"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1258,6 +1258,29 @@
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="717238939">
+									<reference key="NSMenu" ref="708221000"/>
+									<string key="NSTitle">Plugin</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<string key="NSAction">submenuAction:</string>
+									<object class="NSMenu" key="NSSubmenu" id="129411951">
+										<string key="NSTitle">Plugin</string>
+										<object class="NSMutableArray" key="NSMenuItems">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<object class="NSMenuItem" id="916773872">
+												<reference key="NSMenu" ref="129411951"/>
+												<string key="NSTitle">Item</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+											</object>
+										</object>
+									</object>
 								</object>
 							</object>
 						</object>
@@ -4220,6 +4243,14 @@
 					</object>
 					<int key="connectionID">899</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">pluginMenu</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="129411951"/>
+					</object>
+					<int key="connectionID">905</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -5922,6 +5953,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="673252246"/>
 							<reference ref="503641373"/>
+							<reference ref="717238939"/>
 						</object>
 						<reference key="parent" ref="990166867"/>
 					</object>
@@ -6507,6 +6539,29 @@
 						<reference key="object" ref="873748767"/>
 						<reference key="parent" ref="703685706"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">902</int>
+						<reference key="object" ref="717238939"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="129411951"/>
+						</object>
+						<reference key="parent" ref="708221000"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">903</int>
+						<reference key="object" ref="129411951"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="916773872"/>
+						</object>
+						<reference key="parent" ref="717238939"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">904</int>
+						<reference key="object" ref="916773872"/>
+						<reference key="parent" ref="129411951"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -7004,6 +7059,10 @@
 					<string>896.IBPluginDependency</string>
 					<string>896.IBViewBoundsToFrameTransform</string>
 					<string>897.IBPluginDependency</string>
+					<string>902.IBPluginDependency</string>
+					<string>903.IBEditorWindowLastContentRect</string>
+					<string>903.IBPluginDependency</string>
+					<string>904.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
 					<string>92.ImportedFromIB2</string>
 				</object>
@@ -7139,7 +7198,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{591, 420}, {83, 43}}</string>
+					<string>{{350, 693}, {83, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{523, 2}, {178, 283}}</string>
@@ -7434,7 +7493,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{466, 693}, {81, 43}}</string>
+					<string>{{466, 673}, {94, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7605,6 +7664,10 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{560, 673}, {83, 23}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 				</object>
 			</object>
@@ -7624,7 +7687,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">899</int>
+			<int key="maxID">905</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7850,6 +7913,7 @@
 							<string>metexmin</string>
 							<string>metexunit</string>
 							<string>metexview</string>
+							<string>pluginMenu</string>
 							<string>samplingSelect</string>
 							<string>speedSelect</string>
 							<string>timescale</string>
@@ -7887,6 +7951,7 @@
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>TimeView</string>
+							<string>NSMenu</string>
 							<string>NSPopUpButton</string>
 							<string>NSPopUpButton</string>
 							<string>NSTextField</string>
@@ -7927,6 +7992,7 @@
 							<string>metexmin</string>
 							<string>metexunit</string>
 							<string>metexview</string>
+							<string>pluginMenu</string>
 							<string>samplingSelect</string>
 							<string>speedSelect</string>
 							<string>timescale</string>
@@ -8041,6 +8107,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">metexview</string>
 								<string key="candidateClassName">TimeView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">pluginMenu</string>
+								<string key="candidateClassName">NSMenu</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">samplingSelect</string>

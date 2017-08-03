@@ -11,6 +11,7 @@
 #import "WaveDocument.h"
 #import "TimeDocument.h"
 #import "LogicDocument.h"
+#import "DecodeDocument.h"
 
 #import "TimeView.h"
 #import "BigWindow.h"
@@ -66,6 +67,9 @@
 	Iwatsu *iwa;
 	
 	NSArray *idnarr;
+
+	IBOutlet NSMenu *pluginMenu;
+	NSMutableArray	*pluginInstances;
 }
 
 - (IBAction)big:(id)sender;

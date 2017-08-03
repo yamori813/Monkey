@@ -250,7 +250,7 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int po
 	CFDataRef cfDataRef;
 	cfDataRef = CFDataCreate(kCFAllocatorDefault, 
 							 (unsigned char*)redata, 
-							 64*2*4);
+							 64*2*4*2);
 	return cfDataRef;
 }
 

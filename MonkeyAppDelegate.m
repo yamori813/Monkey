@@ -8,6 +8,8 @@
 
 #import "MonkeyAppDelegate.h"
 
+#import "Plugin.h"
+
 #include "serial.h"
 #include "ftgpib.h"
 #include "gpibutil.h"
@@ -17,6 +19,67 @@
 @implementation MonkeyAppDelegate
 
 @synthesize window;
+
+- (IBAction)plugin_action:(id)sender
+{
+	NSWindow *thewin = [[NSApplication sharedApplication] mainWindow];
+	NSObject* doc = [[thewin windowController] document];
+	NSString * className = NSStringFromClass([doc class]);
+	NSLog(@"%@", className);
+	LogicDocument *log = doc;
+	NSData *data = [log getData];
+	logic_info *info = [log getInfo];
+	NSString *decstr = [[pluginInstances objectAtIndex:0] decode:data info:info window:thewin];
+	NSLog(@"%@", decstr);
+
+	if(decstr != nil) {
+		DecodeDocument *logicdoc = [[DecodeDocument alloc] init];
+		[logicdoc readFromData:[NSData dataWithBytes:info length:sizeof(logic_info)]
+						ofType:@"INFO" error:NULL];
+		[logicdoc readFromData:[decstr dataUsingEncoding:NSUTF8StringEncoding]
+						ofType:@"DATA" error:NULL];
+		[logicdoc makeWindowControllers];
+		[logicdoc showWindows];
+	}
+}
+
+- (Class)pluginClassAtPath:(NSString *) inPath
+{
+    NSBundle *pluginBundle = [NSBundle bundleWithPath:inPath];
+    if (pluginBundle)
+    {
+        NSDictionary *pluginDict = [pluginBundle infoDictionary];
+        NSString *pluginName = [pluginDict objectForKey:@"NSPrincipalClass"];
+        Class pluginClass = [pluginBundle classNamed:pluginName];
+        if ([pluginClass conformsToProtocol:@protocol (MDPluginProtocol)])
+            return (pluginClass);
+    }
+    return (nil);
+}
+
+- (void)checkPlugins
+{
+	[pluginMenu removeAllItems];
+	
+    NSString *folderPath = [[NSBundle mainBundle] builtInPlugInsPath];
+    if (folderPath)
+    {
+        NSEnumerator *enumerator = [[NSBundle pathsForResourcesOfType:@"bundle" inDirectory:folderPath] objectEnumerator];
+        NSString *pluginPath;
+        while ((pluginPath = [enumerator nextObject]))
+        {
+            Class pluginClass = [self pluginClassAtPath:pluginPath];
+            if (pluginClass)
+            {
+				NSString *name = [pluginClass pluginName];
+				[pluginInstances addObject:[[pluginClass alloc] init]];
+				NSMenuItem *aMenu = [[NSMenuItem alloc] initWithTitle:name action:@selector( plugin_action: ) keyEquivalent:@""];
+				[pluginMenu addItem:aMenu];
+				NSLog(@"MORI MORI Plugin %@", name);
+            }
+        }
+    }
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
@@ -35,6 +98,9 @@
 	gridtype = 0;
 
 	iwa = [[Iwatsu alloc] init];
+	
+	pluginInstances = [[NSMutableArray alloc] init];
+	[self checkPlugins];
 }
 
 - (IBAction)big:(id)sender
@@ -426,13 +492,14 @@
 									  [ch3Select indexOfSelectedItem], [trigCount intValue],
 									  [samplingSelect indexOfSelectedItem], [windowSelect indexOfSelectedItem]);
 		if(data != nil) {
-			int divlist[8] = {25, 50, 100, 250, 500, 1000, 2500, 5000};
+			int divlist[8] = {50, 100, 200, 500, 1000, 2000, 5000, 10000};
 			int PostTrigCount[6] = {973, 523, 73, 1973, 2973, 3973};
 			LogicDocument *logicdoc = [[LogicDocument alloc] init];
 			logic_info info;
 			strcpy(info.model, "PICkit 2");
 			pk2_usb_version(&info.version);
 			info.channel = 3;
+			info.sample = 1024;
 			info.div = divlist[[samplingSelect indexOfSelectedItem]];
 			info.triggerpos = 1024 - PostTrigCount[[windowSelect indexOfSelectedItem]];
 			[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]

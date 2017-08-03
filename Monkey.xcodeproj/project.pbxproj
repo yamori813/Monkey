@@ -35,24 +35,43 @@
 		F5CEAFA918DBD5930033EA4C /* iwaspp.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CEAFA818DBD5930033EA4C /* iwaspp.m */; };
 		F5CEB05118DBD6740033EA4C /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5CEB04F18DBD6740033EA4C /* IOBluetooth.framework */; };
 		F5CEB05218DBD6740033EA4C /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5CEB05018DBD6740033EA4C /* IOBluetoothUI.framework */; };
+		F5D89C371F3280FB00CDC2CF /* MDSerial.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D89C361F3280FB00CDC2CF /* MDSerial.xib */; };
+		F5D89C481F3281D400CDC2CF /* MDSerial.bundle in Plugin_copy */ = {isa = PBXBuildFile; fileRef = F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */; };
+		F5D89C671F32838700CDC2CF /* MDSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CD66471F31C1F3003EE428 /* MDSerial.m */; };
+		F5D89ECC1F32B66E00CDC2CF /* DecodeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D89ECB1F32B66E00CDC2CF /* DecodeDocument.m */; };
+		F5D89ED21F32B6BB00CDC2CF /* DecodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D89ED11F32B6BB00CDC2CF /* DecodeWindowController.m */; };
+		F5D89EDA1F32B70800CDC2CF /* DecodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D89ED91F32B70800CDC2CF /* DecodeView.m */; };
+		F5D89F111F32B8BD00CDC2CF /* DecodeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D89F0F1F32B8BD00CDC2CF /* DecodeDocument.xib */; };
 		F5DB5DF314A6A1E000218ED2 /* iwasio.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5DF214A6A1E000218ED2 /* iwasio.c */; };
 		F5DB5E7E14A6BB9900218ED2 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DB5E7D14A6BB9900218ED2 /* serial.c */; };
 		F5DB5F3C14A6BC0700218ED2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */; };
 		F5DD4E0714B2FD2400D8CC61 /* metex.c in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4E0614B2FD2400D8CC61 /* metex.c */; };
 		F5E90BDE1F284CAD005B5364 /* pickit2.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E90BDD1F284CAD005B5364 /* pickit2.c */; };
 		F5F19EFA17E3FDC200A3C110 /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
-		F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
+		F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in Framework_copy */ = {isa = PBXBuildFile; fileRef = F5F19EF917E3FDC200A3C110 /* libftd2xx.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F5B5C18014B001A8002E5677 /* CopyFiles */ = {
+		F50DF5681F31C9540079D68C /* Plugin_copy */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F5D89C481F3281D400CDC2CF /* MDSerial.bundle in Plugin_copy */,
+			);
+			name = Plugin_copy;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5B5C18014B001A8002E5677 /* Framework_copy */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in CopyFiles */,
+				F5F19F0617E3FE1100A3C110 /* libftd2xx.dylib in Framework_copy */,
 			);
+			name = Framework_copy;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -107,10 +126,23 @@
 		F5CAB1DE17E5452F005E8F84 /* BigView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigView.m; sourceTree = "<group>"; };
 		F5CAB22617E54772005E8F84 /* BigWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigWindow.h; sourceTree = "<group>"; };
 		F5CAB22717E54772005E8F84 /* BigWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigWindow.m; sourceTree = "<group>"; };
+		F5CD66461F31C1F3003EE428 /* MDSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDSerial.h; sourceTree = "<group>"; };
+		F5CD66471F31C1F3003EE428 /* MDSerial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDSerial.m; sourceTree = "<group>"; };
+		F5CD66521F31C289003EE428 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		F5CEAFA718DBD5930033EA4C /* iwaspp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iwaspp.h; sourceTree = "<group>"; };
 		F5CEAFA818DBD5930033EA4C /* iwaspp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iwaspp.m; sourceTree = "<group>"; };
 		F5CEB04F18DBD6740033EA4C /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
 		F5CEB05018DBD6740033EA4C /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = /System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = "<absolute>"; };
+		F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MDSerial.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5D89C2F1F3280A900CDC2CF /* MDSerial-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MDSerial-Info.plist"; sourceTree = "<group>"; };
+		F5D89C361F3280FB00CDC2CF /* MDSerial.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDSerial.xib; sourceTree = "<group>"; };
+		F5D89ECA1F32B66E00CDC2CF /* DecodeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecodeDocument.h; sourceTree = "<group>"; };
+		F5D89ECB1F32B66E00CDC2CF /* DecodeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecodeDocument.m; sourceTree = "<group>"; };
+		F5D89ED01F32B6BB00CDC2CF /* DecodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecodeWindowController.h; sourceTree = "<group>"; };
+		F5D89ED11F32B6BB00CDC2CF /* DecodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecodeWindowController.m; sourceTree = "<group>"; };
+		F5D89ED81F32B70800CDC2CF /* DecodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecodeView.h; sourceTree = "<group>"; };
+		F5D89ED91F32B70800CDC2CF /* DecodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecodeView.m; sourceTree = "<group>"; };
+		F5D89F101F32B8BD00CDC2CF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DecodeDocument.xib; sourceTree = "<group>"; };
 		F5DB5DF214A6A1E000218ED2 /* iwasio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iwasio.c; sourceTree = "<group>"; };
 		F5DB5E7D14A6BB9900218ED2 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
 		F5DB5F3B14A6BC0700218ED2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -136,12 +168,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5D89C2C1F3280A900CDC2CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F5D89EC71F32B47F00CDC2CF /* Decode */,
 				F5A698191F2883EE006B7A49 /* Logic */,
 				F5B7706D1A5786CB007893A2 /* Time */,
 				F5C1C1F11A477E4500615C27 /* Wave */,
@@ -153,6 +193,7 @@
 				F5CAB22717E54772005E8F84 /* BigWindow.m */,
 				F5A3872618DD669300E96337 /* Iwatsu.h */,
 				F5A3872718DD669300E96337 /* Iwatsu.m */,
+				F5CD66521F31C289003EE428 /* Plugin.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -182,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Monkey.app */,
+				F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,9 +233,11 @@
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				F5CD66421F31C1A9003EE428 /* MDPlugin */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				F5D89C2F1F3280A900CDC2CF /* MDSerial-Info.plist */,
 			);
 			name = Monkey;
 			sourceTree = "<group>";
@@ -230,12 +274,14 @@
 			isa = PBXGroup;
 			children = (
 				F5AA89771F2EBE9C008070EA /* saru.icns */,
+				F5D89F0F1F32B8BD00CDC2CF /* DecodeDocument.xib */,
 				F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */,
 				F5B76E8B1A576026007893A2 /* TimeDocument.xib */,
 				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
 				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				F5D89C361F3280FB00CDC2CF /* MDSerial.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -297,6 +343,28 @@
 			name = Wave;
 			sourceTree = "<group>";
 		};
+		F5CD66421F31C1A9003EE428 /* MDPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				F5CD66461F31C1F3003EE428 /* MDSerial.h */,
+				F5CD66471F31C1F3003EE428 /* MDSerial.m */,
+			);
+			name = MDPlugin;
+			sourceTree = "<group>";
+		};
+		F5D89EC71F32B47F00CDC2CF /* Decode */ = {
+			isa = PBXGroup;
+			children = (
+				F5D89ECA1F32B66E00CDC2CF /* DecodeDocument.h */,
+				F5D89ECB1F32B66E00CDC2CF /* DecodeDocument.m */,
+				F5D89ED01F32B6BB00CDC2CF /* DecodeWindowController.h */,
+				F5D89ED11F32B6BB00CDC2CF /* DecodeWindowController.m */,
+				F5D89ED81F32B70800CDC2CF /* DecodeView.h */,
+				F5D89ED91F32B70800CDC2CF /* DecodeView.m */,
+			);
+			name = Decode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -307,7 +375,8 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				F5B5C18014B001A8002E5677 /* CopyFiles */,
+				F5B5C18014B001A8002E5677 /* Framework_copy */,
+				F50DF5681F31C9540079D68C /* Plugin_copy */,
 			);
 			buildRules = (
 			);
@@ -318,6 +387,23 @@
 			productName = Monkey;
 			productReference = 8D1107320486CEB800E47090 /* Monkey.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F5D89C2D1F3280A900CDC2CF /* MDSerial */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5D89C321F3280A900CDC2CF /* Build configuration list for PBXNativeTarget "MDSerial" */;
+			buildPhases = (
+				F5D89C2A1F3280A900CDC2CF /* Resources */,
+				F5D89C2B1F3280A900CDC2CF /* Sources */,
+				F5D89C2C1F3280A900CDC2CF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MDSerial;
+			productName = MDSerial;
+			productReference = F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -339,6 +425,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Monkey */,
+				F5D89C2D1F3280A900CDC2CF /* MDSerial */,
 			);
 		};
 /* End PBXProject section */
@@ -354,6 +441,15 @@
 				F5B76E8D1A576026007893A2 /* TimeDocument.xib in Resources */,
 				F5A698301F2884D0006B7A49 /* LogicDocument.xib in Resources */,
 				F5AA89781F2EBE9C008070EA /* saru.icns in Resources */,
+				F5D89F111F32B8BD00CDC2CF /* DecodeDocument.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5D89C2A1F3280A900CDC2CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5D89C371F3280FB00CDC2CF /* MDSerial.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +483,17 @@
 				F5A698281F288481006B7A49 /* LogicWindowController.m in Sources */,
 				F5A6982D1F288499006B7A49 /* LogicView.m in Sources */,
 				F5B4C6DC1F2D619900760234 /* hid.c in Sources */,
+				F5D89ECC1F32B66E00CDC2CF /* DecodeDocument.m in Sources */,
+				F5D89ED21F32B6BB00CDC2CF /* DecodeWindowController.m in Sources */,
+				F5D89EDA1F32B70800CDC2CF /* DecodeView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5D89C2B1F3280A900CDC2CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5D89C671F32838700CDC2CF /* MDSerial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +538,14 @@
 				F5B76E8C1A576026007893A2 /* English */,
 			);
 			name = TimeDocument.xib;
+			sourceTree = "<group>";
+		};
+		F5D89F0F1F32B8BD00CDC2CF /* DecodeDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5D89F101F32B8BD00CDC2CF /* English */,
+			);
+			name = DecodeDocument.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -501,6 +616,56 @@
 			};
 			name = Release;
 		};
+		F5D89C301F3280A900CDC2CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Monkey_Prefix.pch;
+				INFOPLIST_FILE = "MDSerial-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MDSerial;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F5D89C311F3280A900CDC2CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Monkey_Prefix.pch;
+				INFOPLIST_FILE = "MDSerial-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MDSerial;
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -518,6 +683,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5D89C321F3280A900CDC2CF /* Build configuration list for PBXNativeTarget "MDSerial" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5D89C301F3280A900CDC2CF /* Debug */,
+				F5D89C311F3280A900CDC2CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
