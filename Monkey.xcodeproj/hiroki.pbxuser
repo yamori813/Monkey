@@ -200,6 +200,7 @@
 			F5BEDB031F334D5D00E38397 /* PBXTextBookmark */ = F5BEDB031F334D5D00E38397 /* PBXTextBookmark */;
 			F5BEDB041F334D5D00E38397 /* PBXTextBookmark */ = F5BEDB041F334D5D00E38397 /* PBXTextBookmark */;
 			F5BEDB091F334DA500E38397 /* PBXTextBookmark */ = F5BEDB091F334DA500E38397 /* PBXTextBookmark */;
+			F5BEDB0F1F334E3000E38397 /* PBXTextBookmark */ = F5BEDB0F1F334E3000E38397 /* PBXTextBookmark */;
 			F5C4828518DB24FF00FB271D = F5C4828518DB24FF00FB271D /* PBXTextBookmark */;
 			F5C4F56314C10C5700F471AF = F5C4F56314C10C5700F471AF /* PBXTextBookmark */;
 			F5C513321F2AD9F30072C2E8 = F5C513321F2AD9F30072C2E8 /* PBXTextBookmark */;
@@ -1228,6 +1229,16 @@
 		vrLen = 6;
 		vrLoc = 592;
 	};
+	F5BEDB0F1F334E3000E38397 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F5CD66471F31C1F3003EE428 /* MDSerial.m */;
+		name = "MDSerial.m: 37";
+		rLen = 0;
+		rLoc = 592;
+		rType = 0;
+		vrLen = 25;
+		vrLoc = 592;
+	};
 	F5C075351F29ABB600A21040 /* WaveDocument.h:8 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -1544,7 +1555,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {498, 1534}}";
 			sepNavSelRange = "{592, 0}";
-			sepNavVisRange = "{592, 6}";
+			sepNavVisRange = "{592, 25}";
 			sepNavWindowFrame = "{{-1146, 48}, {914, 839}}";
 		};
 	};
