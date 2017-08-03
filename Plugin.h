@@ -11,9 +11,9 @@
 
 + (BOOL)initializeClass:(NSBundle*)theBundle;
 + (void)terminateClass;
-+ (NSString *)pluginName;
 
 - (id)init;
+- (NSString *)pluginName;
 - (NSString *)decode:(NSData *)data info:(logic_info *)info window:(NSWindow *)window;
 
 @end

@@ -27,11 +27,6 @@ static NSBundle* pluginBundle = nil;
 	}
 }
 
-+ (NSString *)pluginName
-{
-	return @"Serial";
-}
-
 
 - (id)init
 {
@@ -41,6 +36,11 @@ static NSBundle* pluginBundle = nil;
 		[NSBundle loadNibNamed:@"MDSerial" owner:self];
     }
     return self;
+}
+
+- (NSString *)pluginName
+{
+	return @"Serial";
 }
 
 - (IBAction)sheetButtonClicked:(id)sender
@@ -62,7 +62,6 @@ static NSBundle* pluginBundle = nil;
 {
 	char strbuf[32];
 	
-	NSLog(@"MORI MORI sheet %@", sheetDialog);
 	[[NSApplication sharedApplication] beginSheet: sheetDialog
 								   modalForWindow: window
 									modalDelegate: nil
@@ -72,16 +71,12 @@ static NSBundle* pluginBundle = nil;
     // Display modal dialog
 	[[NSApplication sharedApplication] runModalForWindow: sheetDialog];
 
-	NSLog(@"MORI MORI plugin sheetDialog %d %d", button, [channel intValue]);
-	NSLog(@"MORI MORI plugin size %d", [data length]);
-
 	NSMutableString *result = [[NSMutableString alloc] init];
 
 	unsigned char *ptr = [data bytes];
 	if(button == OK_BUTTON) {
 		int bitmask = 1 << (ch - 1);
 		int bitlen = (1000 * 1000 * 1000 / baud) / (info->div * 1000 / 50);
-		NSLog(@"MORI MORI plugin bitlen %d %d %d", baud, bitlen, (int)info->div);
 		int last = *ptr & bitmask;
 		int lastpos = 0;
 		++ptr;
@@ -91,17 +86,13 @@ static NSBundle* pluginBundle = nil;
 		int bytedata;
 		for(int i = 1; i < info->sample; ++i) {
 			if(last != (*ptr & bitmask)) {
-//				NSLog(@"MORI MORI bit change %d %d %d %d", i - lastpos,(i - lastpos)/ bitlen, last, i);
 				if(stat == 0 && ((i - lastpos) / bitlen) == 1 && last == 0) {
-//					NSLog(@"MORI MORI bit start %d", i);
 					stat = 1;
 					bitcount = 0;
 					startpos = lastpos;
 					bytedata = 0;
 				} else if(stat == 1) {
 					if(last == 1) {
-//						bytedata = ((1 << ((i - lastpos)/ bitlen + 1)) - 1);
-//						NSLog(@"MORI MORI %d,%d", (i - lastpos) / bitlen, bitcount);
 						bytedata |= ((1 << (i - lastpos)/ bitlen) - 1) << bitcount;
 						bytedata &= 0xff;
 					}

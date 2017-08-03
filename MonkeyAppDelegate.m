@@ -22,25 +22,47 @@
 
 - (IBAction)plugin_action:(id)sender
 {
-	NSWindow *thewin = [[NSApplication sharedApplication] mainWindow];
-	NSObject* doc = [[thewin windowController] document];
-	NSString * className = NSStringFromClass([doc class]);
-	NSLog(@"%@", className);
-	LogicDocument *log = doc;
-	NSData *data = [log getData];
-	logic_info *info = [log getInfo];
-	NSString *decstr = [[pluginInstances objectAtIndex:0] decode:data info:info window:thewin];
-	NSLog(@"%@", decstr);
-
-	if(decstr != nil) {
-		DecodeDocument *logicdoc = [[DecodeDocument alloc] init];
-		[logicdoc readFromData:[NSData dataWithBytes:info length:sizeof(logic_info)]
-						ofType:@"INFO" error:NULL];
-		[logicdoc readFromData:[decstr dataUsingEncoding:NSUTF8StringEncoding]
-						ofType:@"DATA" error:NULL];
-		[logicdoc makeWindowControllers];
-		[logicdoc showWindows];
+	int i;
+	
+	for(i = 0; i < [pluginInstances count]; i++){
+		if([[sender title] compare:[[pluginInstances objectAtIndex:i] pluginName]] == NSOrderedSame) {
+			NSWindow *thewin = [[NSApplication sharedApplication] mainWindow];
+			NSObject* doc = [[thewin windowController] document];
+			NSString * className = NSStringFromClass([doc class]);
+			LogicDocument *log = doc;
+			NSData *data = [log getData];
+			logic_info *info = [log getInfo];
+			NSString *decstr = [[pluginInstances objectAtIndex:i] decode:data info:info window:thewin];
+			
+			if(decstr != nil) {
+				DecodeDocument *logicdoc = [[DecodeDocument alloc] init];
+				[logicdoc readFromData:[NSData dataWithBytes:info length:sizeof(logic_info)]
+								ofType:@"INFO" error:NULL];
+				[logicdoc readFromData:[decstr dataUsingEncoding:NSUTF8StringEncoding]
+								ofType:@"DATA" error:NULL];
+				[logicdoc makeWindowControllers];
+				[logicdoc showWindows];
+			}
+			
+			break;
+		}
 	}
+
+}
+
+- (BOOL)validateUserInterfaceItem:(id )anItem
+{
+    if ([anItem action] == @selector(plugin_action:)) {
+		NSWindow *thewin = [[NSApplication sharedApplication] mainWindow];
+		NSObject* doc = [[thewin windowController] document];
+		NSString * className = NSStringFromClass([doc class]);
+		if(className != nil && [className compare:@"LogicDocument"] == NSOrderedSame) {
+			return YES;
+		} else {
+			return NO;
+		}
+	}
+    return YES;
 }
 
 - (Class)pluginClassAtPath:(NSString *) inPath
@@ -71,11 +93,11 @@
             Class pluginClass = [self pluginClassAtPath:pluginPath];
             if (pluginClass)
             {
-				NSString *name = [pluginClass pluginName];
-				[pluginInstances addObject:[[pluginClass alloc] init]];
+				id pobj = [[pluginClass alloc] init];
+				[pluginInstances addObject:pobj];
+				NSString *name = [pobj pluginName];
 				NSMenuItem *aMenu = [[NSMenuItem alloc] initWithTitle:name action:@selector( plugin_action: ) keyEquivalent:@""];
 				[pluginMenu addItem:aMenu];
-				NSLog(@"MORI MORI Plugin %@", name);
             }
         }
     }
