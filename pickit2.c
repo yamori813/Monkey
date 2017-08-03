@@ -205,7 +205,7 @@ CFDataRef pk2_usb_start(int ch1, int ch2, int ch3, int count, int sample, int po
 	if((buffer[2] & 0x80) == 0x80)
 		++trigloc;
 	int startpos;
-	startpos = (trigloc + (1023 - (PostTrigCount[post] % 1024)) / 2);		// ???
+	startpos = trigloc + (1023 - (PostTrigCount[post] % 1024));
 	startpos %= 1024;
 	
 	uint8_t data[64*2*4];
