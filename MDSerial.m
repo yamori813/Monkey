@@ -85,10 +85,10 @@ static NSBundle* pluginBundle = nil;
 		int startpos;
 		int bytedata;
 		for(int i = 1; i < info->sample; ++i) {
-			if(last != (*ptr & bitmask)) {
-				if(stat == 0 && ((i - lastpos) / bitlen) == 1 && last == 0) {
+			if(last != (*ptr & bitmask) || i == info->sample - 1) {
+				if(stat == 0 && ((i - lastpos) / bitlen) > 0 && last == 0) {
 					stat = 1;
-					bitcount = 0;
+					bitcount = ((i - lastpos) / bitlen) - 1;
 					startpos = lastpos;
 					bytedata = 0;
 				} else if(stat == 1) {

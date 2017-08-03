@@ -19,6 +19,7 @@
 	IBOutlet NSView*	saveDialogCustomView;
 	IBOutlet NSPopUpButton *fileTypePopup;
 	NSString *myData;
+	NSString *myTitle;
 }
 
 - (logic_info *)getInfo;

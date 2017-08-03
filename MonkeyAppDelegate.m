@@ -35,7 +35,8 @@
 			NSString *decstr = [[pluginInstances objectAtIndex:i] decode:data info:info window:thewin];
 			
 			if(decstr != nil) {
-				DecodeDocument *logicdoc = [[DecodeDocument alloc] init];
+				NSString *title = [[thewin windowController] getTitle];
+				DecodeDocument *logicdoc = [[DecodeDocument alloc] initWithTitle:title];
 				[logicdoc readFromData:[NSData dataWithBytes:info length:sizeof(logic_info)]
 								ofType:@"INFO" error:NULL];
 				[logicdoc readFromData:[decstr dataUsingEncoding:NSUTF8StringEncoding]
@@ -121,6 +122,8 @@
 
 	iwa = [[Iwatsu alloc] init];
 	
+	talkswitch = 0;
+
 	pluginInstances = [[NSMutableArray alloc] init];
 	[self checkPlugins];
 }
@@ -325,10 +328,12 @@
 	printf("%s", buf);
 	gpioval gpib = gpibstr2val(buf);
 	printf("%.*lf", gpib.edig > gpib.exp ? gpib.edig - gpib.exp : 0, gpib.val);
-	NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
-	[synthesizer setRate:100.0];
-	[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
-									  gpib.edig > gpib.exp ? gpib.edig - gpib.exp : 0, gpib.val]];
+	if(talkswitch) {
+		NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
+		[synthesizer setRate:140.0];
+		[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
+										  gpib.edig > gpib.exp ? gpib.edig - gpib.exp : 0, gpib.val]];
+	}
 }
 
 - (IBAction)gpib_talk:(id)sender
@@ -415,10 +420,12 @@
 									data.edig, data.value]];
 		[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSUTF8StringEncoding]];	
 		metex_close();
-		NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
-		[synthesizer setRate:100.0];
-		[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
-										  data.edig, data.value]];
+		if(talkswitch) {
+			NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
+			[synthesizer setRate:140.0];
+			[synthesizer startSpeakingString:[NSString stringWithFormat:@"%.*lf", 
+											  data.edig, data.value]];
+		}
 		
 	}
 }
@@ -426,15 +433,6 @@
 - (IBAction)metex_action:(id)sender
 {
 	if([[sender title] compare:@"Start"] == NSOrderedSame) {
-#if 0
-		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
-			metexview = [[TimeView alloc] init];
-			[NSThread detachNewThreadSelector:@selector(metex_poll)
-									 toTarget:self withObject:nil];
-			metex_willstop = 0;
-			metexlasttime = 0;
-		}
-#endif
 		if(metex_init((CFStringRef)[[metexDevSelect selectedItem] title])) {
 			timedoc = [[TimeDocument alloc] initWithScale:[metexmin doubleValue] max:[metexmax doubleValue]];
 			[timedoc makeWindowControllers];
@@ -467,41 +465,6 @@
 	[metexmeter setDoubleValue:data.value];
 	[metexunit setStringValue:[NSString stringWithCString:unitstr(data.unittype) encoding:NSUTF8StringEncoding]];
 	return [NSNumber numberWithDouble:data.value];
-#if 0
-	int interval = 0;
-	measure_value data;
-    NSAutoreleasePool* pool;
-    pool = [[NSAutoreleasePool alloc]init];
-	do {
-		if(metex_value(&data)) {
-			uint64_t curtime = mach_absolute_time();
-			int msec = 0;
-			if(metexlasttime != 0) {
-				Nanoseconds elapsedNano;
-				uint64_t tmptime = curtime - metexlasttime;
-				elapsedNano = AbsoluteToNanoseconds( *(AbsoluteTime *) &tmptime );
-				msec = *(uint64_t *)&elapsedNano;
-				msec /= 1000*1000;
-			} else {
-//				[metexview setScale:11.0 max:13.0];
-				[metexview setScale:0.0 max:200000.0];
-			}
-			[metexmeter setDoubleValue:data.value];
-			[metexview addData:data.value time:msec];
-			metexlasttime = curtime;
-			if((interval % 10) == 0) {
-				printf("speech %f\n", data.value);
-				NSSpeechSynthesizer *synthesizer = [[NSSpeechSynthesizer alloc] init];
-				[synthesizer startSpeakingString:[NSString stringWithFormat:@"%d", (int)data.value]];
-			}
-			++interval;
-		}
-//		printf("%f %d\n", data.value, data.unittype);
-	} while(!metex_willstop);
-	metex_close();
-    [pool release];
-    [NSThread exit];
-#endif
 }
 
 
@@ -551,6 +514,15 @@
 								 toTarget:self withObject:nil];
 		[sender setEnabled: NO];		
 	}
+}
+
+- (IBAction)talk_action:(id)sender
+{
+	talkswitch = !talkswitch;
+	if(talkswitch)
+		[sender setState:NSOnState];
+	else
+		[sender setState:NSOffState];
 }
 
 @end

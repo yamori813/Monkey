@@ -11,15 +11,18 @@
 
 @implementation DecodeWindowController
 
-- (id)initWithWindowNibName:(NSString *)windowNibName owner:(id)owner
+- (id)initWithWindowNibName:(NSString *)windowNibName title:(NSString *)title owner:(id)owner
 {
     self = [super initWithWindowNibName:windowNibName owner:owner];
     if (self) {
+		/*
 		NSDate* date = [NSDate date];
 		NSDateFormatter* fmt = [[[NSDateFormatter alloc]
 								 initWithDateFormat:@"%Y%m%d-%H%M%S"
 								 allowNaturalLanguage:YES] autorelease];
 		titlestr = [NSString stringWithString:[fmt stringFromDate:date]];
+		 */
+		titlestr = [NSString stringWithFormat:@"%@-d", title];
     }
     return self;
 }

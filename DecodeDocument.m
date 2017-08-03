@@ -11,7 +11,7 @@
 
 @implementation DecodeDocument
 
-- (id)init
+- (id)initWithTitle:(NSString *)title
 {
     self = [super init];
     if (self) {
@@ -20,6 +20,7 @@
         // If an error occurs here, send a [self release] message and return nil.
 		info = malloc(sizeof(logic_info));
 		myData = NULL;
+		myTitle = title;
     }
     return self;
 }
@@ -36,7 +37,7 @@
 
 -(void)makeWindowControllers
 {
-	myctl = [[DecodeWindowController alloc] initWithWindowNibName:@"DecodeDocument" owner:self];
+	myctl = [[DecodeWindowController alloc] initWithWindowNibName:@"DecodeDocument" title:myTitle owner:self];
 	[self addWindowController:myctl];
 }
 

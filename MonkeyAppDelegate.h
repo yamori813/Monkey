@@ -13,7 +13,6 @@
 #import "LogicDocument.h"
 #import "DecodeDocument.h"
 
-#import "TimeView.h"
 #import "BigWindow.h"
 #import "Iwatsu.h"
 
@@ -45,7 +44,6 @@
 	IBOutlet NSButton *metexget;
 	IBOutlet NSButton *inductor;
 	IBOutlet NSTextField *metexc;
-	IBOutlet TimeView *metexview;
 	uint64_t metexlasttime;
 	
 	TimeDocument *timedoc;
@@ -70,6 +68,8 @@
 
 	IBOutlet NSMenu *pluginMenu;
 	NSMutableArray	*pluginInstances;
+	
+	int talkswitch;
 }
 
 - (IBAction)big:(id)sender;
@@ -97,6 +97,8 @@
 - (IBAction)metex_action:(id)sender;
 
 - (IBAction)logic_action:(id)sender;
+
+- (IBAction)talk_action:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 
