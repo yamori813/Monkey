@@ -237,7 +237,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				F5D89C2F1F3280A900CDC2CF /* MDSerial-Info.plist */,
 			);
 			name = Monkey;
 			sourceTree = "<group>";
@@ -273,15 +272,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F5AA89771F2EBE9C008070EA /* saru.icns */,
 				F5D89F0F1F32B8BD00CDC2CF /* DecodeDocument.xib */,
 				F5A6982E1F2884D0006B7A49 /* LogicDocument.xib */,
 				F5B76E8B1A576026007893A2 /* TimeDocument.xib */,
 				F587F60314AD5C1A00F2EBAE /* WaveDocument.xib */,
-				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				F5D89C361F3280FB00CDC2CF /* MDSerial.xib */,
+				8D1107310486CEB800E47090 /* Monkey-Info.plist */,
+				F5AA89771F2EBE9C008070EA /* saru.icns */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -348,6 +346,8 @@
 			children = (
 				F5CD66461F31C1F3003EE428 /* MDSerial.h */,
 				F5CD66471F31C1F3003EE428 /* MDSerial.m */,
+				F5D89C361F3280FB00CDC2CF /* MDSerial.xib */,
+				F5D89C2F1F3280A900CDC2CF /* MDSerial-Info.plist */,
 			);
 			name = MDPlugin;
 			sourceTree = "<group>";
