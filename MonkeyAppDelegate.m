@@ -26,10 +26,10 @@
 	
 	for(i = 0; i < [pluginInstances count]; i++){
 		if([[sender title] compare:[[pluginInstances objectAtIndex:i] pluginName]] == NSOrderedSame) {
+			// only send by LogicDocument on top
 			NSWindow *thewin = [[NSApplication sharedApplication] mainWindow];
 			NSObject* doc = [[thewin windowController] document];
-			NSString * className = NSStringFromClass([doc class]);
-			LogicDocument *log = doc;
+			LogicDocument *log = (LogicDocument *)doc;
 			NSData *data = [log getData];
 			logic_info *info = [log getInfo];
 			NSString *decstr = [[pluginInstances objectAtIndex:i] decode:data info:info window:thewin];

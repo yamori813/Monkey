@@ -18,9 +18,9 @@
 	};
 	256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {897, 6838}}";
-			sepNavSelRange = "{10802, 0}";
-			sepNavVisRange = "{9793, 1333}";
+			sepNavIntBoundsRect = "{{0, 0}, {897, 6864}}";
+			sepNavSelRange = "{581, 0}";
+			sepNavVisRange = "{169, 1411}";
 			sepNavWindowFrame = "{{-1419, 86}, {956, 723}}";
 		};
 	};
@@ -218,6 +218,8 @@
 			F5DF78241F33F9E300FBF6EB /* PBXBookmark */ = F5DF78241F33F9E300FBF6EB /* PBXBookmark */;
 			F5DF78271F33F9E300FBF6EB /* PBXBookmark */ = F5DF78271F33F9E300FBF6EB /* PBXBookmark */;
 			F5DF782A1F33F9E300FBF6EB /* PBXTextBookmark */ = F5DF782A1F33F9E300FBF6EB /* PBXTextBookmark */;
+			F5DF78381F33FC5600FBF6EB /* PBXBookmark */ = F5DF78381F33FC5600FBF6EB /* PBXBookmark */;
+			F5DF78391F33FC5600FBF6EB /* PBXTextBookmark */ = F5DF78391F33FC5600FBF6EB /* PBXTextBookmark */;
 			F5E90BFB1F285292005B5364 = F5E90BFB1F285292005B5364 /* PBXTextBookmark */;
 			F5F83FE618DFB17B00B28B9B = F5F83FE618DFB17B00B28B9B /* PBXTextBookmark */;
 			F5F83FE718DFB17B00B28B9B = F5F83FE718DFB17B00B28B9B /* PBXTextBookmark */;
@@ -765,7 +767,7 @@
 		fRef = 256AC3D90F4B6AC300CF3369 /* MonkeyAppDelegate.m */;
 		name = "MonkeyAppDelegate.m: 483";
 		rLen = 0;
-		rLoc = 12871;
+		rLoc = 12870;
 		rType = 0;
 		vrLen = 27;
 		vrLoc = 0;
@@ -1096,9 +1098,9 @@
 	};
 	F5C11E101F12F94100E92D63 /* gpibutil.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {556, 1343}}";
+			sepNavIntBoundsRect = "{{0, 0}, {983, 1265}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 29}";
+			sepNavVisRange = "{560, 1407}";
 			sepNavWindowFrame = "{{-1757, -21}, {1042, 1009}}";
 		};
 	};
@@ -1692,6 +1694,20 @@
 		rLoc = 271;
 		rType = 0;
 		vrLen = 365;
+		vrLoc = 0;
+	};
+	F5DF78381F33FC5600FBF6EB /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = F5AA89771F2EBE9C008070EA /* saru.icns */;
+	};
+	F5DF78391F33FC5600FBF6EB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* MonkeyAppDelegate.h */;
+		name = "MonkeyAppDelegate.h: 62";
+		rLen = 9;
+		rLoc = 1564;
+		rType = 0;
+		vrLen = 0;
 		vrLoc = 0;
 	};
 	F5E90BDC1F284CAD005B5364 /* pickit2.h */ = {
