@@ -53,7 +53,10 @@
     // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
 	
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
-	NSData *pdfData = [[myctl window] dataWithPDFInsideRect:NSMakeRect(0,0,1122,425)];
+	NSRect winrect = [[myctl window] frame];
+	int winw = winrect.size.width;
+	int winh = winrect.size.height - 22.0;	
+	NSData *pdfData = [[myctl window] dataWithPDFInsideRect:NSMakeRect(0,0,winw,winh)];
 	NSImage * myImage = [[NSImage alloc] initWithData:pdfData];
 	NSData *imageData = [myImage TIFFRepresentation];
 	NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData: imageData];

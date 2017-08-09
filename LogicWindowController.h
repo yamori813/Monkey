@@ -8,8 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "LogicView.h"
+
 @interface LogicWindowController : NSWindowController {
 	NSString *titlestr;
+	
+	LogicView *logicview;
 }
 
 @end

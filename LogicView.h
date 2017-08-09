@@ -11,6 +11,10 @@
 
 @interface LogicView : NSView {
 	CGContextRef gc;
+	IBOutlet NSScroller *logicScroller;
+	int startpos;	
 }
+
+- (IBAction)scroll:(id)sender;
 
 @end

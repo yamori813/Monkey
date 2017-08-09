@@ -122,6 +122,8 @@
 
 	iwa = [[Iwatsu alloc] init];
 	
+	fx2la_init();
+	
 	talkswitch = 0;
 
 	pluginInstances = [[NSMutableArray alloc] init];
@@ -514,6 +516,63 @@
 								 toTarget:self withObject:nil];
 		[sender setEnabled: NO];		
 	}
+}
+
+CFDataRef fx2la_get();
+
+-(void)fx2la_thread
+{
+    NSAutoreleasePool* pool;
+    pool = [[NSAutoreleasePool alloc]init];
+	while(fx2la_isstop() == 0) {
+		[NSThread sleepForTimeInterval:0.1];
+	}
+	if(fx2la_isstop() == 1 || fx2la_isstop() == 2) {
+		LogicDocument *logicdoc = [[LogicDocument alloc] init];
+		logic_info info;
+		strcpy(info.model, "FX2LA");
+		fx2la_version(&info.version);
+		info.channel = 8;
+		info.sample = 0x10000;
+		info.div = 100;
+		info.triggerpos = fx2la_trigger();
+		[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]
+						ofType:@"INFO" error:NULL];
+		[logicdoc readFromData:fx2la_get() ofType:@"DATA" error:NULL];
+		[logicdoc makeWindowControllers];
+		[logicdoc showWindows];
+	}
+	[fx2laButton setTitle:@"Start"];
+	[pool release];
+    [NSThread exit];
+}
+
+- (IBAction)fx2la_action:(id)sender
+{
+	if([[sender title] compare:@"Start"] == NSOrderedSame) {
+		fx2la_start([fx2laCh indexOfSelectedItem], [fx2laTrig indexOfSelectedItem],
+					[fx2laSampling indexOfSelectedItem]);
+		[sender setTitle:@"Stop"];
+		[NSThread detachNewThreadSelector:@selector(fx2la_thread)
+								 toTarget:self withObject:nil];
+	} else {
+		fx2la_stop();
+		/*
+		LogicDocument *logicdoc = [[LogicDocument alloc] init];
+		logic_info info;
+		strcpy(info.model, "FX2LA");
+		fx2la_version(&info.version);
+		info.channel = 8;
+		info.sample = 0x10000;
+		info.div = 100;
+		info.triggerpos = fx2la_trigger();
+		[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]
+						ofType:@"INFO" error:NULL];
+		[logicdoc readFromData:fx2la_get() ofType:@"DATA" error:NULL];
+		[logicdoc makeWindowControllers];
+		[logicdoc showWindows];
+		*/
+	}	
 }
 
 - (IBAction)talk_action:(id)sender

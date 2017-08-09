@@ -57,6 +57,11 @@
 	IBOutlet NSPopUpButton *samplingSelect;
 	IBOutlet NSButton *lastart;
 
+	IBOutlet NSPopUpButton *fx2laCh;
+	IBOutlet NSPopUpButton *fx2laTrig;
+	IBOutlet NSPopUpButton *fx2laSampling;
+	IBOutlet NSButton *fx2laButton;
+
 	IBOutlet NSMenuItem *voiceMenu;
 
 	IBOutlet BigWindow *bigWin;
@@ -97,6 +102,8 @@
 - (IBAction)metex_action:(id)sender;
 
 - (IBAction)logic_action:(id)sender;
+
+- (IBAction)fx2la_action:(id)sender;
 
 - (IBAction)talk_action:(id)sender;
 

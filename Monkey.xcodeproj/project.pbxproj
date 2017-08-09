@@ -35,6 +35,7 @@
 		F5CEAFA918DBD5930033EA4C /* iwaspp.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CEAFA818DBD5930033EA4C /* iwaspp.m */; };
 		F5CEB05118DBD6740033EA4C /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5CEB04F18DBD6740033EA4C /* IOBluetooth.framework */; };
 		F5CEB05218DBD6740033EA4C /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5CEB05018DBD6740033EA4C /* IOBluetoothUI.framework */; };
+		F5D194CE1F397A2F00D5AFA5 /* fx2la.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D194CD1F397A2F00D5AFA5 /* fx2la.c */; };
 		F5D89C371F3280FB00CDC2CF /* MDSerial.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D89C361F3280FB00CDC2CF /* MDSerial.xib */; };
 		F5D89C481F3281D400CDC2CF /* MDSerial.bundle in Plugin_copy */ = {isa = PBXBuildFile; fileRef = F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */; };
 		F5D89C671F32838700CDC2CF /* MDSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CD66471F31C1F3003EE428 /* MDSerial.m */; };
@@ -133,6 +134,8 @@
 		F5CEAFA818DBD5930033EA4C /* iwaspp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iwaspp.m; sourceTree = "<group>"; };
 		F5CEB04F18DBD6740033EA4C /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = /System/Library/Frameworks/IOBluetooth.framework; sourceTree = "<absolute>"; };
 		F5CEB05018DBD6740033EA4C /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = /System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = "<absolute>"; };
+		F5D194CC1F397A2F00D5AFA5 /* fx2la.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fx2la.h; sourceTree = "<group>"; };
+		F5D194CD1F397A2F00D5AFA5 /* fx2la.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fx2la.c; sourceTree = "<group>"; };
 		F5D89C2E1F3280A900CDC2CF /* MDSerial.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MDSerial.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5D89C2F1F3280A900CDC2CF /* MDSerial-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MDSerial-Info.plist"; sourceTree = "<group>"; };
 		F5D89C361F3280FB00CDC2CF /* MDSerial.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDSerial.xib; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				F5E90BDD1F284CAD005B5364 /* pickit2.c */,
 				F5B4C6DA1F2D619900760234 /* hid.h */,
 				F5B4C6DB1F2D619900760234 /* hid.c */,
+				F5D194CC1F397A2F00D5AFA5 /* fx2la.h */,
+				F5D194CD1F397A2F00D5AFA5 /* fx2la.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				F5D89ECC1F32B66E00CDC2CF /* DecodeDocument.m in Sources */,
 				F5D89ED21F32B6BB00CDC2CF /* DecodeWindowController.m in Sources */,
 				F5D89EDA1F32B70800CDC2CF /* DecodeView.m in Sources */,
+				F5D194CE1F397A2F00D5AFA5 /* fx2la.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
