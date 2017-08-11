@@ -8,6 +8,8 @@
 
 #import "LogicWindowController.h"
 
+#import "LogicDocument.h"
+
 
 @implementation LogicWindowController
 
@@ -35,25 +37,56 @@
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-	NSString *theArrow = [theEvent charactersIgnoringModifiers];
-	unichar keyChar = 0;
+	LogicDocument *thedoc = [self  document];
 
-	if ( [theArrow length] == 0 )
-		return;            // reject dead keys
-	
-	if ( [theArrow length] == 1 ) {
-		keyChar = [theArrow characterAtIndex:0];
-		if ( keyChar == NSLeftArrowFunctionKey ) {
-			printf("MORI MORI key\n");
+	if (([theEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+		if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"+"]) {
+			[[thedoc getImageView] setzoom:2];
 			return;
 		}
-		
-		if ( keyChar == NSRightArrowFunctionKey ) {
-			printf("MORI MORI key\n");
+		if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"-"]) {
+			[[thedoc getImageView] setzoom:1];
 			return;
+		}
+	} else {
+		NSString *theArrow = [theEvent charactersIgnoringModifiers];
+		unichar keyChar = 0;
+		
+		if ( [theArrow length] == 0 )
+			return;            // reject dead keys
+		
+		
+		if ( [theArrow length] == 1 ) {
+			keyChar = [theArrow characterAtIndex:0];
+			if ( keyChar == NSLeftArrowFunctionKey ) {
+				if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
+					[[thedoc getImageView] keyevent:5];
+				} else {
+					[[thedoc getImageView] keyevent:1];
+				}
+				return;
+			}
+			
+			if ( keyChar == NSRightArrowFunctionKey ) {
+				if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
+					[[thedoc getImageView] keyevent:6];
+				} else {
+					[[thedoc getImageView] keyevent:2];
+				}
+				return;
+			}
 		}
 	}
 	
 	[super keyDown:theEvent];
+}
+
+- (void)scrollWheel:(NSEvent *)theEvent {
+	LogicDocument *thedoc = [self  document];
+
+	if([theEvent deltaX] > 1)
+		[[thedoc getImageView] keyevent:3];
+	if([theEvent deltaX] < -1)
+		[[thedoc getImageView] keyevent:4];
 }
 @end

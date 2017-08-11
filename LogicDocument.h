@@ -10,8 +10,11 @@
 
 #import "LogicWindowController.h"
 
+#import "LogicView.h"
 
 @interface LogicDocument : NSDocument {
+	IBOutlet LogicView *logicview;
+
 	logic_info *info;
 	LogicWindowController *myctl;
 	NSSavePanel*		savePanel;
@@ -22,4 +25,5 @@
 
 - (logic_info *)getInfo;
 - (NSData *) getData;
+- (LogicView *) getImageView;
 @end

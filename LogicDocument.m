@@ -149,4 +149,8 @@
     return myData;
 }
 
+- (LogicView *) getImageView
+{
+    return logicview;
+}
 @end

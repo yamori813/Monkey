@@ -13,6 +13,7 @@
 	CGContextRef gc;
 	IBOutlet NSScroller *logicScroller;
 	int startpos;	
+	int zoom;
 }
 
 - (IBAction)scroll:(id)sender;

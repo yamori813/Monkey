@@ -528,13 +528,14 @@ CFDataRef fx2la_get();
 		[NSThread sleepForTimeInterval:0.1];
 	}
 	if(fx2la_isstop() == 1 || fx2la_isstop() == 2) {
+		int divlist[] = {1, 5, 10, 25, 50, 100, 250, 500, 1000, 2000};
 		LogicDocument *logicdoc = [[LogicDocument alloc] init];
 		logic_info info;
 		strcpy(info.model, "FX2LA");
 		fx2la_version(&info.version);
 		info.channel = 8;
 		info.sample = 0x10000;
-		info.div = 100;
+		info.div = divlist[[fx2laSampling indexOfSelectedItem]] * 1000;
 		info.triggerpos = fx2la_trigger();
 		[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]
 						ofType:@"INFO" error:NULL];

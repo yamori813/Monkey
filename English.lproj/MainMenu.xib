@@ -12,13 +12,13 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="648"/>
-			<integer value="534"/>
-			<integer value="835"/>
-			<integer value="782"/>
-			<integer value="628"/>
 			<integer value="754"/>
+			<integer value="782"/>
+			<integer value="835"/>
 			<integer value="907"/>
+			<integer value="628"/>
+			<integer value="534"/>
+			<integer value="647"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3139,7 +3139,7 @@
 			<object class="NSWindowTemplate" id="926325815">
 				<int key="NSWindowStyleMask">261</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{244, 360}, {240, 130}}</string>
+				<string key="NSWindowRect">{{244, 363}, {240, 130}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">FX2LA</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -3387,7 +3387,7 @@
 								<int key="NSPeriodicInterval">75</int>
 								<object class="NSMenuItem" key="NSMenuItem" id="739182200">
 									<reference key="NSMenu" ref="745714935"/>
-									<string key="NSTitle">1MHz</string>
+									<string key="NSTitle">100MHz</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -3403,20 +3403,9 @@
 									<object class="NSMutableArray" key="NSMenuItems">
 										<bool key="EncodedWithXMLCoder">YES</bool>
 										<reference ref="739182200"/>
-										<object class="NSMenuItem" id="768501892">
-											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">500kHz</string>
-											<string key="NSKeyEquiv"/>
-											<int key="NSKeyEquivModMask">1048576</int>
-											<int key="NSMnemonicLoc">2147483647</int>
-											<reference key="NSOnImage" ref="35465992"/>
-											<reference key="NSMixedImage" ref="502551668"/>
-											<string key="NSAction">_popUpItemAction:</string>
-											<reference key="NSTarget" ref="175279862"/>
-										</object>
 										<object class="NSMenuItem" id="939312819">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">250kHz</string>
+											<string key="NSTitle">10MHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3427,7 +3416,7 @@
 										</object>
 										<object class="NSMenuItem" id="679060168">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">100kHz</string>
+											<string key="NSTitle">5000kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3438,7 +3427,7 @@
 										</object>
 										<object class="NSMenuItem" id="291025850">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">50kHz</string>
+											<string key="NSTitle">2500kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3449,7 +3438,7 @@
 										</object>
 										<object class="NSMenuItem" id="1005758728">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">25kHz</string>
+											<string key="NSTitle">1000kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3460,7 +3449,7 @@
 										</object>
 										<object class="NSMenuItem" id="857869286">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">10kHz</string>
+											<string key="NSTitle">500kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3471,7 +3460,7 @@
 										</object>
 										<object class="NSMenuItem" id="250985111">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">5kHz</string>
+											<string key="NSTitle">250kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3482,7 +3471,29 @@
 										</object>
 										<object class="NSMenuItem" id="868255013">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">1kHz</string>
+											<string key="NSTitle">100kHz</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="35465992"/>
+											<reference key="NSMixedImage" ref="502551668"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="175279862"/>
+										</object>
+										<object class="NSMenuItem" id="231962197">
+											<reference key="NSMenu" ref="745714935"/>
+											<string key="NSTitle">50kHz</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="35465992"/>
+											<reference key="NSMixedImage" ref="502551668"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="175279862"/>
+										</object>
+										<object class="NSMenuItem" id="658727523">
+											<reference key="NSMenu" ref="745714935"/>
+											<string key="NSTitle">25kHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -7167,12 +7178,13 @@
 							<reference ref="291025850"/>
 							<reference ref="679060168"/>
 							<reference ref="939312819"/>
-							<reference ref="768501892"/>
 							<reference ref="739182200"/>
 							<reference ref="1005758728"/>
 							<reference ref="857869286"/>
 							<reference ref="250985111"/>
 							<reference ref="868255013"/>
+							<reference ref="231962197"/>
+							<reference ref="658727523"/>
 						</object>
 						<reference key="parent" ref="175279862"/>
 					</object>
@@ -7189,11 +7201,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">954</int>
 						<reference key="object" ref="939312819"/>
-						<reference key="parent" ref="745714935"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">955</int>
-						<reference key="object" ref="768501892"/>
 						<reference key="parent" ref="745714935"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -7219,6 +7226,16 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">962</int>
 						<reference key="object" ref="868255013"/>
+						<reference key="parent" ref="745714935"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">963</int>
+						<reference key="object" ref="231962197"/>
+						<reference key="parent" ref="745714935"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">964</int>
+						<reference key="object" ref="658727523"/>
 						<reference key="parent" ref="745714935"/>
 					</object>
 				</object>
@@ -7763,12 +7780,13 @@
 					<string>952.IBPluginDependency</string>
 					<string>953.IBPluginDependency</string>
 					<string>954.IBPluginDependency</string>
-					<string>955.IBPluginDependency</string>
 					<string>956.IBPluginDependency</string>
 					<string>959.IBPluginDependency</string>
 					<string>960.IBPluginDependency</string>
 					<string>961.IBPluginDependency</string>
 					<string>962.IBPluginDependency</string>
+					<string>963.IBPluginDependency</string>
+					<string>964.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -8415,7 +8433,8 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABBcAAAwpYAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{505, 279}, {209, 183}}</string>
+					<string>{{505, 259}, {209, 203}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -8444,7 +8463,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">962</int>
+			<int key="maxID">964</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

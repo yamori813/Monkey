@@ -74,8 +74,7 @@ CFDataRef fx2la_get()
 	cfDataRef = CFDataCreate(kCFAllocatorDefault, 
 							 stop == 1 ? (unsigned char*)data1 : (unsigned char*)data2, 
 							 0x10000);
-	free(data1);
-	free(data2);
+
 	return cfDataRef;
 }
 
@@ -97,9 +96,9 @@ void start(int sample)
 	request.pData = cmd_data;
 	
 	cmd_data[0] = cmd_data[1] = cmd_data[2] = 0;
-	int delay = 1 << (sample + 2);
-	cmd_data[1] = delay >> 8;
-	cmd_data[2] = delay & 0xff;
+	int delay[] = {1, 3, 6, 16, 32, 64, 160, 320, 640, 1280};
+	cmd_data[1] = delay[sample] >> 8;
+	cmd_data[2] = delay[sample] & 0xff;
 
 	request.bmRequestType = USBmakebmRequestType(kUSBOut,
 												 kUSBVendor,
@@ -334,6 +333,18 @@ IOReturn FindInterfaces(IOUSBDeviceInterface245 **dev)
             }
         }
 
+		CFRunLoopSourceRef		runLoopSource;
+		// Just like with service matching notifications, we need to create an event source and add it 
+		//  to our run loop in order to receive async completion notifications.
+		kr = (*intf)->CreateInterfaceAsyncEventSource(intf, &runLoopSource);
+		if (kIOReturnSuccess != kr)
+		{
+			printf("unable to create async event source (%08x)\n", kr);
+			(void) (*intf)->USBInterfaceClose(intf);
+			(void) (*intf)->Release(intf);
+			return kr;
+		}
+		CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
 
         // We can now address endpoints 1 through intfNumEndpoints. Or, we can also address endpoint 0,
         // the default control endpoint. But it's usually better to use (*usbDevice)->DeviceRequest() instead.
@@ -413,23 +424,9 @@ void fx2la_start(int ch, int type, int sample)
 	gTrigCh = ch;
 	gTrigType = type;
 	
-	CFRunLoopSourceRef		runLoopSource;
-	// Just like with service matching notifications, we need to create an event source and add it 
-	//  to our run loop in order to receive async completion notifications.
-	kr = (*intf)->CreateInterfaceAsyncEventSource(intf, &runLoopSource);
-	if (kIOReturnSuccess != kr)
-	{
-		printf("unable to create async event source (%08x)\n", kr);
-		(void) (*intf)->USBInterfaceClose(intf);
-		(void) (*intf)->Release(intf);
-		return;
-	}
-	CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
 	
 	printf("Async event source added to run loop.\n");
 	
-	data1 = malloc(0x10000);
-//	kr = (*intf)->ReadPipeAsync(intf, 1, data1, 0x10000, ReadCompletion,(void *) intf);
 	kr = (*intf)->ReadPipeAsync(intf, 1, data1, 0x10000, ReadCompletion, data1);
 	if (kIOReturnSuccess != kr)
 	{
@@ -439,7 +436,6 @@ void fx2la_start(int ch, int type, int sample)
 		return;
 	}
 
-	data2 = malloc(0x10000);
 	kr = (*intf)->ReadPipeAsync(intf, 1, data2, 0x10000, ReadCompletion, data2);
 	if (kIOReturnSuccess != kr)
 	{
@@ -511,4 +507,7 @@ void fx2la_init()
 										  &gFx2lafwAddedIter );
 	
     Fx2laswAdded(NULL, gFx2lafwAddedIter);	// Iterate once to get already-present devices and
+	
+	data1 = malloc(0x10000);
+	data2 = malloc(0x10000);
 }
