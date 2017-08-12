@@ -96,7 +96,7 @@ void start(int sample)
 	request.pData = cmd_data;
 	
 	cmd_data[0] = cmd_data[1] = cmd_data[2] = 0;
-	int delay[] = {1, 3, 6, 16, 32, 64, 160, 320, 640, 1280};
+	int delay[] = {2, 5, 14, 29, 58, 145, 290, 580, 1160};
 	cmd_data[1] = delay[sample] >> 8;
 	cmd_data[2] = delay[sample] & 0xff;
 

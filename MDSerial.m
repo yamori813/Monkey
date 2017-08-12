@@ -76,7 +76,7 @@ static NSBundle* pluginBundle = nil;
 	unsigned char *ptr = [data bytes];
 	if(button == OK_BUTTON) {
 		int bitmask = 1 << (ch - 1);
-		int bitlen = (1000 * 1000 * 1000 / baud) / (info->div * 1000 / 50);
+		int bitlen = (1000 * 1000 * 1000 / baud) / (info->div / 50);
 		int last = *ptr & bitmask;
 		int lastpos = 0;
 		++ptr;
@@ -92,8 +92,8 @@ static NSBundle* pluginBundle = nil;
 					startpos = lastpos;
 					bytedata = 0;
 				} else if(stat == 1) {
-					if(last == 1) {
-						bytedata |= ((1 << (i - lastpos)/ bitlen) - 1) << bitcount;
+					if(last) {
+						bytedata |= ((1 << (i - lastpos)/ bitlen ) - 1) << bitcount;
 						bytedata &= 0xff;
 					}
 					bitcount += (i - lastpos)/ bitlen;

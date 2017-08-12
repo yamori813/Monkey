@@ -33,7 +33,7 @@
 			NSData *data = [log getData];
 			logic_info *info = [log getInfo];
 			NSString *decstr = [[pluginInstances objectAtIndex:i] decode:data info:info window:thewin];
-			
+			NSLog(@"MORI MORI plugin %@", decstr);			
 			if(decstr != nil) {
 				NSString *title = [[thewin windowController] getTitle];
 				DecodeDocument *logicdoc = [[DecodeDocument alloc] initWithTitle:title];
@@ -487,7 +487,7 @@
 			pk2_usb_version(&info.version);
 			info.channel = 3;
 			info.sample = 1024;
-			info.div = divlist[[samplingSelect indexOfSelectedItem]];
+			info.div = divlist[[samplingSelect indexOfSelectedItem]] * 1000;
 			info.triggerpos = 1024 - PostTrigCount[[windowSelect indexOfSelectedItem]];
 			[logicdoc readFromData:[NSData dataWithBytes:&info length:sizeof(logic_info)]
 						 ofType:@"INFO" error:NULL];
@@ -528,7 +528,7 @@ CFDataRef fx2la_get();
 		[NSThread sleepForTimeInterval:0.1];
 	}
 	if(fx2la_isstop() == 1 || fx2la_isstop() == 2) {
-		int divlist[] = {1, 5, 10, 25, 50, 100, 250, 500, 1000, 2000};
+		int divlist[] = {5, 10, 25, 50, 100, 250, 500, 1000, 2000};
 		LogicDocument *logicdoc = [[LogicDocument alloc] init];
 		logic_info info;
 		strcpy(info.model, "FX2LA");

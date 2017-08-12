@@ -11,6 +11,11 @@
 
 @interface DecodeView : NSView {
 	CGContextRef gc;
+	IBOutlet NSScroller *decodeScroller;
+	int startpos;	
+	int zoom;
 }
+
+- (IBAction)scroll:(id)sender;
 
 @end
