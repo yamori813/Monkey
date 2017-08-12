@@ -122,14 +122,15 @@ static CGRect convertToCGRect(NSRect inRect)
 	logic_info *info = [thedoc getInfo];
 
 	double curpos = [logicScroller doubleValue];
+	double scval = (double)x / (info->sample * 2 * zoom);   // 1/2 page
 
 	if(key == 1) {
 		[logicScroller setDoubleValue:
-		 (curpos-0.1 >= 0 ? curpos-0.02 : 0.0)];
+		 (curpos-0.1 >= 0 ? curpos-scval : 0.0)];
 	}
 	if(key == 2) {
 		[logicScroller setDoubleValue:
-		 (curpos+0.1 <= 1.0 ? curpos+0.02 : 1.0)];
+		 (curpos+0.1 <= 1.0 ? curpos+scval : 1.0)];
 	}
 	if(key == 3) {
 		[logicScroller setDoubleValue:

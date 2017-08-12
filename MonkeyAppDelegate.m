@@ -528,7 +528,7 @@ CFDataRef fx2la_get();
 		[NSThread sleepForTimeInterval:0.1];
 	}
 	if(fx2la_isstop() == 1 || fx2la_isstop() == 2) {
-		int divlist[] = {5, 10, 25, 50, 100, 250, 500, 1000, 2000};
+		int divlist[] = {5, 10, 25, 50, 100, 250, 500, 1000, 2500};
 		LogicDocument *logicdoc = [[LogicDocument alloc] init];
 		logic_info info;
 		strcpy(info.model, "FX2LA");
