@@ -12,13 +12,13 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="534"/>
-			<integer value="628"/>
-			<integer value="835"/>
-			<integer value="782"/>
 			<integer value="754"/>
+			<integer value="782"/>
+			<integer value="628"/>
+			<integer value="948"/>
 			<integer value="647"/>
-			<integer value="907"/>
+			<integer value="835"/>
+			<integer value="534"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3405,7 +3405,7 @@
 										<reference ref="939312819"/>
 										<object class="NSMenuItem" id="679060168">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">5000kHz</string>
+											<string key="NSTitle">5Mhz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3416,7 +3416,7 @@
 										</object>
 										<object class="NSMenuItem" id="291025850">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">2500kHz</string>
+											<string key="NSTitle">2.5MHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
@@ -3427,7 +3427,7 @@
 										</object>
 										<object class="NSMenuItem" id="1005758728">
 											<reference key="NSMenu" ref="745714935"/>
-											<string key="NSTitle">1000kHz</string>
+											<string key="NSTitle">1MHz</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>

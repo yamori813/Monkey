@@ -11,6 +11,8 @@
 
 @interface DecodeView : NSView {
 	CGContextRef gc;
+	CGLayerRef lref;
+	CGContextRef lgc;
 	IBOutlet NSScroller *decodeScroller;
 	int startpos;	
 	int zoom;

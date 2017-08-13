@@ -30,6 +30,36 @@ static CGRect convertToCGRect(NSRect inRect)
     return self;
 }
 
+- (void) keyevent:(int)key
+{
+	NSRect therect = [self frame];
+	int x = therect.size.width - OFFSETX * 2;
+	DecodeDocument *thedoc = [[[self window] windowController] document];
+	logic_info *info = [thedoc getInfo];
+	
+	double curpos = [decodeScroller doubleValue];
+	double scval = (double)x / (info->sample * 2 * zoom);   // 1/2 page
+	
+	if(key == 1) {
+		[decodeScroller setDoubleValue:
+		 (curpos >= scval ? curpos-scval : 0.0)];
+	}
+	if(key == 2) {
+		[decodeScroller setDoubleValue:
+		 (curpos <= 1.0 - scval ? curpos+scval : 1.0)];
+	}
+	if(key == 3) {
+		[decodeScroller setDoubleValue:
+		 (curpos >= scval*4 ? curpos-scval*4 : 0.0)];
+	}
+	if(key == 4) {
+		[decodeScroller setDoubleValue:
+		 (curpos <= 1.0 - scval*4 ? curpos+scval*4 : 1.0)];
+	}
+	startpos = ((info->sample * zoom - x) / zoom) * [decodeScroller doubleValue];
+	[self setNeedsDisplay:YES];
+}
+
 - (IBAction)scroll:(id)sender
 {
 	NSRect therect = [self frame];
@@ -108,16 +138,28 @@ static CGRect convertToCGRect(NSRect inRect)
 		sprintf(strbuf, "%d ns/Div", (int)info->div);
 	}
 	CGContextShowTextAtPoint(gc, OFFSETX, 16, strbuf, strlen(strbuf));
-	
+/*	
 	for(j = 1; j <= x / 10; j += 1) {
-		CGContextSetRGBStrokeColor( gc, 255, 255, 255, 0.6);
-		CGContextMoveToPoint(gc, OFFSETX + j*10, OFFSETY + y);
+		CGContextSetRGBStrokeColor( lgc, 255, 255, 255, 0.6);
+		CGContextMoveToPoint(lgc, OFFSETX + j*10, OFFSETY + y);
 		if(j % 5 == 0)
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y-15);
+			CGContextAddLineToPoint(lgc, OFFSETX + j*10, OFFSETY + y-15);
 		else
-			CGContextAddLineToPoint(gc, OFFSETX + j*10, OFFSETY + y-10);
-		CGContextStrokePath(gc);
+			CGContextAddLineToPoint(lgc, OFFSETX + j*10, OFFSETY + y-10);
+		CGContextStrokePath(lgc);
 	}
+ */
+	CGContextSetRGBStrokeColor( lgc, 255.0f, 255.0f, 255.0f, 0.6f);
+	for(j = 1; j <= x / 10; j += 1) {
+		CGContextMoveToPoint(lgc, j*10, y);
+		if(j % 5 == 0)
+			CGContextAddLineToPoint(lgc, j*10, y-15);
+		else
+			CGContextAddLineToPoint(lgc, j*10, y-10);
+		CGContextStrokePath(lgc);
+	}
+	CGContextDrawLayerAtPoint (gc, CGPointMake(OFFSETX, OFFSETY),
+							   lref);
 	
 	CGContextSetTextDrawingMode(gc, kCGTextFill);
 	CGContextSelectFont(gc, "Geneva", 16, kCGEncodingMacRoman);
@@ -140,25 +182,28 @@ static CGRect convertToCGRect(NSRect inRect)
 	int looffset = 15;
 	int hihight = y - 30;
 	
-	CGContextSetRGBStrokeColor( gc,142/255.0f,0/255.0f,204/255.0f,1.0f);
+	CGContextSetRGBStrokeColor( lgc,142/255.0f,0/255.0f,204/255.0f,1.0f);
 
 	int spos = start - startpos;
 	int epos = end - startpos;
-	CGContextMoveToPoint(gc, OFFSETX+spos, OFFSETY + (hihight + looffset) / 2); 
-	CGContextAddLineToPoint(gc, OFFSETX+spos+10, OFFSETY +  hihight); 
-	CGContextAddLineToPoint(gc, OFFSETX+epos-10, OFFSETY +  hihight); 
-	CGContextAddLineToPoint(gc, OFFSETX+epos, OFFSETY + (hihight + looffset) / 2); 
-	CGContextAddLineToPoint(gc, OFFSETX+epos-10, OFFSETY + looffset); 
-	CGContextAddLineToPoint(gc, OFFSETX+spos+10, OFFSETY + looffset); 
-	CGContextAddLineToPoint(gc, OFFSETX+spos, OFFSETY + (hihight + looffset) / 2); 
-	CGContextStrokePath(gc);
+	CGContextMoveToPoint(lgc, spos, (hihight + looffset) / 2); 
+	CGContextAddLineToPoint(lgc, spos+10, hihight); 
+	CGContextAddLineToPoint(lgc, epos-10, hihight); 
+	CGContextAddLineToPoint(lgc, epos, (hihight + looffset) / 2); 
+	CGContextAddLineToPoint(lgc, epos-10, looffset); 
+	CGContextAddLineToPoint(lgc, spos+10, looffset); 
+	CGContextAddLineToPoint(lgc, spos, (hihight + looffset) / 2); 
+	CGContextStrokePath(lgc);
 
-	CGContextSetTextDrawingMode(gc, kCGTextFill);
-	CGContextSelectFont(gc, "Geneva", 16, kCGEncodingMacRoman);
-	CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, 1.0));
-	CGContextSetRGBFillColor( gc,255/255.0f,255/255.0f,255/255.0f,1.0f);
-	CGContextShowTextAtPoint(gc, OFFSETX + spos + (epos - spos) / 2 - 9,
-							 OFFSETY + (hihight + looffset) / 2 - 6, str, strlen(str));
+	CGContextSetTextDrawingMode(lgc, kCGTextFill);
+	CGContextSelectFont(lgc, "Geneva", 16, kCGEncodingMacRoman);
+	CGContextSetTextMatrix(lgc, CGAffineTransformMakeScale(1.0, 1.0));
+	CGContextSetRGBFillColor( lgc,255/255.0f,255/255.0f,255/255.0f,1.0f);
+	CGContextShowTextAtPoint(lgc, spos + (epos - spos) / 2 - 9,
+							 (hihight + looffset) / 2 - 6, str, strlen(str));
+
+	CGContextDrawLayerAtPoint (gc, CGPointMake(OFFSETX, OFFSETY),
+							   lref);
 }
 
 - (void)plotData:(NSSize) size
@@ -171,7 +216,6 @@ static CGRect convertToCGRect(NSRect inRect)
 	
 	logic_info *info = [thedoc getInfo];
 	
-	printf("MORI MORI Decode %d %d\n", info->sample * zoom , x);
 	if(info->sample * zoom > x) {
 		if([decodeScroller isEnabled] == NO) {
 			[decodeScroller setEnabled:YES];
@@ -198,7 +242,7 @@ static CGRect convertToCGRect(NSRect inRect)
 	{
 		int spos = [[values objectAtIndex:i] intValue];
 		int epos = [[values objectAtIndex:i+1] intValue];
-		if((spos > startpos && spos < startpos + x) &&
+		if((spos > startpos && spos < startpos + x) ||
 		   (epos > startpos && epos < startpos + x)) {
 		[self plotDecode:size
 				   start:spos
@@ -210,13 +254,23 @@ static CGRect convertToCGRect(NSRect inRect)
 
 - (void)drawRect:(NSRect)rect
 {
-	
     gc = [[NSGraphicsContext currentContext] graphicsPort];
-	CGContextSetGrayFillColor(gc, 0.0, 1.0);
-	//	CGContextSetGrayFillColor(gc, 1.0, 1.0);
-	CGContextFillRect(gc, convertToCGRect(rect));
-	[self drawScale:rect.size];
-	[self plotData:rect.size];
+
+	lref = CGLayerCreateWithContext(gc, 
+											   CGSizeMake(rect.size.width - OFFSETX*2, rect.size.height - OFFSETY*2), NULL);
+	if(lref != 0) {   // NULL at Application to background 
+		lgc = CGLayerGetContext (lref);
+		CGContextSetRGBFillColor (lgc, 0, 0, 0, 1);
+		CGContextFillRect (lgc, CGRectMake(0,0,rect.size.width - OFFSETX*2, rect.size.height - OFFSETY*2));
+		
+		CGContextSetGrayFillColor(gc, 0.0, 1.0);
+		//	CGContextSetGrayFillColor(gc, 1.0, 1.0);
+		CGContextFillRect(gc, convertToCGRect(rect));
+		[self drawScale:rect.size];
+		[self plotData:rect.size];
+		
+		CGLayerRelease(lref);
+	}
 }
 
 @end

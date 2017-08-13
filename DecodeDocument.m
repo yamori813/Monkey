@@ -150,4 +150,9 @@
     return myData;
 }
 
+- (DecodeView *) getImageView
+{
+    return decodeview;
+}
+
 @end

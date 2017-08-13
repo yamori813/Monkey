@@ -126,27 +126,19 @@ static CGRect convertToCGRect(NSRect inRect)
 
 	if(key == 1) {
 		[logicScroller setDoubleValue:
-		 (curpos-0.1 >= 0 ? curpos-scval : 0.0)];
+		 (curpos >= scval ? curpos-scval : 0.0)];
 	}
 	if(key == 2) {
 		[logicScroller setDoubleValue:
-		 (curpos+0.1 <= 1.0 ? curpos+scval : 1.0)];
+		 (curpos <= 1.0 - scval ? curpos+scval : 1.0)];
 	}
 	if(key == 3) {
 		[logicScroller setDoubleValue:
-		 (curpos-0.1 >= 0 ? curpos-0.05 : 0.0)];
+		 (curpos >= scval*4 ? curpos-scval*4 : 0.0)];
 	}
 	if(key == 4) {
 		[logicScroller setDoubleValue:
-		 (curpos+0.1 <= 1.0 ? curpos+0.05 : 1.0)];
-	}
-	if(key == 5) {
-		[logicScroller setDoubleValue:
-		 (curpos-0.1 >= 0 ? curpos-0.1 : 0.0)];
-	}
-	if(key == 6) {
-		[logicScroller setDoubleValue:
-		 (curpos+0.1 <= 1.0 ? curpos+0.1 : 1.0)];
+		 (curpos <= 1.0 - scval*4 ? curpos+scval*4 : 1.0)];
 	}
 	startpos = ((info->sample * zoom - x) / zoom) * [logicScroller doubleValue];
 	[self setNeedsDisplay:YES];
@@ -160,25 +152,27 @@ static CGRect convertToCGRect(NSRect inRect)
 	LogicDocument *thedoc = [[[self window] windowController] document];
 	logic_info *info = [thedoc getInfo];
 	
+	double scval = (double)x / (info->sample * 2 * zoom);   // 1/2 page
+
 	int part = [sender hitPart];
 	switch ( part ) {
 		case NSScrollerKnob:
 			break;
 		case NSScrollerIncrementPage:
 			[logicScroller setDoubleValue:
-			 (curpos+0.3 <= 1.0 ? curpos+0.3 : 1.0)];
+			 (curpos <= 1.0 - scval*4 ? curpos+scval*4 : 1.0)];
 			break;
 		case NSScrollerIncrementLine:
 			[logicScroller setDoubleValue:
-			 (curpos+0.1 <= 1.0 ? curpos+0.1 : 1.0)];
+			 (curpos <= 1.0 - scval ? curpos+scval : 1.0)];
 			break;
 		case NSScrollerDecrementPage:
 			[logicScroller setDoubleValue:
-			 (curpos-0.3 >= 0 ? curpos-0.3 : 0.0)];
+			 (curpos >= scval*4 ? curpos-scval*4 : 0.0)];
 			break;
 		case NSScrollerDecrementLine:
 			[logicScroller setDoubleValue:
-			 (curpos-0.1 >= 0 ? curpos-0.1 : 0.0)];
+			 (curpos >= scval ? curpos-scval : 0.0)];
 			break;
 		case NSScrollerKnobSlot:
 			break;

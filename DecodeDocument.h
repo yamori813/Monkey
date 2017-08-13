@@ -11,8 +11,11 @@
 
 #import "DecodeWindowController.h"
 
+#import "DecodeView.h"
 
 @interface DecodeDocument : NSDocument {
+	IBOutlet DecodeView *decodeview;
+
 	logic_info *info;
 	DecodeWindowController *myctl;
 	NSSavePanel*		savePanel;

@@ -48,7 +48,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSCustomView" id="62798222">
 							<reference key="NSNextResponder" ref="568628114"/>
-							<int key="NSvFlags">319</int>
+							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{20, 31}, {1104, 190}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<string key="NSClassName">DecodeView</string>
@@ -227,6 +227,14 @@
 						<reference key="destination" ref="1029727129"/>
 					</object>
 					<int key="connectionID">100046</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">decodeview</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="62798222"/>
+					</object>
+					<int key="connectionID">100047</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -456,7 +464,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100046</int>
+			<int key="maxID">100047</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -468,11 +476,13 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>decodeview</string>
 							<string>fileTypePopup</string>
 							<string>saveDialogCustomView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>DecodeView</string>
 							<string>NSPopUpButton</string>
 							<string>NSView</string>
 						</object>
@@ -481,11 +491,16 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>decodeview</string>
 							<string>fileTypePopup</string>
 							<string>saveDialogCustomView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">decodeview</string>
+								<string key="candidateClassName">DecodeView</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">fileTypePopup</string>
 								<string key="candidateClassName">NSPopUpButton</string>

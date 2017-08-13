@@ -60,7 +60,7 @@
 			keyChar = [theArrow characterAtIndex:0];
 			if ( keyChar == NSLeftArrowFunctionKey ) {
 				if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
-					[[thedoc getImageView] keyevent:5];
+					[[thedoc getImageView] keyevent:3];
 				} else {
 					[[thedoc getImageView] keyevent:1];
 				}
@@ -69,7 +69,7 @@
 			
 			if ( keyChar == NSRightArrowFunctionKey ) {
 				if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
-					[[thedoc getImageView] keyevent:6];
+					[[thedoc getImageView] keyevent:4];
 				} else {
 					[[thedoc getImageView] keyevent:2];
 				}
@@ -85,8 +85,8 @@
 	LogicDocument *thedoc = [self  document];
 
 	if([theEvent deltaX] > 1)
-		[[thedoc getImageView] keyevent:3];
+		[[thedoc getImageView] keyevent:1];
 	if([theEvent deltaX] < -1)
-		[[thedoc getImageView] keyevent:4];
+		[[thedoc getImageView] keyevent:2];
 }
 @end

@@ -93,7 +93,10 @@ static NSBundle* pluginBundle = nil;
 					bytedata = 0;
 				} else if(stat == 1) {
 					if(last) {
-						bytedata |= ((1 << (i - lastpos)/ bitlen ) - 1) << bitcount;
+						int clen = (i - lastpos) / bitlen;
+						if(clen + bitcount > 8)
+							clen = 8 - bitcount;
+						bytedata |= ((1 << clen) - 1) << bitcount;
 						bytedata &= 0xff;
 					}
 					bitcount += (i - lastpos)/ bitlen;
